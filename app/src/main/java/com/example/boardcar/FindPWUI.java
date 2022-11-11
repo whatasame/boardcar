@@ -52,13 +52,13 @@ public class FindPWUI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_pwui);
-        findPwId = findViewById(R.id.FindPwId);
-        findPwEmail = findViewById(R.id.FindPwEmail);
-        findPwEmailCheck = findViewById(R.id.FindPwEmailCheck);
-        findPwBtn = findViewById(R.id.FindPwBtn);
-        findPwEmailCheckBtn = findViewById(R.id.FindPwEmailCheckBtn);
-        findPwHideSuccess = findViewById(R.id.FindPwHideSuccess);
-        findPwHideCheckNumber = findViewById(R.id.FindPwHideCheckNumber);
+        findPwId = findViewById(R.id.FindPwId);//아이디 입력받는칸
+        findPwEmail = findViewById(R.id.FindPwEmail); //이메일 입력받는칸
+        findPwEmailCheck = findViewById(R.id.FindPwEmailCheck); //인증번호 입력받는칸
+        findPwBtn = findViewById(R.id.FindPwBtn); //인증번호 발송 버튼
+        findPwEmailCheckBtn = findViewById(R.id.FindPwEmailCheckBtn);//인증번호 맞는지 확인 버튼
+        findPwHideSuccess = findViewById(R.id.FindPwHideSuccess);// 인증번호 잘보내졋다고 문구
+        findPwHideCheckNumber = findViewById(R.id.FindPwHideCheckNumber);//인증번호 틀렸다고 문구
 
         findPwBtn.setOnClickListener(new View.OnClickListener() {
             @Override
