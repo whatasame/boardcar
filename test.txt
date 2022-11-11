@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 test
 1231
 =======
 Sibal
->>>>>>> 2b2f8b09541eee7144989d23bace201c9edf4
 fuck you
