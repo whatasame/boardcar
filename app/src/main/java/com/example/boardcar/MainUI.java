@@ -22,14 +22,14 @@ public class MainUI extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         bottomNavigationView= binding.BottomNavi;
-    getSupportFragmentManager().beginTransaction().add(R.id.MainFrame,new FragmentMain()).commit();
+    getSupportFragmentManager().beginTransaction().add(R.id.MainFrame,new FragmentMainUI()).commit();
     bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
         @SuppressLint("NonConstantResourceId")
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.BottomHome:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFrame,new FragmentMain()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFrame,new FragmentMainUI()).commit();
                     break;
                 case R.id.BottomBoard:
                     getSupportFragmentManager().beginTransaction().replace(R.id.MainFrame,new BoardUI()).commit();

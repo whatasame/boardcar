@@ -44,7 +44,8 @@ public class MyPageUI extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.CarChange:
-                intent = new Intent(getActivity(), MainUI.class);
+                intent = new Intent(getActivity(), SelectCarUI.class);
+                intent.putExtra("SelectCar",1);
                 startActivity(intent);
                 break;
         }

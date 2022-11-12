@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 
 public class RegisterUI extends AppCompatActivity {
 
-    EditText regInputId,regInputPw,regCheckPw,regInputName,regFindCar,regInputEmail,regEmailCheck;
+    EditText regInputId,regInputPw,regCheckPw,regInputName,regSelectCar,regInputEmail,regEmailCheck;
     Button regFindCarBtn,regEmailBtn ,regEmailCheckBtn,registerBtn;
     TextView regHideSuccess,regHideCheckNumber;
     String regInputIdStr, regInputPwStr, regCheckPwStr, regInputNameStr, regFindCarStr, regInputEmailStr,regEmailCheckStr;
@@ -37,7 +38,7 @@ public class RegisterUI extends AppCompatActivity {
         regInputPw=findViewById(R.id.RegInputPw); //비밀번호 입력 받는칸
         regCheckPw=findViewById(R.id.RegCheckPw); // 비밀번호 같은지 받는칸
         regInputName=findViewById(R.id.RegInputName); // 회원이름 받는칸
-        regFindCar=findViewById(R.id.RegFindCar); //차 종류 받는칸인데 아마 내가 구현해놨을듯 
+        regSelectCar=findViewById(R.id.RegSelectCar); //차 종류 받는칸인데 아마 내가 구현해놨을듯
         regInputEmail=findViewById(R.id.RegInputEmail); //이메일 입력받는 칸
         regEmailCheck=findViewById(R.id.RegEmailCheck); // 인증번호 입력 받는 칸 
 
@@ -101,6 +102,22 @@ public class RegisterUI extends AppCompatActivity {
             }
         });
 
+        regFindCarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),SelectCarUI.class);
+                intent.putExtra("SelectCar",0);
+                startActivity(intent);
 
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        regSelectCar.setText( intent.getStringExtra("CarName"));
     }
 }

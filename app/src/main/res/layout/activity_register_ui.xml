@@ -80,11 +80,11 @@
         android:text="찾기"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/RegFindCar"
+        app:layout_constraintStart_toEndOf="@+id/RegSelectCar"
         app:layout_constraintTop_toBottomOf="@+id/RegInputName" />
 
     <EditText
-        android:id="@+id/RegFindCar"
+        android:id="@+id/RegSelectCar"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="29dp"
@@ -107,7 +107,7 @@
         android:inputType="textPersonName"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RegFindCar" />
+        app:layout_constraintTop_toBottomOf="@+id/RegSelectCar" />
 
     <Button
         android:id="@+id/RegEmailBtn"

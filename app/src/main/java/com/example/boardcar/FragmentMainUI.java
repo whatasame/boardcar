@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-public class FragmentMain extends Fragment implements View.OnClickListener {
+public class FragmentMainUI extends Fragment implements View.OnClickListener {
     TextView test;
     View v;
     @Override
