@@ -16,6 +16,7 @@
 
     <EditText
         android:id="@+id/mesgase"
+        android:inputType="number"
         android:layout_gravity="center"
         android:layout_width="350dp"
         android:layout_height="60dp"

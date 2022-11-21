@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OpenUI">
+
+    <TextView
+        android:id="@+id/OpenBoardName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="39dp"
+        android:text="자유게시판"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="35dp"
+        android:text="제목"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/OpenBoardName" />
+
+    <TextView
+        android:id="@+id/OpenEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="114dp"
+        android:layout_marginEnd="20dp"
+        android:text="수정"
+        app:layout_constraintEnd_toStartOf="@+id/OpenDelete"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/OpenDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="114dp"
+        android:layout_marginEnd="55dp"
+        android:text="삭제"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/OpenTitle"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:text="작성자 작성일시(YYMMDD  hhmmss)"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/OpenBody"
+        android:layout_width="320dp"
+        android:layout_height="350dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:gravity="top"
+        android:inputType="textPersonName"
+        android:text="글 내용"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/OpenTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/CommentList"
+        android:layout_width="320dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/OpenReCommendBtn" />
+
+    <EditText
+        android:id="@+id/CommentEdit"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="6dp"
+        android:ems="10"
+        android:text="댓글 내용"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CommentList" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/CommentEditBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_btn"
+        android:text="등록하기"
+        app:layout_constraintStart_toEndOf="@+id/CommentEdit"
+        app:layout_constraintTop_toBottomOf="@+id/CommentList" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/OpenReCommendBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shape_btn"
+        android:text="추천 : 0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/OpenBody" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/OpenDeprecatedBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/shape_btn"
+        android:text="비추천 : 0"
+        app:layout_constraintStart_toEndOf="@+id/OpenReCommendBtn"
+        app:layout_constraintTop_toBottomOf="@+id/OpenBody" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

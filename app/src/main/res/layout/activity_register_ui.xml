@@ -7,7 +7,7 @@
     tools:context=".RegisterUI">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/CarBoard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -29,7 +29,7 @@
         android:inputType="textPersonName"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/CarBoard" />
 
     <EditText
         android:id="@+id/RegInputPw"

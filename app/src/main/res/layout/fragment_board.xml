@@ -5,10 +5,85 @@
     android:layout_height="match_parent"
     tools:context=".BoardUI">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="/hello_fragment" />
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:text="게시판" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/FreeBoard"
+                android:layout_marginStart="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="23sp"
+                android:text="자유" />
+
+            <TextView
+                android:id="@+id/HoneyTipBoard"
+                android:layout_marginStart="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="23sp"
+                android:text="꿀팁" />
+
+            <TextView
+                android:id="@+id/CarBoard"
+                android:layout_marginStart="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="23sp"
+                android:text="차량" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/BoardSort"
+                android:layout_width="88dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="35dp"
+                android:background="@drawable/shape_btn"
+                android:drawableTint="#c8c8c8"
+                android:text="정렬 ▽"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <ImageView
+                android:id="@+id/BoardWrite"
+                android:layout_width="40dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/shape_btn2"
+                android:src="@drawable/pen"
+                android:scaleType="centerInside"
+
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/BoardList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="35dp"
+            tools:listitem="@layout/boardrecyler"/>
+    </LinearLayout>
 </FrameLayout>
