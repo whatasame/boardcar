@@ -40,7 +40,7 @@
 
             <TextView
                 android:id="@+id/HoneyTipBoard"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -49,7 +49,7 @@
 
             <TextView
                 android:id="@+id/CarBoard"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -60,7 +60,7 @@
                 android:id="@+id/BoardSort"
                 android:layout_width="88dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="35dp"
+                android:layout_marginStart="20dp"
                 android:background="@drawable/shape_btn"
                 android:drawableTint="#c8c8c8"
                 android:text="정렬 ▽"

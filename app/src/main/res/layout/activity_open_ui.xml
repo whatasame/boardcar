@@ -65,7 +65,7 @@
     <TextView
         android:id="@+id/OpenBody"
         android:layout_width="320dp"
-        android:layout_height="350dp"
+        android:layout_height="250dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
         android:ems="10"
