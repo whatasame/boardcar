@@ -110,7 +110,7 @@ Intent intent;
 
 
     }
-    public void CarList(RecyclerViewCarAdapter adapter, RecyclerView RvCar ,String str1 ,String str2) { //
+    public void CarList(RecyclerViewCarAdapter adapter, RecyclerView RvCar ,String str1 ,String str2) { //리스트 보여주고 추가한다
         RvCar.setVisibility(View.VISIBLE);
         adapter.clearItem();
         adapter.addItem(new RecyclerViewCarDataModel(str1));

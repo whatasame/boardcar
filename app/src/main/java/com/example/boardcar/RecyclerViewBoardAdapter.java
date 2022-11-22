@@ -14,7 +14,7 @@ import java.util.List;
 public class RecyclerViewBoardAdapter extends RecyclerView.Adapter {
     private final List<RecyclerViewBoardDataModel> items = new ArrayList<>();
     public interface OnItemClickListener {
-        void onItemClicked(String data);
+        void onItemClicked(String title, String writer);
     }
     private OnItemClickListener itemClickListener;
 
@@ -44,13 +44,10 @@ public class RecyclerViewBoardAdapter extends RecyclerView.Adapter {
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                String data = "";
-                data = viewHolder.getTitle().getText().toString();
-                data = viewHolder.getWriter().getText().toString();
-                data = viewHolder.getRecommend().getText().toString();
-                data = viewHolder.getComment().getText().toString();
-                itemClickListener.onItemClicked(data);
+            public void onClick(View view) { //클릭하면
+                String title = viewHolder.getTitle().getText().toString();
+                String writer = viewHolder.getWriter().getText().toString();
+                itemClickListener.onItemClicked(title, writer);
             }
         });
 
@@ -59,13 +56,12 @@ public class RecyclerViewBoardAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) { //UI랑 리스트랑 연결시키는애 건들일?없을듯
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) { //애는 틀임
         ViewHolder ViewHolder = (ViewHolder)holder;
 
-        ViewHolder.title.setText(items.get(position).getName());
+        ViewHolder.title.setText(items.get(position).getTitle());
         ViewHolder.writer.setText(items.get(position).getName());
-        ViewHolder.comment.setText(items.get(position).getName());
-        ViewHolder.recommend.setText(items.get(position).getName());
+        ViewHolder.recommend.setText(items.get(position).getRecommend());
 
     }
 
@@ -76,7 +72,6 @@ public class RecyclerViewBoardAdapter extends RecyclerView.Adapter {
             super(itemView);
             title = itemView.findViewById(R.id.ContentTitle);
             writer =  itemView.findViewById(R.id.ContentWriter);
-            comment=itemView.findViewById(R.id.Comment);
             recommend=itemView.findViewById(R.id.ReCommend);
 
 
@@ -88,12 +83,7 @@ public class RecyclerViewBoardAdapter extends RecyclerView.Adapter {
         public TextView getTitle(){
             return title;
         }
-        public TextView getComment(){
-            return comment;
-        }
-        public TextView getRecommend(){
-            return recommend;
-        }
+
 
     }
 

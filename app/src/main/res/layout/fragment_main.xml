@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".FragmentMainUI">
 
+
+
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
@@ -17,7 +19,7 @@
         <LinearLayout
             android:id="@+id/NotLoginInfo"
             android:layout_width="350dp"
-            android:layout_height="120dp"
+            android:layout_height="60dp"
             android:layout_marginTop="30dp"
             android:background="#ccc"
             android:orientation="vertical">
@@ -25,7 +27,7 @@
             <TextView
                 android:id="@+id/MainUserName"
                 android:layout_width="350dp"
-                android:layout_height="60dp"
+                android:layout_height="30dp"
                 android:background="#ccc"
                 android:text="로그인이 필요해요"
 
@@ -34,7 +36,7 @@
             <TextView
                 android:id="@+id/MainUserCar"
                 android:layout_width="350dp"
-                android:layout_height="60dp"
+                android:layout_height="30dp"
                 android:background="#ccc"
                 android:gravity="right|bottom"
                 android:text=">>>로그인 하여 차량등록"
@@ -461,6 +463,7 @@
             </LinearLayout>
 
             </LinearLayout>
+
 
         </LinearLayout>
 

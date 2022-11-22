@@ -34,7 +34,7 @@
     <EditText
         android:id="@+id/BoardEditBody"
         android:layout_width="300dp"
-        android:layout_height="450dp"
+        android:layout_height="300dp"
         android:layout_marginStart="41dp"
         android:layout_marginTop="25dp"
         android:ems="10"

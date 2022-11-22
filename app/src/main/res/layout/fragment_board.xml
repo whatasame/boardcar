@@ -34,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="23sp"
                 android:text="자유" />
 

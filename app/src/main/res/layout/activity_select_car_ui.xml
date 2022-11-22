@@ -31,28 +31,28 @@
 
         <ImageView
             android:id="@+id/HyundaiLogo"
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="85dp"
             android:layout_marginStart="1dp"
             app:srcCompat="@drawable/hyundal" />
 
         <ImageView
             android:id="@+id/KIALogo"
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="85dp"
             android:layout_marginStart="3dp"
             app:srcCompat="@drawable/kia" />
 
         <ImageView
             android:id="@+id/ToyotaLogo"
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="85dp"
             android:layout_marginStart="3dp"
             app:srcCompat="@drawable/toyota" />
 
         <ImageView
             android:id="@+id/BMWLogo"
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="85dp"
             android:layout_marginStart="3dp"
             app:srcCompat="@drawable/bmw" />
@@ -68,7 +68,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RvCar"
         android:layout_width="409dp"
-        android:layout_height="435dp"
+        android:layout_height="350dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         tools:listitem="@layout/carrecylcer">

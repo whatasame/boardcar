@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".RegisterUI">
 
+
+
+
     <TextView
         android:id="@+id/CarBoard"
         android:layout_width="wrap_content"
@@ -18,29 +21,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <EditText
         android:id="@+id/RegInputId"
         android:layout_width="315dp"
         android:layout_height="48dp"
         android:layout_marginStart="29dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="아이디"
         android:inputType="textPersonName"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CarBoard" />
 
     <EditText
         android:id="@+id/RegInputPw"
         android:layout_width="315dp"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:layout_marginStart="29dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="비밀번호"
         android:inputType="textPassword"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RegInputId" />
 
@@ -49,11 +53,11 @@
         android:layout_width="315dp"
         android:layout_height="48dp"
         android:layout_marginStart="29dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="비밀번호 확인"
         android:inputType="textPassword"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RegInputPw" />
 
@@ -62,7 +66,7 @@
         android:layout_width="315dp"
         android:layout_height="48dp"
         android:layout_marginStart="29dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="성함"
         android:inputType="textPersonName"
@@ -75,7 +79,7 @@
         android:layout_width="100dp"
         android:layout_height="48dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@color/gray"
         android:text="찾기"
         android:textColor="@color/black"
@@ -88,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="29dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="차량 모델"
         android:inputType="textPersonName"
@@ -101,7 +105,7 @@
         android:layout_width="315dp"
         android:layout_height="48dp"
         android:layout_marginStart="29dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="이메일 주소"
         android:inputType="textPersonName"
