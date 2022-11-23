@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.boardcar.mail.MailSend;
+
 public class RegisterUI extends AppCompatActivity {
 
     EditText regInputId,regInputPw,regCheckPw,regInputName,regSelectCar,regInputEmail,regEmailCheck;
@@ -68,6 +70,18 @@ public class RegisterUI extends AppCompatActivity {
 
                 regInputEmailStr=(regInputEmail.getText().toString());
                 if (regInputEmailStr.length() != 0) {
+
+                    String host = "smtp.naver.com";
+                    final String username = "project_boardcar";
+                    final String password = "yuse2022";
+                    int port = 465;
+                    String receiver = "hyune0129@naver.com";
+                    String title = "Hi";
+                    String body = "This is test!";
+                    MailSend ms = new MailSend();
+                    new Thread(() -> {
+                        ms.send(host, port, username, password, receiver, title, body);
+                    }).start();
                  /*if(DB에서 이메일 체크하고 있는지 없는지 확인){
                     //인증번호 날라오는거 함수? 암튼 그거 쓰기
                    regHideSuccess.setVisibility(View.VISIBLE);
