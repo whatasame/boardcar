@@ -79,12 +79,17 @@
 
                 tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
-
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/BoardList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="35dp"
             tools:listitem="@layout/boardrecyler"/>
+        </ScrollView>
+
+
     </LinearLayout>
 </FrameLayout>

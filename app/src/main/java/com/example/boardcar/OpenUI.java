@@ -120,6 +120,7 @@ public class OpenUI extends AppCompatActivity {
                 //openDeprecatedBtn.setText(); 위와동일 근대 중복체크 어찌함?
             }
         });
+        //댓글버튼 눌럿을시  댓글저장하는애
         commentEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

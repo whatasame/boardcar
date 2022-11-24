@@ -1,5 +1,6 @@
 package com.example.boardcar;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,12 @@ public class RecyclerViewBoardAdapter extends RecyclerView.Adapter {
         void onItemClicked(String title, String writer);
     }
     private OnItemClickListener itemClickListener;
+    private Context context;
+    public RecyclerViewBoardAdapter(Context context,OnItemClickListener listener){
+        this.context=context;
+        this.itemClickListener=listener;
+    }
+
 
     public void setOnClickListener (OnItemClickListener lister) {
         itemClickListener = lister;

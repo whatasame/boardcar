@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 
 public class BoardUI extends Fragment implements View.OnClickListener {
-
+        RecyclerViewBoardAdapter.OnItemClickListener listener;
         TextView freeBoard,honeyTipBoard,carBoard;
         Button  boardSort;
         ImageView boardWrite;
@@ -45,12 +45,11 @@ public class BoardUI extends Fragment implements View.OnClickListener {
         honeyTipBoard.setOnClickListener(this);
         carBoard.setOnClickListener(this);
 
-        RecyclerViewBoardAdapter adapter = new RecyclerViewBoardAdapter();
-
-        BoardList(adapter,boardList,"테스트","테스트",1);
 
 
-       adapter.setOnClickListener(new RecyclerViewBoardAdapter.OnItemClickListener() {
+
+        //게시판 열떄 제목이랑 작성자 보내서 그에 맞는애 불러오는 라인
+        listener =new RecyclerViewBoardAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(String title, String writer) {
                 intent = new Intent(getContext(),OpenUI.class);
@@ -58,7 +57,7 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                 intent.putExtra("writer", writer);
                 startActivity(intent);
             }
-        });
+        };
 
 
 
@@ -70,7 +69,7 @@ public class BoardUI extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         boardList=v.findViewById(R.id.BoardList);
-        RecyclerViewBoardAdapter adapter = new RecyclerViewBoardAdapter();
+        RecyclerViewBoardAdapter adapter = new RecyclerViewBoardAdapter(getContext(),listener);
         switch (view.getId()){
             case R.id.BoardWrite:
                 Intent intent = new Intent(getActivity(), BoardEditUI.class);
@@ -80,22 +79,22 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                 //정렬은 빡세니... 맨마지막?
                 break;
             case R.id.FreeBoard:
-                freeBoard.setTypeface(freeBoard.getTypeface(), Typeface.BOLD);
-                honeyTipBoard.setTypeface(honeyTipBoard.getTypeface(), Typeface.NORMAL);
-                carBoard.setTypeface(carBoard.getTypeface(), Typeface.NORMAL);
+                freeBoard.setTypeface(null, Typeface.BOLD);
+                honeyTipBoard.setTypeface(null, Typeface.NORMAL);
+                carBoard.setTypeface(null, Typeface.NORMAL);
                 //자유게시판에 있는 글 불러오는데 각각 제목,작성자,추천수 DB에 해당하는애 for문으로 돌리기
                 BoardList(adapter,boardList,"제목","작성자",1);
                 break;
             case R.id.HoneyTipBoard:
-                freeBoard.setTypeface(freeBoard.getTypeface(), Typeface.NORMAL);
-                honeyTipBoard.setTypeface(honeyTipBoard.getTypeface(), Typeface.BOLD);
-                carBoard.setTypeface(carBoard.getTypeface(), Typeface.NORMAL);
+                freeBoard.setTypeface(null, Typeface.NORMAL);
+                honeyTipBoard.setTypeface(null, Typeface.BOLD);
+                carBoard.setTypeface(null, Typeface.NORMAL);
                 BoardList(adapter,boardList,"제목","작성자",1);
                 break;
             case R.id.CarBoard:
-                freeBoard.setTypeface(freeBoard.getTypeface(), Typeface.NORMAL);
-                honeyTipBoard.setTypeface(honeyTipBoard.getTypeface(), Typeface.NORMAL);
-                carBoard.setTypeface(carBoard.getTypeface(), Typeface.BOLD);
+                freeBoard.setTypeface(null, Typeface.NORMAL);
+                honeyTipBoard.setTypeface(null, Typeface.NORMAL);
+                carBoard.setTypeface(null, Typeface.BOLD);
                 //여기는 차정보도 함께 뭐어찌저찌 잘묶어서 for문돌려서 나타내야함
                 BoardList(adapter,boardList,"제목","작성자",1);
                 break;
