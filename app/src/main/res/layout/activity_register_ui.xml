@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterUI">
+
+
+
+
+    <TextView
+        android:id="@+id/CarBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="39dp"
+        android:text="회원가입"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/RegInputId"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="아이디"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CarBoard" />
+
+    <EditText
+        android:id="@+id/RegInputPw"
+        android:layout_width="315dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegInputId" />
+
+    <EditText
+        android:id="@+id/RegCheckPw"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="비밀번호 확인"
+        android:inputType="textPassword"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegInputPw" />
+
+    <EditText
+        android:id="@+id/RegInputName"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="성함"
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegCheckPw" />
+
+    <Button
+        android:id="@+id/RegFindCarBtn"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/gray"
+        android:text="찾기"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/RegSelectCar"
+        app:layout_constraintTop_toBottomOf="@+id/RegInputName" />
+
+    <EditText
+        android:id="@+id/RegSelectCar"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="차량 모델"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegInputName" />
+
+    <EditText
+        android:id="@+id/RegInputEmail"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="이메일 주소"
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegSelectCar" />
+
+    <Button
+        android:id="@+id/RegEmailBtn"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="10dp"
+        android:text="인증번호 발송"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegInputEmail" />
+
+    <TextView
+        android:id="@+id/RegHideSuccess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="5dp"
+        android:text="해당 이메일로 인증번호를 보냈어요"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegEmailBtn" />
+
+    <EditText
+        android:id="@+id/RegEmailCheck"
+        android:layout_width="211dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="인증번호"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegHideSuccess" />
+
+    <Button
+        android:id="@+id/RegEmailCheckBtn"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/gray"
+        android:text="확인"
+        android:enabled="false"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/RegEmailCheck"
+        app:layout_constraintTop_toBottomOf="@+id/RegEmailBtn" />
+
+    <TextView
+        android:id="@+id/RegHideCheckNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="5dp"
+        android:text="인증번호가 일치하지 않아요"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegEmailCheck" />
+
+    <Button
+        android:id="@+id/RegisterBtn"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/gray"
+        android:text="회원 가입"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegHideCheckNumber" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
