@@ -4,8 +4,6 @@ import android.content.DialogInterface;
 
 import androidx.appcompat.app.AlertDialog;
 
-import MVC.MemberVO;
-
 /*
 * Author : 이윤상
 * recent update : 11-22
