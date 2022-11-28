@@ -4,9 +4,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.boardcar.R;
+import com.example.boardcar.RecyclerViewCarDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +44,7 @@ public class RecyclerViewCarAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.carrecylcer,parent,false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        RecyclerViewCarAdapter.ViewHolder viewHolder = new RecyclerViewCarAdapter.ViewHolder(view);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

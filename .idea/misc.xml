@@ -5,7 +5,7 @@
       <map>
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/drawable/shape_btn2.xml" value="0.2245" />
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_alert_setting_ui.xml" value="0.264" />
-        <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_board_edit_ui.xml" value="0.20820863616930313" />
+        <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_board_edit_ui.xml" value="0.4" />
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_change_pwui.xml" value="0.264" />
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_find_car_ui.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_find_idui.xml" value="0.25364583333333335" />
@@ -14,10 +14,11 @@
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_near_site_ui.xml" value="0.2" />
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_open_ui.xml" value="0.2" />
-        <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_register_ui.xml" value="0.264" />
-        <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_select_car_ui.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_register_ui.xml" value="0.2" />
+        <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/activity_select_car_ui.xml" value="0.2" />
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/boardrecyler.xml" value="0.20820863616930313" />
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/carrecylcer.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/commentrecylcer.xml" value="0.1" />
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/custom_dialog.xml" value="0.2" />
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/fragment_board.xml" value="0.2" />
         <entry key="..\:/Users/SEC/AndroidStudioProjects/BoardCar/app/src/main/res/layout/fragment_main.xml" value="0.264" />

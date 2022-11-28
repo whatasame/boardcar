@@ -3,8 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.boardcar">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -13,6 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BoardCar"
         tools:targetApi="31">
+        <meta-data
+
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBBkWTIukpU_Yu15Z0P2uYpI2tm8VMdKpk" />
+
         <activity
             android:name=".OpenUI"
             android:exported="false" />
@@ -54,7 +64,5 @@
             </intent-filter>
         </activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

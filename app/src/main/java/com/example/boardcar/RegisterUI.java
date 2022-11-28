@@ -22,7 +22,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import LoginPackage.CheckMemberData;
-import LoginPackage.MailSend;
 import LoginPackage.Register;
 
 public class RegisterUI extends AppCompatActivity {
@@ -109,7 +108,7 @@ public class RegisterUI extends AppCompatActivity {
                 if (!register.isEmailEmpty(regInputEmailStr, Alert)) { //이메일을 입력했다면
 
 
-
+/*
                     String host = "smtp.naver.com";
                     final String username = "project_boardcar";
                     final String password = "yuse2022";
@@ -121,7 +120,7 @@ public class RegisterUI extends AppCompatActivity {
                     MailSend ms = new MailSend();
                     new Thread(() -> {
                         ms.send(host, port, username, password, receiver, title, body);
-                    }).start();
+                    }).start();*/
 
                     /*if(checkMemberData.isEmailRegexMatched(regInputEmailStr, Alert)){ //이메일 정규식을 만족했다면
 

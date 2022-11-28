@@ -1,11 +1,11 @@
 package com.example.boardcar;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class AlertSettingUI extends AppCompatActivity {
 Switch boardAlert, consumableAlert;

@@ -47,7 +47,7 @@ public class RecyclerViewBoardAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.boardrecyler,parent,false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        RecyclerViewBoardAdapter.ViewHolder viewHolder = new RecyclerViewBoardAdapter.ViewHolder(view);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
