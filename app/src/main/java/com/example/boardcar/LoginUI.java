@@ -63,7 +63,7 @@ public class LoginUI extends AppCompatActivity {
                                 editor.putBoolean("AUTO_LOGIN", false);
                             editor.commit();
 
-                            Intent intent = new Intent(getApplicationContext(), MainUI.class);
+                            Intent intent = new Intent(getBaseContext(), MainUI.class);
                             startActivity(intent);
                             finish();
                         }
