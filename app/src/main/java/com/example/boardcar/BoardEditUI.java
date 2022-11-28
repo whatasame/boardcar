@@ -88,9 +88,6 @@ public class BoardEditUI extends AppCompatActivity {
                 boardEditBodyStr = boardEditBody.getText().toString();
                 boardEditTitleStr = boardEditTitle.getText().toString();
 
-                SharedPreferences sharedPreferences = getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
-                String session = sharedPreferences.getString("UUID", "");
-
                 BoardUtil boardUtil = new BoardUtil(getBaseContext());
 
                 Date date = new Date();
@@ -100,7 +97,7 @@ public class BoardEditUI extends AppCompatActivity {
                     //여기서  boardEditBodyStr = 글내용  boardEditTitleStr=글제목 DB에 저장시켜주기
 
                    if(rBtnFree.isChecked()){
-                       if(boardUtil.uploadPost(session, format.format(date), boardEditTitleStr, boardEditBodyStr, "자유")){
+                       if(boardUtil.uploadPost(format.format(date), boardEditTitleStr, boardEditBodyStr, "자유")){
                            AlertIDMsg("글쓰기 작성완료","자유게시판에 글쓰기가 작성이 완료되었습니다");
                        }
                        else{
@@ -108,7 +105,7 @@ public class BoardEditUI extends AppCompatActivity {
                        }
                        //DB에 자유게시판으로 보내면됨 본문내용 등등 전부다
                    }else{
-                       if(boardUtil.uploadPost(session, format.format(date), boardEditTitleStr, boardEditBodyStr, "차량")){
+                       if(boardUtil.uploadPost(format.format(date), boardEditTitleStr, boardEditBodyStr, "차량")){
                            AlertIDMsg("글쓰기 작성완료","차량게시판에 글쓰기가 작성이 완료되었습니다");
                        }
                        else{

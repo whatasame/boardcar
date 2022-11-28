@@ -1,6 +1,8 @@
 package Community;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.se.omapi.Session;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,8 +14,15 @@ import java.util.Map;
 import Back.HttpClient;
 import Back.HttpRequest;
 import Back.HttpResponse;
+import Back.SessionManager;
 
 public class BoardUtil {
+    /*
+    * 1.1 / 1.2 / 1.3 / 1.4 / 1.5 을 여기에 구현합니다.
+    * (v)   ()
+    *
+    *
+    * */
 
     private final String version = "HTTP/1.1";
     private static Map<String, String> headers = new HashMap<String, String>() {{
@@ -25,20 +34,23 @@ public class BoardUtil {
         this.context = context;
     }
 
-    public boolean uploadPost(String session, String postDate, String postTitle, String postBody, String postType){
+    public boolean uploadPost(String postDate, String postTitle, String postBody, String postType){
 
+        SessionManager sessionManager = new SessionManager(context);
         JSONObject jsonObject = new JSONObject();
 
+        sessionManager.setMID(sessionManager.getUserInfo());
+        String MID = sessionManager.getMID();
+        headers.put("Session-Key", sessionManager.session);
+
         try {
-            jsonObject.put("MID", getMid(session));
+            jsonObject.put("MID", MID);
             jsonObject.put("PDATE", postDate);
             jsonObject.put("TITLE", postTitle);
             jsonObject.put("BODY", postBody);
             jsonObject.put("TYPE", postType);
 
         } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -52,49 +64,68 @@ public class BoardUtil {
             e.printStackTrace();
         }
         HttpResponse httpResponse = httpClient.getHttpResponse();
-        if(httpResponse.getStatusCode().equals("200"))
-            return true;
-        else
-            return false;
+        System.out.println("status:" + httpResponse.getStatusCode());
+        System.out.println("body : " + httpResponse.getBody());
+
+        return httpResponse.getStatusCode().equals("200");
+
     }
 
-    public String getMid(String session) throws IOException {
-        /* GET TEST - 자신의 정보 가져오기 */
+    public boolean openPostList(String postType){
+        if(postType.equals("자유")){
+            String unregisteredMemberSessionKey = "unregistered-member"; //비회원에게 임시 session 부여
 
-        HttpRequest infoRequest = new HttpRequest("GET", "/myInfo", version, headers, "");
-        infoRequest.putHeader("Session-Key", session);
-        HttpClient httpClient = new HttpClient(infoRequest, context);
-        httpClient.start();
 
-        try{
-            httpClient.join();
+
+            //자유게시판인 경우 비회원도 열람은 가능함. 이를 해결할 방법을 찾을 것.
         }
-        catch (InterruptedException e){
-            e.printStackTrace();
+        else{ //자유게시판을 제외한 꿀팁게시판 및 차량게시판은 Session 이 있는 경우에만 열람이 가능함.
+
+
+
         }
 
-        HttpResponse infoResponse = httpClient.getHttpResponse();
+        SessionManager sessionManager = new SessionManager(context);
+        JSONObject jsonObject = new JSONObject();
 
-        if( !infoResponse.getStatusCode().equals("200")){
-            //실패한 경우
-            return null;
-        }
-        else{
-            System.out.println("문자열 : " + infoResponse.getBody() + "입니다.");
-            System.out.println();
-            String output = infoResponse.getBody();
-            String result = stringSplit(output);
-            System.out.println("After split");
-            System.out.println("Result : " + result);
-            return result;
-            //차량 정보도 같이 받아오게 Backend 수정해서 받기
-        }
+        sessionManager.setMID(sessionManager.getUserInfo());
+        String MID = sessionManager.getMID();
+        headers.put("Session-Key", sessionManager.session);
     }
 
-    private String stringSplit(String input){
-        String [] firstSplit = input.split(",");
-        String [] secondSplit = firstSplit[1].split(":");
-        String output = secondSplit[1].replaceAll("\"", "");
-        return output;
+    public boolean updatePost(String PID, String updateBody){
+
+
     }
+
+    public boolean deletePost(String PID){
+
+
+    }
+
+
+
+
+    /*
+    *  public static void GET_openPostList(String TYPE) throws IOException {
+
+        // JSON 생성
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("TYPE", TYPE);
+
+        // 요청
+        HttpRequest openPostListRequest = new HttpRequest("GET", "/openPostList", version, headers, jsonObject.toString());
+
+        // 응답
+        HttpResponse openPostListResponse = HttpClientTestApp.sendHttpRequest(openPostListRequest);
+
+        // 결과 출력
+        System.out.println("--------------------------------");
+        System.out.println(openPostListResponse);
+    }
+    *
+    *
+    *
+    *
+    * */
 }

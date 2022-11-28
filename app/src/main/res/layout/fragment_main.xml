@@ -31,7 +31,7 @@
                 android:background="#ccc"
                 android:text="로그인이 필요해요"
 
-                android:textSize="16sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/MainUserCar"
@@ -41,7 +41,7 @@
                 android:gravity="right|bottom"
                 android:text=">>>로그인 하여 차량등록"
 
-                android:textSize="16sp" />
+                android:textSize="22sp" />
 
         </LinearLayout>
 

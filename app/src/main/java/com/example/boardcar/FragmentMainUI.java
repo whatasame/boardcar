@@ -81,7 +81,9 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
         batteryProgress.setProgress(ConsumableFile.getInt("batteryinfo",0));
 
 
-        //여기
+
+        mainUserCar.setText("Sonata");
+        mainUserName.setText("User");
 
 
         return v;
