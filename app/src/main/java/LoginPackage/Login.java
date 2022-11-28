@@ -88,7 +88,7 @@ public class Login {
             System.out.println(httpResponse.getBody());
             System.out.println("Session-Key is " + httpClient.sessionKey);
             System.out.println();
-            printAlertMessage("로그인에 성공하였습니다.", Alert);
+            //printAlertMessage("로그인에 성공하였습니다.", Alert);
         }
         else{
             printAlertMessage("ID 혹은 PW가 틀렸습니다.", Alert);

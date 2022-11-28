@@ -79,9 +79,15 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
         engineProgress.setProgress(ConsumableFile.getInt("engineinfo",0));
         airFilterProgress.setProgress(ConsumableFile.getInt("airFilterinfo",0));
         batteryProgress.setProgress(ConsumableFile.getInt("batteryinfo",0));
+
+
         //여기
+
+
         return v;
+
         /*
+
         if(세션 확인후)
         mainUserName.setText("id 값 DB에서 가져와서 보여주기");
         mainuserCar.setText("위와동일");

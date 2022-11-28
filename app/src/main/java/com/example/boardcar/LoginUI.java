@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -46,8 +47,22 @@ public class LoginUI extends AppCompatActivity {
                 }
                 else{
                     try {
-                        if(login.runLogin(id, pw, Alert) != null){
+                        String sessionKey = login.runLogin(id, pw, Alert);
+                        if(sessionKey != null){
                             //로그인에 성공함!
+
+                            SharedPreferences preferences = getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("UUID", sessionKey);
+
+                            if (binding.AutoLogin.isChecked()) { // 자동로그인 체크되어있는지 확인하는 if
+                                //Session 정보 활용해서 자동 로그인 기능 구현
+                                editor.putBoolean("AUTO_LOGIN", true);
+                            }
+                            else
+                                editor.putBoolean("AUTO_LOGIN", false);
+                            editor.commit();
+
                             Intent intent = new Intent(getApplicationContext(), MainUI.class);
                             startActivity(intent);
                             finish();
