@@ -75,22 +75,23 @@ public class BoardUtil {
     }
 
     /**
-     *
+     * 타입에 맞는 글들의 정보의 arraylist 반환
      * @param postType{String} 글 타입 : "자유", "소나타"... 모델명으로 입력
-     * @return {LIST<BoardInfo>}
+     * @return {ArrayList<BoardInfo>} 글 정보의 ArrayList 리턴
      */
-    public List<BoardInfo> openPostList(String postType){
-        // JSON 생성
+    public ArrayList<BoardInfo> openPostList(String postType){
+        // request에 사용할 JSON 생성
         JSONObject jsonObject = new JSONObject();
         ArrayList<BoardInfo> boardInfoArrayList = new ArrayList<BoardInfo>();
         try {
-            jsonObject.put("TYPE", postType);
+            jsonObject.put("TYPE", postType); // request에 넣을 Type 추가
         } catch (JSONException e) {
             e.printStackTrace();
         }
         if(postType.equals("자유")){ /// 임시 세션 안되는 듯 합니다...
-            headers.put("Session-Key", "unregistered-member"); //비회원에게 임시 session 부여
-            HttpRequest httpRequest = new HttpRequest("GET", "/openPostList", version, headers, jsonObject.toString());
+            headers.put("Session-Key", "unregistered-member"); //비회원에게 임시 session 부여(안됨)
+            HttpRequest httpRequest = new HttpRequest("GET", "/openPostList",
+                    version, headers, jsonObject.toString());
             HttpClient httpClient = new HttpClient(httpRequest,context);
             httpClient.start();
             try {
@@ -110,23 +111,27 @@ public class BoardUtil {
             sessionManager.setMID(sessionManager.getUserInfo());
             String MID = sessionManager.getMID();
             headers.put("Session-Key", sessionManager.session);
-            HttpRequest httpRequest = new HttpRequest("GET", "/openPostList", version, headers, jsonObject.toString());
+            HttpRequest httpRequest = new HttpRequest("GET", "/openPostList", version,
+                    headers, jsonObject.toString());
             HttpClient httpClient = new HttpClient(httpRequest,context);
             httpClient.start();
             try {
-                httpClient.join();
+                httpClient.join(); // request 스레드 대기
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             HttpResponse httpResponse = httpClient.getHttpResponse();
             if(!httpResponse.getStatusCode().equals("200")){
                 System.out.println("openPostList error" + httpResponse.getStatusText());
+                return null;
             }
             try {
-                /*아직 안됨*/
-                JSONArray jsonArray = new JSONArray(httpResponse.getBody()); //왜 안되죠???
+                /* body -> JSONArray */
+                System.out.println(httpResponse.getBody());
+                JSONArray jsonArray = new JSONArray(httpResponse.getBody());
                 for(int i =0; i<jsonArray.length(); i++) {
-                    JSONObject json = jsonArray.getJSONObject(i); /// 여기서 에러남 ..?
+                    // JSONArray -> JSONObject
+                    JSONObject json = new JSONObject(jsonArray.getString(i));
                     boardInfoArrayList.add(splitBodyresponse(json));
                 }
                 return boardInfoArrayList;
@@ -146,7 +151,6 @@ public class BoardUtil {
      * @return boardInfo
      */
     private BoardInfo splitBodyresponse(JSONObject jsonObject){
-        //input 쪼개서 NAME만 뽑아내기
         try {
             BoardInfo boardInfo = new BoardInfo(jsonObject.getString("MID"),
                     jsonObject.getInt("DOWNVOTE"), jsonObject.getString("PDATE"),
@@ -158,7 +162,6 @@ public class BoardUtil {
             e.printStackTrace();
             return  null;
         }
-
     }
 /*
     public boolean updatePost(String PID, String updateBody){

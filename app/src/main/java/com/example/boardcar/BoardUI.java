@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import Community.BoardInfo;
 import Community.BoardUtil;
 
 
@@ -94,8 +97,11 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                 freeBoard.setTypeface(null, Typeface.NORMAL);
                 honeyTipBoard.setTypeface(null, Typeface.BOLD);
                 carBoard.setTypeface(null, Typeface.NORMAL);
-                honeyTipBoardUtil.openPostList("꿀팁");
-                //BoardList(adapter,boardList,,"작성자",1);
+                ArrayList<BoardInfo> honeyTipArrayList = honeyTipBoardUtil.openPostList("꿀팁");
+                for(BoardInfo item : honeyTipArrayList){
+                    BoardList(adapter,boardList,item.getTITLE(), item.getMID(), item.getUPVOTE());
+                }
+
                 break;
             case R.id.CarBoard:
                 freeBoard.setTypeface(null, Typeface.NORMAL);
