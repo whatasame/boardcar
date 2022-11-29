@@ -24,25 +24,25 @@ import Community.BoardUtil;
 
 
 public class BoardUI extends Fragment implements View.OnClickListener {
-        RecyclerViewBoardAdapter.OnItemClickListener listener;
-        TextView freeBoard,honeyTipBoard,carBoard;
-        Button  boardSort;
-        ImageView boardWrite;
-        View v;
-        RecyclerView boardList;
-        Intent intent;
+    RecyclerViewBoardAdapter.OnItemClickListener listener;
+    TextView freeBoard, honeyTipBoard, carBoard;
+    Button boardSort;
+    ImageView boardWrite;
+    View v;
+    RecyclerView boardList;
+    Intent intent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_board, container, false);
-        freeBoard =v.findViewById(R.id.FreeBoard);
-        honeyTipBoard=v.findViewById(R.id.HoneyTipBoard);
-        carBoard=v.findViewById(R.id.CarBoard);
-        boardSort=v.findViewById(R.id.BoardSort);
-        boardWrite=v.findViewById(R.id.BoardWrite);
-        boardList=v.findViewById(R.id.BoardList);
+        freeBoard = v.findViewById(R.id.FreeBoard);
+        honeyTipBoard = v.findViewById(R.id.HoneyTipBoard);
+        carBoard = v.findViewById(R.id.CarBoard);
+        boardSort = v.findViewById(R.id.BoardSort);
+        boardWrite = v.findViewById(R.id.BoardWrite);
+        boardList = v.findViewById(R.id.BoardList);
 
         boardWrite.setOnClickListener(this);
         boardSort.setOnClickListener(this);
@@ -51,21 +51,16 @@ public class BoardUI extends Fragment implements View.OnClickListener {
         carBoard.setOnClickListener(this);
 
 
-
-
         //게시판 열떄 제목이랑 작성자 보내서 그에 맞는애 불러오는 라인
-        listener =new RecyclerViewBoardAdapter.OnItemClickListener() {
+        listener = new RecyclerViewBoardAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(String title, String writer) {
-                intent = new Intent(getContext(),OpenUI.class);
+                intent = new Intent(getContext(), OpenUI.class);
                 intent.putExtra("title", title);
                 intent.putExtra("writer", writer);
                 startActivity(intent);
             }
         };
-
-
-
         return v;
 
     }
@@ -73,9 +68,9 @@ public class BoardUI extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        boardList=v.findViewById(R.id.BoardList);
-        RecyclerViewBoardAdapter adapter = new RecyclerViewBoardAdapter(getContext(),listener);
-        switch (view.getId()){
+        boardList = v.findViewById(R.id.BoardList);
+        RecyclerViewBoardAdapter adapter = new RecyclerViewBoardAdapter(getContext(), listener);
+        switch (view.getId()) {
             case R.id.BoardWrite: // 얘가 글 작성 버튼 클릭
                 Intent intent = new Intent(getActivity(), BoardEditUI.class);
                 startActivity(intent);
@@ -98,8 +93,8 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                 honeyTipBoard.setTypeface(null, Typeface.BOLD);
                 carBoard.setTypeface(null, Typeface.NORMAL);
                 ArrayList<BoardInfo> honeyTipArrayList = honeyTipBoardUtil.openPostList("꿀팁");
-                for(BoardInfo item : honeyTipArrayList){
-                    BoardList(adapter,boardList,item.getTITLE(), item.getMID(), item.getUPVOTE());
+                for (BoardInfo item : honeyTipArrayList) {
+                    BoardList(adapter, boardList, item.getTITLE(), item.getMID(), item.getUPVOTE());
                 }
 
                 break;
@@ -108,17 +103,18 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                 honeyTipBoard.setTypeface(null, Typeface.NORMAL);
                 carBoard.setTypeface(null, Typeface.BOLD);
                 //여기는 차정보도 함께 뭐어찌저찌 잘묶어서 for문돌려서 나타내야함
-                BoardList(adapter,boardList,"제목","작성자",1);
+                BoardList(adapter, boardList, "제목", "작성자", 1);
                 break;
 
         }
 
 
-        }
-//리스트에 내용 보여주는애 제목, 작성자, 추천수 받아오는게
-    public void BoardList(RecyclerViewBoardAdapter adapter, RecyclerView BoardList ,String title ,String writer,int recommend ) {
+    }
+
+    //리스트에 내용 보여주는애 제목, 작성자, 추천수 받아오는게
+    public void BoardList(RecyclerViewBoardAdapter adapter, RecyclerView BoardList, String writer, String title, int recommend) {
         BoardList.setVisibility(View.VISIBLE);
-        adapter.addItem(new RecyclerViewBoardDataModel(title,writer,String.valueOf(recommend)));
+        adapter.addItem(new RecyclerViewBoardDataModel( writer,title, String.valueOf(recommend)));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         BoardList.setLayoutManager(layoutManager);

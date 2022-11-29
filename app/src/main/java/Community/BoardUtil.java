@@ -22,7 +22,7 @@ import Back.SessionManager;
 public class BoardUtil {
     /*
     * 1.1 / 1.2 / 1.3 / 1.4 / 1.5 을 여기에 구현합니다.
-    * (v)   ()
+    * (v)   (v)  (
     *
     *
     * */
@@ -199,36 +199,5 @@ public class BoardUtil {
 
         return httpResponse.getStatusCode().equals("200");
 
-    }
-
-    public boolean deletePost(String PID){
-
-
-    }
-*/
-
-
-
-    /*
-    *  public static void GET_openPostList(String TYPE) throws IOException {
-
-        // JSON 생성
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("TYPE", TYPE);
-
-        // 요청
-        HttpRequest openPostListRequest = new HttpRequest("GET", "/openPostList", version, headers, jsonObject.toString());
-
-        // 응답
-        HttpResponse openPostListResponse = HttpClientTestApp.sendHttpRequest(openPostListRequest);
-
-        // 결과 출력
-        System.out.println("--------------------------------");
-        System.out.println(openPostListResponse);
-    }
-    *
-    *
-    *
-    *
-    * */
+    }*/
 }
