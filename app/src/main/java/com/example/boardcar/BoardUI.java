@@ -17,6 +17,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import Community.BoardInfo;
+import Community.BoardUtil;
+
 
 public class BoardUI extends Fragment implements View.OnClickListener {
         RecyclerViewBoardAdapter.OnItemClickListener listener;
@@ -79,17 +84,24 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                 //정렬은 빡세니... 맨마지막?
                 break;
             case R.id.FreeBoard:
+                BoardUtil freeBoardUtil = new BoardUtil(getContext());
                 freeBoard.setTypeface(null, Typeface.BOLD);
                 honeyTipBoard.setTypeface(null, Typeface.NORMAL);
                 carBoard.setTypeface(null, Typeface.NORMAL);
+                freeBoardUtil.openPostList("자유");
                 //자유게시판에 있는 글 불러오는데 각각 제목,작성자,추천수 DB에 해당하는애 for문으로 돌리기
-                BoardList(adapter,boardList,"제목","작성자",1);
+                // BoardList(adapter,boardList,"제목","작성자",1);
                 break;
             case R.id.HoneyTipBoard:
+                BoardUtil honeyTipBoardUtil = new BoardUtil(getContext());
                 freeBoard.setTypeface(null, Typeface.NORMAL);
                 honeyTipBoard.setTypeface(null, Typeface.BOLD);
                 carBoard.setTypeface(null, Typeface.NORMAL);
-                BoardList(adapter,boardList,"제목","작성자",1);
+                ArrayList<BoardInfo> honeyTipArrayList = honeyTipBoardUtil.openPostList("꿀팁");
+                for(BoardInfo item : honeyTipArrayList){
+                    BoardList(adapter,boardList,item.getTITLE(), item.getMID(), item.getUPVOTE());
+                }
+
                 break;
             case R.id.CarBoard:
                 freeBoard.setTypeface(null, Typeface.NORMAL);
