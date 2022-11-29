@@ -5,9 +5,6 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 
 public class FragmentMainUI extends Fragment implements View.OnClickListener {
@@ -81,14 +79,44 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
         engineProgress.setProgress(ConsumableFile.getInt("engineinfo",0));
         airFilterProgress.setProgress(ConsumableFile.getInt("airFilterinfo",0));
         batteryProgress.setProgress(ConsumableFile.getInt("batteryinfo",0));
+
+
+
+        mainUserCar.setText("Sonata");
+        mainUserName.setText("User");
+
+
         return v;
+
         /*
+
         if(세션 확인후)
         mainUserName.setText("id 값 DB에서 가져와서 보여주기");
         mainuserCar.setText("위와동일");
 
-
          */
+
+        /*
+        *
+        * 제 생각은
+        * 앱 내에 txt 파일에 NULL 저장해 놓다가
+        * 그 자동로그인이 체크 된 상태에서 로그인에 성공한다면
+        * txt 파일 내부에 session 값이나 어떤 값을 넣고
+        * 저장을 하는거죠
+        *
+        * 그래서 앱을 정상 종료하고
+        * 새로 앱을 실행시켰을 때 앱이 실행될 때 나오는 MainActivity 거기서 그 파일을 열고
+        * 그 파일의 내용이 NULL 이라면 그 로그인 하세요 화면이 뜨는거고
+        * 아니면 로그인 된 상태로 뜨는거죠
+        *
+        *
+        * 로그아웃 버튼을 누르면 그 txt 파일을 NULL 로 수정하는거죠
+        *
+        *
+        *
+        * */
+
+
     }
 
     @Override

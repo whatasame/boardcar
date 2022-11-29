@@ -1,5 +1,13 @@
 package com.example.boardcar;
-
+/*
+* 수정인 : 이윤상
+* 수정일 : 11-22
+* 수정내용
+*   1. OnCreate 메소드 내에서 IdFind class 객체와 CheckMemberData class 객체 모두 생성했음
+*   1-1. class Diagram 에서 관계선 표시할 때 수정해야됨.
+*
+*
+* */
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,14 +19,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import LoginPackage.CheckMemberData;
+import LoginPackage.IdFind;
+
 public class FindIDUI extends AppCompatActivity {
     EditText findIdEmail, findIdEmailCheck;
     Button findIdEmailCheckBtn, findIdBtn;
     TextView findIdHideCheckNumber, findIdHideSuccess;
     String findIdEmailStr, emailCheckIDStr;
 
+    AlertDialog.Builder Alert;
+
     public void AlertNoEditMsg(String title, String msg) { //에러문구 나타내는 함수
-        AlertDialog.Builder Alert = new AlertDialog.Builder(FindIDUI.this);
         Alert.setTitle(title);
         Alert.setMessage(msg);
         Alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -28,10 +40,8 @@ public class FindIDUI extends AppCompatActivity {
         });
 
         Alert.show();
-
     }
     public void AlertIDMsg(String title, String msg) { //팝업창인데 확인 누르면 전화면으로 넘어감
-        AlertDialog.Builder Alert = new AlertDialog.Builder(FindIDUI.this);
         Alert.setTitle(title);
         Alert.setMessage(msg);
         Alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -58,51 +68,53 @@ public class FindIDUI extends AppCompatActivity {
         findIdHideCheckNumber = findViewById(R.id.FindIdHideCheckNumber);//인증번호 틀렸다고 나오는 문구
         findIdHideSuccess = findViewById(R.id.FindIdHideSuccess);//인증번호 보냈다고 성공하는문구
 
+        CheckMemberData checkMemberData = new CheckMemberData();
+        Alert = new AlertDialog.Builder(FindIDUI.this);
 
-
+        IdFind idFind = new IdFind();
 
         findIdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 findIdEmailStr = (findIdEmail.getText().toString());
-                if (findIdEmailStr.length() != 0) {
-                 /*if(DB에서 이메일 체크하고 있는지 없는지 확인){
-                    //인증번호 날라오는거 함수? 암튼 그거 쓰기
-                    hideSuccessId.setVisibility(View.VISIBLE);
-                    emailCheckIdBtn.setEnabled(true);
-                 }else{
-                    AlertNoEditMsg("아이디 찾기 실패","회원님의 정보를 찾을수 없어요");
-                 }*/
 
-                    //밑에 애들 지워주세용
-                    findIdHideSuccess.setVisibility(View.VISIBLE);
-                    findIdEmailCheckBtn.setEnabled(true);
-                }else {
-                    AlertNoEditMsg("아이디 찾기 실패","이메일을 입력해주세요");
+                if(!idFind.isEmailEmpty(findIdEmailStr)){ //이메일 입력란에 뭔갈 입력했다면
+
+                    if(!checkMemberData.isEmailRegexMatched(findIdEmailStr, Alert)){//정규식을 만족했다면
+
+                        //이메일 전송 코드 작성
+
+                        findIdHideSuccess.setVisibility(View.VISIBLE);
+                        findIdEmailCheckBtn.setEnabled(true);
+                    }
                 }
+                else
+                    AlertNoEditMsg("아이디 찾기 실패","이메일을 입력해주세요");
             }
         });
         findIdEmailCheckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 emailCheckIDStr = (findIdEmailCheck.getText().toString());
-                int test =123;
-                if (emailCheckIDStr.length() != 0) {
+                //int test = 1234;
+                String testID = "asdf1234";
 
-               if (emailCheckIDStr.equals("1234")){
-                AlertIDMsg("아이디 찾기성공 ",test+"회원님의 아이디를 찾았어요");
+                if(!idFind.isEmailVerificationCodeEmpty(emailCheckIDStr)){
 
+                    if(emailCheckIDStr.equals("1234")){
+                        // DB 연결 관련 내용 첨부바람.
+                        idFind.runIdFind();
+                        AlertIDMsg("아이디 찾기성공 ","회원님의 아이디를 찾았어요\n아이디는 " + testID + "입니다.");
+                    }
+                    else{
+                        findIdHideCheckNumber.setVisibility(View.VISIBLE); //인증번호가 일치하지않아요 나타나는애
+                    }
                 }
-
-                } else {
-                    findIdHideCheckNumber.setVisibility(View.VISIBLE); //인증번호가 일치하지않아요 나타나는애
-                }
+                else
+                    AlertNoEditMsg("아이디 찾기 실패","인증번호를 입력해주세요.");
             }
         });
-
-
-
     }
 }
 /*
