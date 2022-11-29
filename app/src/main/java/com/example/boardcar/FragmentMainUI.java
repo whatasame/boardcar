@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import Back.SessionManager;
+
 
 public class FragmentMainUI extends Fragment implements View.OnClickListener {
     TextView mainUserName, mainUserCar,nearSiteText,consumableText;
@@ -80,44 +82,47 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
         airFilterProgress.setProgress(ConsumableFile.getInt("airFilterinfo",0));
         batteryProgress.setProgress(ConsumableFile.getInt("batteryinfo",0));
 
-
-
-        mainUserCar.setText("Sonata");
-        mainUserName.setText("User");
-
-
-        return v;
-
         /*
-
-        if(세션 확인후)
-        mainUserName.setText("id 값 DB에서 가져와서 보여주기");
-        mainuserCar.setText("위와동일");
-
-         */
-
-        /*
+        * 로그인 성공시
+        *         //mainUserCar.setText("Sonata");
+                  //mainUserName.setText("User");
+                  //nearSiteLinear.setVisibility(View.VISIBLE);
         *
-        * 제 생각은
-        * 앱 내에 txt 파일에 NULL 저장해 놓다가
-        * 그 자동로그인이 체크 된 상태에서 로그인에 성공한다면
-        * txt 파일 내부에 session 값이나 어떤 값을 넣고
-        * 저장을 하는거죠
-        *
-        * 그래서 앱을 정상 종료하고
-        * 새로 앱을 실행시켰을 때 앱이 실행될 때 나오는 MainActivity 거기서 그 파일을 열고
-        * 그 파일의 내용이 NULL 이라면 그 로그인 하세요 화면이 뜨는거고
-        * 아니면 로그인 된 상태로 뜨는거죠
-        *
-        *
-        * 로그아웃 버튼을 누르면 그 txt 파일을 NULL 로 수정하는거죠
         *
         *
         *
         * */
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
+        // 내장에 UUID가 존재 및 AUTO_LOGIN이 true일때 (getBoolean false는 default value)
+        if(sharedPreferences.contains("UUID")& sharedPreferences.getBoolean("AUTO_LOGIN",false)) {
+            SessionManager sessionManager = new SessionManager(getContext());
+            System.out.println("session : " + sessionManager.session);
+            if (sessionManager.session != null) {
+                String result = sessionManager.getUserInfo();
+                System.out.println(result);
+                if (result != null) {
+                    System.out.println("name : " + sessionManager.getNAME());
+                    System.out.println("mid : " + sessionManager.getMID());
+                    System.out.println("email : " + sessionManager.getEMAIL());
+                    mainUserName.setText(sessionManager.getNAME());
+                    mainUserCar.setText("소나타"); //sessionManager.getCarName()
 
-
+                    nearSiteLinear.setVisibility(View.VISIBLE);
+                    nearSiteText.setVisibility(View.VISIBLE);
+                    consumableText.setVisibility(View.VISIBLE);
+                    consumableLinear.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+        return v;
     }
+
+
+
+
+
+
+
 
     @Override
     public void onClick(View view) {

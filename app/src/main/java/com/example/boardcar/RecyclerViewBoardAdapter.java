@@ -14,18 +14,21 @@ import java.util.List;
 
 public class RecyclerViewBoardAdapter extends RecyclerView.Adapter {
     private final List<RecyclerViewBoardDataModel> items = new ArrayList<>();
+
     public interface OnItemClickListener {
-        void onItemClicked(String title, String writer);
+        void onItemClicked(String title, String writer, String pid);
     }
+
     private OnItemClickListener itemClickListener;
     private Context context;
-    public RecyclerViewBoardAdapter(Context context,OnItemClickListener listener){
-        this.context=context;
-        this.itemClickListener=listener;
+
+    public RecyclerViewBoardAdapter(Context context, OnItemClickListener listener) {
+        this.context = context;
+        this.itemClickListener = listener;
     }
 
 
-    public void setOnClickListener (OnItemClickListener lister) {
+    public void setOnClickListener(OnItemClickListener lister) {
         itemClickListener = lister;
     }
 
@@ -33,7 +36,8 @@ public class RecyclerViewBoardAdapter extends RecyclerView.Adapter {
     public void addItem(RecyclerViewBoardDataModel boardDataModel) { //차량 리스트에 종류 추가하는애
         items.add(boardDataModel);
     }
-    public void clearItem(){
+
+    public void clearItem() {
         items.clear();
     }
 
@@ -46,7 +50,7 @@ public class RecyclerViewBoardAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.boardrecyler,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.boardrecyler, parent, false);
         RecyclerViewBoardAdapter.ViewHolder viewHolder = new RecyclerViewBoardAdapter.ViewHolder(view);
 
         view.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +58,8 @@ public class RecyclerViewBoardAdapter extends RecyclerView.Adapter {
             public void onClick(View view) { //클릭하면
                 String title = viewHolder.getTitle().getText().toString();
                 String writer = viewHolder.getWriter().getText().toString();
-                itemClickListener.onItemClicked(title, writer);
+                String pid = viewHolder.getPid().getText().toString();
+                itemClickListener.onItemClicked(title, writer, pid);
             }
         });
 
@@ -64,34 +69,38 @@ public class RecyclerViewBoardAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) { //애는 틀임
-        ViewHolder ViewHolder = (ViewHolder)holder;
+        ViewHolder ViewHolder = (ViewHolder) holder;
 
         ViewHolder.title.setText(items.get(position).getTitle());
         ViewHolder.writer.setText(items.get(position).getName());
         ViewHolder.recommend.setText(items.get(position).getRecommend());
+        ViewHolder.pid.setText(items.get(position).getPid());
 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView writer, title,comment,recommend;
+        TextView writer, title, comment, recommend, pid;
 
         public ViewHolder(@NonNull View itemView) { //리스트 안에있는 객체들에 각각 값을 지정해줄수있는애
             super(itemView);
             title = itemView.findViewById(R.id.ContentTitle);
-            writer =  itemView.findViewById(R.id.ContentWriter);
-            recommend=itemView.findViewById(R.id.ReCommend);
-
-
-
+            writer = itemView.findViewById(R.id.ContentWriter);
+            recommend = itemView.findViewById(R.id.ReCommend);
+            pid = itemView.findViewById(R.id.Pid);
         }
-        public TextView getWriter(){
+
+
+        public TextView getWriter() {
             return writer;
         }
-        public TextView getTitle(){
+
+        public TextView getTitle() {
             return title;
         }
 
-
+        public TextView getPid() {
+            return pid;
+        }
     }
 
 }
