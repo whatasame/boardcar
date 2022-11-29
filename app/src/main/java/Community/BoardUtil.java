@@ -41,8 +41,6 @@ public class BoardUtil {
 
         SessionManager sessionManager = new SessionManager(context);
         JSONObject jsonObject = new JSONObject();
-
-        sessionManager.setMID(sessionManager.getUserInfo());
         String MID = sessionManager.getMID();
         headers.put("Session-Key", sessionManager.session);
 
@@ -108,7 +106,6 @@ public class BoardUtil {
         }
         else{ //자유게시판을 제외한 꿀팁게시판 및 차량게시판은 Session 이 있는 경우에만 열람이 가능함.
             SessionManager sessionManager = new SessionManager(context);
-            sessionManager.setMID(sessionManager.getUserInfo());
             String MID = sessionManager.getMID();
             headers.put("Session-Key", sessionManager.session);
             HttpRequest httpRequest = new HttpRequest("PUT", "/openPostList", version, headers, jsonObject.toString());
