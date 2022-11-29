@@ -94,6 +94,9 @@ public class OpenUI extends AppCompatActivity {
                 intent.putExtra("Body",openBodyStr);
                 intent.putExtra("type",1);
 
+                // 본인이 쓴 글인지 MID? 로 확인을 해야 수정 및 삭제가 가능해진다. 그 기능 필요함
+
+
                 startActivity(intent);
                 finish();
             }

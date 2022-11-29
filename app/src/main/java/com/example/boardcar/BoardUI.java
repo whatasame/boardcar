@@ -71,7 +71,7 @@ public class BoardUI extends Fragment implements View.OnClickListener {
         boardList=v.findViewById(R.id.BoardList);
         RecyclerViewBoardAdapter adapter = new RecyclerViewBoardAdapter(getContext(),listener);
         switch (view.getId()){
-            case R.id.BoardWrite:
+            case R.id.BoardWrite: // 얘가 글 작성 버튼 클릭
                 Intent intent = new Intent(getActivity(), BoardEditUI.class);
                 startActivity(intent);
                 break;

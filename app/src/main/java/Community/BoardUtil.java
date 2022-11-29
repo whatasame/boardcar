@@ -95,6 +95,38 @@ public class BoardUtil {
 
     public boolean updatePost(String PID, String updateBody){
 
+        SessionManager sessionManager = new SessionManager(context);
+        JSONObject jsonObject = new JSONObject();
+
+        sessionManager.setMID(sessionManager.getUserInfo());
+        String MID = sessionManager.getMID();
+        headers.put("Session-Key", sessionManager.session);
+
+        try {
+            jsonObject.put("MID", MID);
+            jsonObject.put("PDATE", postDate);
+            jsonObject.put("TITLE", postTitle);
+            jsonObject.put("BODY", postBody);
+            jsonObject.put("TYPE", postType);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String answer = jsonObject.toString();
+        HttpRequest httpRequest = new HttpRequest("PUT", "/uploadPost", version, headers, answer);
+        HttpClient httpClient = new HttpClient(httpRequest, context);
+        httpClient.start();
+        try{
+            httpClient.join();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        HttpResponse httpResponse = httpClient.getHttpResponse();
+        System.out.println("status:" + httpResponse.getStatusCode());
+        System.out.println("body : " + httpResponse.getBody());
+
+        return httpResponse.getStatusCode().equals("200");
 
     }
 

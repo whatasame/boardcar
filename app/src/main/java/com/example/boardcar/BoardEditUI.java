@@ -28,8 +28,8 @@ import Back.HttpRequest;
 import Community.BoardUtil;
 
 public class BoardEditUI extends AppCompatActivity {
-    EditText boardEditTitle , boardEditBody;
-    String boardEditTitleStr, boardEditBodyStr , rBtnTypeStr;
+    EditText boardEditTitle, boardEditBody;
+    String boardEditTitleStr, boardEditBodyStr, rBtnTypeStr;
     Button boardEditBtn;
     Intent intent;
     RadioButton rBtnFree, rBtnCar;
@@ -48,6 +48,7 @@ public class BoardEditUI extends AppCompatActivity {
         Alert.show();
 
     }
+
     public void AlertNoEditMsg(String title, String msg) { //에러문구 나타내는 함수
         AlertDialog.Builder Alert = new AlertDialog.Builder(BoardEditUI.this);
         Alert.setTitle(title);
@@ -66,18 +67,18 @@ public class BoardEditUI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board_edit_ui);
-        boardEditBody=findViewById(R.id.BoardEditBody);
-        boardEditTitle=findViewById(R.id.BoardEditTitle);
-        boardEditBtn=findViewById(R.id.BoardEditBtn);
-        rBtnFree=findViewById(R.id.RBtnFree);
-        rBtnCar=findViewById(R.id.RBtnCar);
+        boardEditBody = findViewById(R.id.BoardEditBody);
+        boardEditTitle = findViewById(R.id.BoardEditTitle);
+        boardEditBtn = findViewById(R.id.BoardEditBtn);
+        rBtnFree = findViewById(R.id.RBtnFree);
+        rBtnCar = findViewById(R.id.RBtnCar);
 
         //글 수정에서 글쓰기로 넘어왔을때 전에 적었던거 다시 적혀있게 하는애  
-        intent=getIntent();
-        int type=intent.getIntExtra("type",0);
-        String Title=intent.getStringExtra("Title");
-        String Body=intent.getStringExtra("Body");
-        if(type==1){ 
+        intent = getIntent();
+        int type = intent.getIntExtra("type", 0);
+        String Title = intent.getStringExtra("Title");
+        String Body = intent.getStringExtra("Body");
+        if (type == 1) { //수정하기 버튼 클릭시 넘어오는 화면?
             boardEditTitle.setText(Title);
             boardEditBody.setText(Body);
         }
@@ -85,37 +86,76 @@ public class BoardEditUI extends AppCompatActivity {
         boardEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boardEditBodyStr = boardEditBody.getText().toString();
-                boardEditTitleStr = boardEditTitle.getText().toString();
 
-                BoardUtil boardUtil = new BoardUtil(getBaseContext());
+                if (type == 0) {
+                    //글을 새로 등록할 때
+                    boardEditBodyStr = boardEditBody.getText().toString();
+                    boardEditTitleStr = boardEditTitle.getText().toString();
 
-                Date date = new Date();
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    BoardUtil boardUtil = new BoardUtil(getBaseContext());
 
-                if(boardEditTitleStr.length()!=0 && boardEditBody.length() !=0){ // 글 비어있는지 확인
-                    //여기서  boardEditBodyStr = 글내용  boardEditTitleStr=글제목 DB에 저장시켜주기
+                    Date date = new Date();
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-                   if(rBtnFree.isChecked()){
-                       if(boardUtil.uploadPost(format.format(date), boardEditTitleStr, boardEditBodyStr, "자유")){
-                           AlertIDMsg("글쓰기 작성완료","자유게시판에 글쓰기가 작성이 완료되었습니다");
-                       }
-                       else{
-                           AlertNoEditMsg("글쓰기 실패","작성 실패");
-                       }
-                       //DB에 자유게시판으로 보내면됨 본문내용 등등 전부다
-                   }else{
-                       if(boardUtil.uploadPost(format.format(date), boardEditTitleStr, boardEditBodyStr, "차량")){
-                           AlertIDMsg("글쓰기 작성완료","차량게시판에 글쓰기가 작성이 완료되었습니다");
-                       }
-                       else{
-                           AlertNoEditMsg("글쓰기 실패","작성 실패");
-                       }
-                       //DB에서 차량게시판으로 보내면됨 본문내용 등등 전부다;
-                   }
-                }else{
-                    AlertNoEditMsg("글쓰기 실패","제목 또는 내용을 작성하세요");
+                    if (boardEditTitleStr.length() != 0 && boardEditBody.length() != 0) { // 글 비어있는지 확인
+                        //여기서  boardEditBodyStr = 글내용  boardEditTitleStr=글제목 DB에 저장시켜주기
+
+                        if (rBtnFree.isChecked()) {
+                            if (boardUtil.uploadPost(format.format(date), boardEditTitleStr, boardEditBodyStr, "자유")) {
+                                AlertIDMsg("글쓰기 작성완료", "자유게시판에 글쓰기가 작성이 완료되었습니다");
+                            } else {
+                                AlertNoEditMsg("글쓰기 실패", "작성 실패");
+                            }
+                            //DB에 자유게시판으로 보내면됨 본문내용 등등 전부다
+                        } else {
+                            if (boardUtil.uploadPost(format.format(date), boardEditTitleStr, boardEditBodyStr, "차량")) {
+                                AlertIDMsg("글쓰기 작성완료", "차량게시판에 글쓰기가 작성이 완료되었습니다");
+                            } else {
+                                AlertNoEditMsg("글쓰기 실패", "작성 실패");
+                            }
+                            //DB에서 차량게시판으로 보내면됨 본문내용 등등 전부다;
+                        }
+                    } else {
+                        AlertNoEditMsg("글쓰기 실패", "제목 또는 내용을 작성하세요");
+                    }
+
+                } else {
+                    //글을 수정하려고 하는 경우
+                    boardEditBodyStr = boardEditBody.getText().toString();
+                    boardEditTitleStr = boardEditTitle.getText().toString();
+
+                    //수정하고자 하는 경우에도 게시판 종류를 바꾸는 것을 허용할 것인지 결정
+                    
+                    BoardUtil boardUtil = new BoardUtil(getBaseContext());
+
+                    Date date = new Date();
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+                    if (boardEditTitleStr.length() != 0 && boardEditBody.length() != 0) { // 글 비어있는지 확인
+                        //여기서  boardEditBodyStr = 글내용  boardEditTitleStr=글제목 DB에 저장시켜주기
+
+                        if (rBtnFree.isChecked()) {
+                            if (boardUtil.uploadPost(format.format(date), boardEditTitleStr, boardEditBodyStr, "자유")) {
+                                AlertIDMsg("글쓰기 작성완료", "자유게시판에 글쓰기가 작성이 완료되었습니다");
+                            } else {
+                                AlertNoEditMsg("글쓰기 실패", "작성 실패");
+                            }
+                            //DB에 자유게시판으로 보내면됨 본문내용 등등 전부다
+                        } else {
+                            if (boardUtil.uploadPost(format.format(date), boardEditTitleStr, boardEditBodyStr, "차량")) {
+                                AlertIDMsg("글쓰기 작성완료", "차량게시판에 글쓰기가 작성이 완료되었습니다");
+                            } else {
+                                AlertNoEditMsg("글쓰기 실패", "작성 실패");
+                            }
+                            //DB에서 차량게시판으로 보내면됨 본문내용 등등 전부다;
+                        }
+                    } else {
+                        AlertNoEditMsg("글쓰기 실패", "제목 또는 내용을 작성하세요");
+                    }
+
                 }
+
+
             }
         });
     }
