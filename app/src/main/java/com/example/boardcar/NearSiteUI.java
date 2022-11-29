@@ -158,8 +158,9 @@ public class NearSiteUI extends AppCompatActivity
         mLayout = findViewById(R.id.layout_near_site);
 
         locationRequest = new LocationRequest()
-                .setPriority(LocationRequest.PRIORITY_NO_POWER)
-                .setInterval(UPDATE_INTERVAL_MS);
+                .setInterval(UPDATE_INTERVAL_MS)
+                .setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);
+
 
 
         LocationSettingsRequest.Builder builder =
@@ -416,7 +417,7 @@ public class NearSiteUI extends AppCompatActivity
         currentMarker = mMap.addMarker(markerOptions);
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
-        mMap.moveCamera(cameraUpdate);
+        //mMap.moveCamera(cameraUpdate);
 
     }
 
@@ -559,6 +560,13 @@ public class NearSiteUI extends AppCompatActivity
         });
         builder.create().show();
     }
+//    Handler handler = new Handler();
+//    handler.postDelayed(new Runnable() {
+//        public void run() {
+//            my_button.setBackgroundResource(R.drawable.defaultcard);
+//        }
+//    }, 2000);  // 2000은 2초를 의미합니다.
+//}
 
 
     @Override
