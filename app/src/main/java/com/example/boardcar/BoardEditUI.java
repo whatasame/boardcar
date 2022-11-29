@@ -122,37 +122,18 @@ public class BoardEditUI extends AppCompatActivity {
                 } else {
                     //글을 수정하려고 하는 경우
                     boardEditBodyStr = boardEditBody.getText().toString();
-                    boardEditTitleStr = boardEditTitle.getText().toString();
 
-                    //수정하고자 하는 경우에도 게시판 종류를 바꾸는 것을 허용할 것인지 결정
-                    
+                    //게시판 종류 바꾸는 RadioButton을 일시적으로 수정할 수 없게 만들고, 게시글 제목 또한 수정 불가능하게 만들어야됌
+
                     BoardUtil boardUtil = new BoardUtil(getBaseContext());
 
-                    Date date = new Date();
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    if(boardEditBodyStr.length() != 0){
+                        //수정한 글의 내용이 빈칸이 아니라면 수정할 수 있음
 
-                    if (boardEditTitleStr.length() != 0 && boardEditBody.length() != 0) { // 글 비어있는지 확인
-                        //여기서  boardEditBodyStr = 글내용  boardEditTitleStr=글제목 DB에 저장시켜주기
+                        if(boardUtil.updatePost("1", boardEditBodyStr)) {
 
-                        if (rBtnFree.isChecked()) {
-                            if (boardUtil.uploadPost(format.format(date), boardEditTitleStr, boardEditBodyStr, "자유")) {
-                                AlertIDMsg("글쓰기 작성완료", "자유게시판에 글쓰기가 작성이 완료되었습니다");
-                            } else {
-                                AlertNoEditMsg("글쓰기 실패", "작성 실패");
-                            }
-                            //DB에 자유게시판으로 보내면됨 본문내용 등등 전부다
-                        } else {
-                            if (boardUtil.uploadPost(format.format(date), boardEditTitleStr, boardEditBodyStr, "차량")) {
-                                AlertIDMsg("글쓰기 작성완료", "차량게시판에 글쓰기가 작성이 완료되었습니다");
-                            } else {
-                                AlertNoEditMsg("글쓰기 실패", "작성 실패");
-                            }
-                            //DB에서 차량게시판으로 보내면됨 본문내용 등등 전부다;
                         }
-                    } else {
-                        AlertNoEditMsg("글쓰기 실패", "제목 또는 내용을 작성하세요");
                     }
-
                 }
 
 

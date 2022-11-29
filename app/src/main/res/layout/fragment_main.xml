@@ -49,6 +49,7 @@
             android:id="@+id/ConsumableText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:layout_gravity="left"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
@@ -58,6 +59,7 @@
             android:id="@+id/ConsumableLinear"
             android:layout_width="350dp"
             android:layout_height="350dp"
+            android:visibility="invisible"
             android:background="#ccc"
             android:orientation="vertical">
 
@@ -403,6 +405,7 @@
             android:id="@+id/NearSiteText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:layout_gravity="left"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
@@ -412,6 +415,7 @@
             android:id="@+id/NearSiteLinear"
             android:layout_width="350dp"
             android:layout_height="100dp"
+            android:visibility="invisible"
             android:background="#ccc"
             android:orientation="horizontal"
             android:gravity="center"

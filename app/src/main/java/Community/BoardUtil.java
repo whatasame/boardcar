@@ -58,7 +58,7 @@ public class BoardUtil {
         }
 
         String answer = jsonObject.toString();
-        HttpRequest httpRequest = new HttpRequest("PUT", "/uploadPost", version, headers, answer);
+        HttpRequest httpRequest = new HttpRequest("POST", "/uploadPost", version, headers, answer);
         HttpClient httpClient = new HttpClient(httpRequest, context);
         httpClient.start();
         try{
@@ -111,8 +111,7 @@ public class BoardUtil {
             sessionManager.setMID(sessionManager.getUserInfo());
             String MID = sessionManager.getMID();
             headers.put("Session-Key", sessionManager.session);
-            HttpRequest httpRequest = new HttpRequest("GET", "/openPostList", version,
-                    headers, jsonObject.toString());
+            HttpRequest httpRequest = new HttpRequest("PUT", "/openPostList", version, headers, jsonObject.toString());
             HttpClient httpClient = new HttpClient(httpRequest,context);
             httpClient.start();
             try {
@@ -163,23 +162,18 @@ public class BoardUtil {
             return  null;
         }
     }
-/*
+
     public boolean updatePost(String PID, String updateBody){
 
         SessionManager sessionManager = new SessionManager(context);
         JSONObject jsonObject = new JSONObject();
+        sessionManager.getUserInfo();
 
-        sessionManager.setMID(sessionManager.getUserInfo());
-        String MID = sessionManager.getMID();
         headers.put("Session-Key", sessionManager.session);
 
         try {
-            jsonObject.put("MID", MID);
-            jsonObject.put("PDATE", postDate);
-            jsonObject.put("TITLE", postTitle);
-            jsonObject.put("BODY", postBody);
-            jsonObject.put("TYPE", postType);
-
+            jsonObject.put("PID", PID);
+            jsonObject.put("BODY", updateBody);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -199,5 +193,5 @@ public class BoardUtil {
 
         return httpResponse.getStatusCode().equals("200");
 
-    }*/
+    }
 }

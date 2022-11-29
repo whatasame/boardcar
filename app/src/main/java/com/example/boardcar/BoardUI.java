@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import Community.BoardInfo;
@@ -54,8 +55,9 @@ public class BoardUI extends Fragment implements View.OnClickListener {
         //게시판 열떄 제목이랑 작성자 보내서 그에 맞는애 불러오는 라인
         listener = new RecyclerViewBoardAdapter.OnItemClickListener() {
             @Override
-            public void onItemClicked(String title, String writer) {
+            public void onItemClicked(String title, String writer, String pid) {
                 intent = new Intent(getContext(), OpenUI.class);
+                intent.putExtra("pid", pid);
                 intent.putExtra("title", title);
                 intent.putExtra("writer", writer);
                 startActivity(intent);
@@ -94,7 +96,7 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                 carBoard.setTypeface(null, Typeface.NORMAL);
                 ArrayList<BoardInfo> honeyTipArrayList = honeyTipBoardUtil.openPostList("꿀팁");
                 for (BoardInfo item : honeyTipArrayList) {
-                    BoardList(adapter, boardList, item.getTITLE(), item.getMID(), item.getUPVOTE());
+                    BoardList(adapter, boardList, item.getTITLE(), item.getMID(), item.getUPVOTE(), item.getPID());
                 }
 
                 break;
@@ -103,7 +105,7 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                 honeyTipBoard.setTypeface(null, Typeface.NORMAL);
                 carBoard.setTypeface(null, Typeface.BOLD);
                 //여기는 차정보도 함께 뭐어찌저찌 잘묶어서 for문돌려서 나타내야함
-                BoardList(adapter, boardList, "제목", "작성자", 1);
+                BoardList(adapter, boardList, "제목", "작성자", 1, 1);
                 break;
 
         }
@@ -112,9 +114,9 @@ public class BoardUI extends Fragment implements View.OnClickListener {
     }
 
     //리스트에 내용 보여주는애 제목, 작성자, 추천수 받아오는게
-    public void BoardList(RecyclerViewBoardAdapter adapter, RecyclerView BoardList, String writer, String title, int recommend) {
+    public void BoardList(RecyclerViewBoardAdapter adapter, RecyclerView BoardList, String title, String writer, int recommend, int pid) {
         BoardList.setVisibility(View.VISIBLE);
-        adapter.addItem(new RecyclerViewBoardDataModel( writer,title, String.valueOf(recommend)));
+        adapter.addItem(new RecyclerViewBoardDataModel(writer, title, String.valueOf(recommend), String.valueOf(pid)));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         BoardList.setLayoutManager(layoutManager);
