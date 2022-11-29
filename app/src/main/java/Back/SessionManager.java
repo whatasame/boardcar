@@ -5,6 +5,9 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +28,7 @@ public class SessionManager {
     private String NAME = null;
     private String EMAIL = null;
     private int CID = 0;  // 초기화값
-
+    private boolean IS_ADMIN = false;
     private String CarName = null;
 
     public String session;
@@ -62,35 +65,44 @@ public class SessionManager {
             return null;
         } else {
             String body = infoResponse.getBody();
-
-            setMID(body);
-            setNAME(body);
-            setEMAIL(body);
-            //setCID(body);
-            setCarName(body);
+            try {
+                JSONObject jsonObject = new JSONObject(body);
+                this.MID = jsonObject.getString("MID");
+                this.NAME = jsonObject.getString("NAME");
+                this.EMAIL = jsonObject.getString("EMAIL");
+                this.IS_ADMIN = jsonObject.getBoolean("IS_ADMIN");
+                this.CID = jsonObject.getInt("CID");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+//            setMID(body);
+//            setNAME(body);
+//            setEMAIL(body);
+//            //setCID(body);
+//            setCarName(body);
 
             return body;
         }
     }
 
-    public void setMID(String input) {
-        System.out.println("input : " + input);
-        //input을 쪼개서 mid만 뽑아내기
-        String[] firstSplit = input.split(",");
-        String[] secondSplit = firstSplit[1].split(":");
-        MID = secondSplit[1].replaceAll("\"", "");
-    }
+//    public void setMID(String input) {
+//        System.out.println("input : " + input);
+//        //input을 쪼개서 mid만 뽑아내기
+//        String[] firstSplit = input.split(",");
+//        String[] secondSplit = firstSplit[1].split(":");
+//        MID = secondSplit[1].replaceAll("\"", "");
+//    }
 
     public String getMID() {
         return MID;
     }
 
-    public void setNAME(String input) {
-        //input 쪼개서 NAME만 뽑아내기
-        String[] firstSplit = input.split(",");
-        String[] secondSplit = firstSplit[3].split(":");
-        NAME = secondSplit[1].replaceAll("\"", "");
-    }
+//    public void setNAME(String input) {
+//        //input 쪼개서 NAME만 뽑아내기
+//        String[] firstSplit = input.split(",");
+//        String[] secondSplit = firstSplit[3].split(":");
+//        NAME = secondSplit[1].replaceAll("\"", "");
+//    }
 
     public String getNAME() {
         return NAME;
@@ -105,11 +117,11 @@ public class SessionManager {
         return EMAIL;
     }
 
-    private void setCID(String input) {
-        String[] firstSplit = input.split(",");
-        String[] secondSplit = firstSplit[5].split(":");
-        CID = Integer.parseInt(secondSplit[1].replaceAll("\"", ""));
-    }
+//    private void setCID(String input) {
+//        String[] firstSplit = input.split(",");
+//        String[] secondSplit = firstSplit[5].split(":");
+//        CID = Integer.parseInt(secondSplit[1].replaceAll("\"", ""));
+//    }
 
     public int getCID() {
         return CID;

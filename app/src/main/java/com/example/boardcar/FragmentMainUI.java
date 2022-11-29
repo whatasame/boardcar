@@ -93,7 +93,8 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
         *
         * */
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
-        if(sharedPreferences.contains("UUID")) {
+        // 내장에 UUID가 존재 및 AUTO_LOGIN이 true일때 (getBoolean false는 default value)
+        if(sharedPreferences.contains("UUID")& sharedPreferences.getBoolean("AUTO_LOGIN",false)) {
             SessionManager sessionManager = new SessionManager(getContext());
             System.out.println("session : " + sessionManager.session);
             if (sessionManager.session != null) {
