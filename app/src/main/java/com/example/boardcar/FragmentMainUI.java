@@ -95,10 +95,11 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
         // 내장에 UUID가 존재 및 AUTO_LOGIN이 true일때 (getBoolean false는 default value)
         if(sharedPreferences.contains("UUID")& sharedPreferences.getBoolean("AUTO_LOGIN",false)) {
-            SessionManager sessionManager = new SessionManager(getContext());
+            SessionManager sessionManager = new SessionManager(getContext()); // 자동로그인
             System.out.println("session : " + sessionManager.session);
             if (sessionManager.session != null) {
                 String result = sessionManager.getUserInfo();
+                ((LoginInfo)getActivity().getApplication()).setLogin(true);
                 System.out.println(result);
                 if (result != null) {
                     System.out.println("name : " + sessionManager.getNAME());
@@ -106,7 +107,27 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
                     System.out.println("email : " + sessionManager.getEMAIL());
                     mainUserName.setText(sessionManager.getNAME());
                     mainUserCar.setText("소나타"); //sessionManager.getCarName()
-
+                    nearSiteLinear.setVisibility(View.VISIBLE);
+                    nearSiteText.setVisibility(View.VISIBLE);
+                    consumableText.setVisibility(View.VISIBLE);
+                    consumableLinear.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+        // 자동로그인을 안하고, 앱을 켠 이후 로그인을 한번 이상 성공하였을시
+        else if(((LoginInfo)getActivity().getApplication()).isLogin()){
+            SessionManager sessionManager = new SessionManager(getContext()); // 자동로그인
+            System.out.println("session : " + sessionManager.session);
+            if (sessionManager.session != null) {
+                String result = sessionManager.getUserInfo();
+//                ((LoginInfo)getActivity().getApplication()).setLogin(true);
+                System.out.println(result);
+                if (result != null) {
+                    System.out.println("name : " + sessionManager.getNAME());
+                    System.out.println("mid : " + sessionManager.getMID());
+                    System.out.println("email : " + sessionManager.getEMAIL());
+                    mainUserName.setText(sessionManager.getNAME());
+                    mainUserCar.setText("소나타"); //sessionManager.getCarName()
                     nearSiteLinear.setVisibility(View.VISIBLE);
                     nearSiteText.setVisibility(View.VISIBLE);
                     consumableText.setVisibility(View.VISIBLE);
@@ -117,7 +138,6 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
 
         return v;
     }
-
 
 
 

@@ -50,7 +50,7 @@ public class LoginUI extends AppCompatActivity {
                         String sessionKey = login.runLogin(id, pw, Alert);
                         if(sessionKey != null){
                             //로그인에 성공함!
-
+                            ((LoginInfo) getApplication()).setLogin(true);
                             SharedPreferences preferences = getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putString("UUID", sessionKey);
@@ -62,7 +62,6 @@ public class LoginUI extends AppCompatActivity {
                             else
                                 editor.putBoolean("AUTO_LOGIN", false);
                             editor.commit();
-
                             Intent intent = new Intent(getBaseContext(), MainUI.class);
                             startActivity(intent);
                             finish();
