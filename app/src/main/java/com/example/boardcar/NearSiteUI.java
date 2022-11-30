@@ -424,7 +424,7 @@ public class NearSiteUI extends AppCompatActivity
         currentMarker = mMap.addMarker(markerOptions);
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
-        //mMap.moveCamera(cameraUpdate);
+        mMap.moveCamera(cameraUpdate);
 
     }
 
