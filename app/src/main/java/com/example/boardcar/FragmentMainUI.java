@@ -114,6 +114,7 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
                 }
             }
         }
+
         return v;
     }
 

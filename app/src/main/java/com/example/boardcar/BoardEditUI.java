@@ -78,6 +78,8 @@ public class BoardEditUI extends AppCompatActivity {
         int type = intent.getIntExtra("type", 0);
         String Title = intent.getStringExtra("Title");
         String Body = intent.getStringExtra("Body");
+        String pid = intent.getStringExtra("pid");
+
         if (type == 1) { //수정하기 버튼 클릭시 넘어오는 화면?
             boardEditTitle.setText(Title);
             boardEditBody.setText(Body);
@@ -116,7 +118,7 @@ public class BoardEditUI extends AppCompatActivity {
                             //DB에서 차량게시판으로 보내면됨 본문내용 등등 전부다;
                         }
                     } else {
-                        AlertNoEditMsg("글쓰기 실패", "제목 또는 내용을 작성하세요");
+                        AlertNoEditMsg("글쓰기 실패", "제목 또는 내용을 작성하세요.");
                     }
 
                 } else {
@@ -130,13 +132,19 @@ public class BoardEditUI extends AppCompatActivity {
                     if(boardEditBodyStr.length() != 0){
                         //수정한 글의 내용이 빈칸이 아니라면 수정할 수 있음
 
-                        if(boardUtil.updatePost("1", boardEditBodyStr)) {
+                        if(boardUtil.updatePost(Integer.parseInt(pid), boardEditBodyStr)) {
+                            //글 수정 성공했다는 뜻.
 
+                            AlertIDMsg("게시글 수정완료", "게시글 수정이 완료되었습니다.");
+                        }
+                        else{
+                            AlertNoEditMsg("게시글 수정 실패", "게시글 수정에 실패하였습니다.");
                         }
                     }
+                    else{
+                        AlertNoEditMsg("게시글 수정 실패", "게시글의 내용은 비어있을 수 없습니다.");
+                    }
                 }
-
-
             }
         });
     }

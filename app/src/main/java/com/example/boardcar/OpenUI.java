@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import Community.BoardInfo;
+import Community.BoardUtil;
+
 public class OpenUI extends AppCompatActivity {
     TextView openBoardName, openEdit, openDelete, openTitle, openBody, openWriter;
     Button openReCommendBtn, openDeprecatedBtn, commentEditBtn;
@@ -20,6 +24,8 @@ public class OpenUI extends AppCompatActivity {
     EditText commentEdit;
     RecyclerView commentList;
     Intent intent;
+
+    String pid;
 
     //삭제버튼 눌렀을시 확인 버튼 한번더 나타나게하는데 확인 버튼 누를경우 삭제해야함
     public void AlertIDMsg(String title, String msg) { //팝업창인데 확인 누르면 전화면으로 넘어감
@@ -30,8 +36,14 @@ public class OpenUI extends AppCompatActivity {
         Alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //DB에서 해당글 삭제하는애 넣어주면됨
+
+                BoardUtil boardUtil = new BoardUtil(getBaseContext());
+                boardUtil.deletePost(Integer.parseInt(pid));
                 finish();
+
+
+
+
             }
         });
         //취소버튼
@@ -47,6 +59,7 @@ public class OpenUI extends AppCompatActivity {
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,23 +80,23 @@ public class OpenUI extends AppCompatActivity {
         //제목과 작성자를 서버로 보내서 애랑 일치하는 글을 불러와서 각각 setText로 삽입시켜서 보여주는 시스템;
 
         intent = getIntent();
-        String Title = intent.getStringExtra("title");
-        String Writer = intent.getStringExtra("writer");
-//        openBoardName.setText(); //<-안에 게시판 종류값 넣어주고
-        openTitle.setText("Helloworld"); //<-제목값 넣어주고
-//        openBody.setText(); //<-게시판 본문 넣어주고
-//        openWriter.setText(); //<-작성자 넣어주기
-//        openReCommendBtn.setText(); //<-추천수
-//        openDeprecatedBtn.setText(); //<-비추천수
 
+        pid = intent.getStringExtra("pid");
+
+        BoardUtil boardUtil = new BoardUtil(getBaseContext());
+        BoardInfo boardInfo = boardUtil.openPost(Integer.parseInt(pid));
+        openTitle.setText(boardInfo.getTITLE());
+        openBoardName.setText(boardInfo.getTYPE());
+        openBody.setText(boardInfo.getBODY());
+        openWriter.setText(boardInfo.getMID());
+        openReCommendBtn.setText("추천 : " + boardInfo.getUPVOTE());
+        openDeprecatedBtn.setText("비추 : " + boardInfo.getDOWNVOTE());
 
         //댓글 생성기
         RecyclerViewCommentAdapter adapter = new RecyclerViewCommentAdapter();
+
         //댓글 불러올때 DB에서 정보를 불러와서 for문으로 다돌린다
         CommentList(adapter, commentList, "김상원", "그는신인가?", "2022-11-23");
-
-
-
 
         //수정하기 눌렀을시 글과 함께 화면전환
         openEdit.setOnClickListener(new View.OnClickListener() {
@@ -91,15 +104,15 @@ public class OpenUI extends AppCompatActivity {
             public void onClick(View view) {
                 openTitleStr = openTitle.getText().toString();
                 openBodyStr = openBody.getText().toString();
-                Intent intent = new Intent(getApplicationContext(), BoardEditUI.class);
-                intent.putExtra("Title", openTitleStr);
-                intent.putExtra("Body", openBodyStr);
-                intent.putExtra("type", 1);
+                Intent switchIntent= new Intent(getApplicationContext(), BoardEditUI.class);
+                switchIntent.putExtra("Title", openTitleStr);
+                switchIntent.putExtra("Body", openBodyStr);
+                switchIntent.putExtra("type", 1);
+                switchIntent.putExtra("pid", pid);
 
                 // 본인이 쓴 글인지 MID? 로 확인을 해야 수정 및 삭제가 가능해진다. 그 기능 필요함
 
-
-                startActivity(intent);
+                startActivity(switchIntent);
                 finish();
             }
         });
