@@ -88,10 +88,6 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
         *         //mainUserCar.setText("Sonata");
                   //mainUserName.setText("User");
                   //nearSiteLinear.setVisibility(View.VISIBLE);
-        *
-        *
-        *
-        *
         * */
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
@@ -102,11 +98,7 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
             if (sessionManager.session != null) {
                 String result = sessionManager.getUserInfo();
                 ((LoginInfo) getActivity().getApplication()).setLogin(true);
-                System.out.println(result);
                 if (result != null) {
-                    System.out.println("name : " + sessionManager.getNAME());
-                    System.out.println("mid : " + sessionManager.getMID());
-                    System.out.println("email : " + sessionManager.getEMAIL());
                     mainUserName.setText(sessionManager.getNAME());
                     mainUserCar.setText("소나타"); //sessionManager.getCarName()
                     nearSiteLinear.setVisibility(View.VISIBLE);
@@ -118,16 +110,10 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
         }
         // 자동로그인을 안하고, 앱을 켠 이후 로그인을 한번 이상 성공하였을시
         else if (((LoginInfo) getActivity().getApplication()).isLogin()) {
-            SessionManager sessionManager = new SessionManager(getContext()); // 자동로그인
-            System.out.println("session : " + sessionManager.session);
+            SessionManager sessionManager = new SessionManager(getContext()); //
             if (sessionManager.session != null) {
                 String result = sessionManager.getUserInfo();
-//                ((LoginInfo)getActivity().getApplication()).setLogin(true);
-                System.out.println(result);
                 if (result != null) {
-                    System.out.println("name : " + sessionManager.getNAME());
-                    System.out.println("mid : " + sessionManager.getMID());
-                    System.out.println("email : " + sessionManager.getEMAIL());
                     mainUserName.setText(sessionManager.getNAME());
                     mainUserCar.setText("소나타"); //sessionManager.getCarName()
                     nearSiteLinear.setVisibility(View.VISIBLE);
@@ -146,8 +132,10 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             //if(여기서 로그인 세션=0일경우 실행할수있도록) 괄호처리하고 로그인 안되있을시 버튼 누르면 로그인 페이지 이동 세션 =1 일경우 무반응
             case R.id.NotLoginInfo:
-                Intent intent = new Intent(getActivity(), LoginUI.class);
-                startActivity(intent);
+                if(!((LoginInfo) getActivity().getApplication()).isLogin()) {
+                    Intent intent = new Intent(getActivity(), LoginUI.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.GasStation:
                 Intent GasStaion = new Intent(getActivity(), NearSiteUI.class);

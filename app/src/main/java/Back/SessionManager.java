@@ -75,34 +75,14 @@ public class SessionManager {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-//            setMID(body);
-//            setNAME(body);
-//            setEMAIL(body);
-//            //setCID(body);
-//            setCarName(body);
 
             return body;
         }
     }
 
-//    public void setMID(String input) {
-//        System.out.println("input : " + input);
-//        //input을 쪼개서 mid만 뽑아내기
-//        String[] firstSplit = input.split(",");
-//        String[] secondSplit = firstSplit[1].split(":");
-//        MID = secondSplit[1].replaceAll("\"", "");
-//    }
-
     public String getMID() {
         return MID;
     }
-
-//    public void setNAME(String input) {
-//        //input 쪼개서 NAME만 뽑아내기
-//        String[] firstSplit = input.split(",");
-//        String[] secondSplit = firstSplit[3].split(":");
-//        NAME = secondSplit[1].replaceAll("\"", "");
-//    }
 
     public String getNAME() {
         return NAME;
@@ -117,11 +97,6 @@ public class SessionManager {
         return EMAIL;
     }
 
-//    private void setCID(String input) {
-//        String[] firstSplit = input.split(",");
-//        String[] secondSplit = firstSplit[5].split(":");
-//        CID = Integer.parseInt(secondSplit[1].replaceAll("\"", ""));
-//    }
 
     public int getCID() {
         return CID;
