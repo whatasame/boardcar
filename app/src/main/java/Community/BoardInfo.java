@@ -4,6 +4,7 @@ package Community;
  * 글의 정보 하나를 담고 있는 BoardInfo
  * 기능은 BoardVO라고 생각해서 사용하면 됩니다.
  */
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,22 +17,11 @@ public class BoardInfo {
     private String BODY;
     private String TYPE;
     private int UPVOTE;
-    //값 직접 넣어서 만들기
-    public BoardInfo(String MID, int DOWNVOTE, String PDATE, int PID, String TITLE, String BODY,
-                     String TYPE, int UPVOTE) {
-        this.MID = MID;
-        this.DOWNVOTE = DOWNVOTE;
-        this.PDATE = PDATE;
-        this.PID = PID;
-        this.TITLE = TITLE;
-        this.BODY = BODY;
-        this.TYPE = TYPE;
-        this.UPVOTE = UPVOTE;
-    }
+
     // JSONObject로 info 만들기
-    public BoardInfo(JSONObject jsonObject){
+    public BoardInfo(JSONObject jsonObject) {
         try {
-            this.MID =jsonObject.getString("MID");
+            this.MID = jsonObject.getString("MID");
             this.DOWNVOTE = jsonObject.getInt("DOWNVOTE");
             this.PDATE = jsonObject.getString("PDATE");
             this.PID = jsonObject.getInt("PID");
@@ -43,6 +33,7 @@ public class BoardInfo {
             e.printStackTrace();
         }
     }
+
     public String getMID() {
         return MID;
     }
@@ -66,9 +57,11 @@ public class BoardInfo {
     public String getBODY() {
         return BODY;
     }
-    public String getTYPE(){
+
+    public String getTYPE() {
         return TYPE;
     }
+
     public int getUPVOTE() {
         return UPVOTE;
     }

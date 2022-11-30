@@ -52,6 +52,13 @@
             android:text="0"
             android:textColor="@color/black"
             android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/Pid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
     </LinearLayout>
 
     <View
@@ -60,4 +67,8 @@
         android:layout_height="2dp"
         android:backgroundTint="@color/black"
         android:background="?android:attr/listDivider" />
+
+
+
+
 </LinearLayout>

@@ -94,10 +94,13 @@ public class RegisterUI extends AppCompatActivity {
                 else if(register.isNameEmpty(regInputNameStr, Alert)) // 이름란 공백 여부 확인
                     return;
 
+
                 //여기까지 왔으면 위의 정규식 확인 및 공백 여부 확인 모두 통과했다는 뜻임.
                 //이메일 인증번호 통과했는지 여부 및 차량 등록 여부 확인하면 됨.
                 //아래에는 이제 DB에 연결해야하므로 MemberVO에 일단 넣기
                 //DB 연결은 일단 해결 후에 작성
+
+
             }
         });
         regEmailBtn.setOnClickListener(new View.OnClickListener() { //인증번호 발생 버튼 눌럿을시 실행되는것
