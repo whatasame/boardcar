@@ -42,6 +42,7 @@ public class BoardUtil {
     public boolean uploadPost(String postDate, String postTitle, String postBody, String postType) {
 
         SessionManager sessionManager = new SessionManager(context);
+        sessionManager.getUserInfo();
         JSONObject jsonObject = new JSONObject();
         String MID = sessionManager.getMID();
         headers.put("Session-Key", sessionManager.session);
