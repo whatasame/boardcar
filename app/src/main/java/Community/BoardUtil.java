@@ -108,9 +108,16 @@ public class BoardUtil {
             //자유게시판인 경우 비회원도 열람은 가능함. 이를 해결할 방법을 찾을 것.
         } else { //자유게시판을 제외한 꿀팁게시판 및 차량게시판은 Session 이 있는 경우에만 열람이 가능함.
             SessionManager sessionManager = new SessionManager(context);
-            String MID = sessionManager.getMID();
             headers.put("Session-Key", sessionManager.session);
-            HttpRequest httpRequest = new HttpRequest("PUT", "/openPostList", version, headers, jsonObject.toString());
+            //차량인 경우 회원의 차량이 어떤 이름인지 가져온다.
+            if(postType.equals("차량")){
+                headers.put("TYPE",sessionManager.getCarName());//차량
+            }
+            else{ // 꿀팁 게시판
+                headers.put("TYPE","꿀팁");
+            }
+            HttpRequest httpRequest = new HttpRequest("PUT", "/openPostList", version,
+                    headers, jsonObject.toString());
             HttpClient httpClient = new HttpClient(httpRequest, context);
             httpClient.start();
             try {
@@ -242,11 +249,7 @@ public class BoardUtil {
         }
         else
             return false;
-
-
-
     }
-
 }
 
 

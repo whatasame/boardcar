@@ -30,7 +30,6 @@ public class SessionManager {
     private int CID = 0;  // 초기화값
     private boolean IS_ADMIN = false;
     private String CarName = null;
-
     public String session;
 
     public SharedPreferences sharedPreferences;
@@ -75,7 +74,7 @@ public class SessionManager {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            setCarName();
             return body;
         }
     }
@@ -101,8 +100,27 @@ public class SessionManager {
     public int getCID() {
         return CID;
     }
-    private void setCarName(String input) {
+    private void setCarName() {
+        Map<String, String> carHeaders = new HashMap<String, String>() {{
+            put("Content-Type", "text/html;charset=utf-8");
+        }};
         //API 사용해서 cid를 통해 CarName를 받아오기
+        try {
+            JSONObject carJsonObject = new JSONObject();
+            carJsonObject.put("CID",getCID());
+            HttpRequest carNameHttpRequest = new HttpRequest("PUT", "/getCarByCid",
+                    version,carHeaders,carJsonObject.toString());
+            HttpClient carNameHttpClient = new HttpClient(carNameHttpRequest, context);
+            carNameHttpClient.start();
+            carNameHttpClient.join();
+            HttpResponse carNameHttpResponse = carNameHttpClient.getHttpResponse();
+            JSONObject carNameJsonObject = new JSONObject(carNameHttpResponse.getBody());
+            CarName = carNameJsonObject.getString("NAME");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     public String getCarName(){
         return CarName;
