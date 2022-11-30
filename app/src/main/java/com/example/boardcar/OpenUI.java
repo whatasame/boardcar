@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import Community.BoardInfo;
 import Community.BoardUtil;
+import Community.ReplyUtil;
 
 public class OpenUI extends AppCompatActivity {
     TextView openBoardName, openEdit, openDelete, openTitle, openBody, openWriter;
