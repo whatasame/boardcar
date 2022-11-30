@@ -97,7 +97,11 @@ public class RegisterUI extends AppCompatActivity {
                 else if (register.isNameEmpty(regInputNameStr, Alert)) // 이름란 공백 여부 확인
                     return;
 
-                register.runRegister(regInputIdStr, regInputPwStr, regInputNameStr, regInputEmailStr, regSelectCarStr);
+                if(register.runRegister(regInputIdStr, regInputPwStr, regInputNameStr, regInputEmailStr, regSelectCarStr)){
+                    AlertNoEditMsg("회원가입 성공", "성공하였습니다!");
+                }else{
+                    AlertNoEditMsg("회원가입 실패", "실패하였습니다.");
+                }
 
                 //여기까지 왔으면 위의 정규식 확인 및 공백 여부 확인 모두 통과했다는 뜻임.
                 //이메일 인증번호 통과했는지 여부 및 차량 등록 여부 확인하면 됨.

@@ -117,6 +117,7 @@ public class Register {
         }
         HttpResponse httpResponse = httpClient.getHttpResponse();
         String result = httpResponse.getStatusCode();
+        System.out.println("register result : " + result);
 
         //회원가입 성공
         return result.equals("200");
