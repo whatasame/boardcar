@@ -39,7 +39,6 @@ public class RecyclerViewCommentAdapter extends RecyclerView.Adapter {
         ViewHolder ViewHolder = (ViewHolder)holder;
         ViewHolder.body.setText(items.get(position).getBody());
         ViewHolder.writer.setText(items.get(position).getName());
-        ViewHolder.regdate.setText(items.get(position).getRegdate());
 
     }
 

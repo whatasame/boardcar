@@ -1,5 +1,7 @@
 package com.example.boardcar;
 
+import Back.SessionManager;
+import Community.ReplyInfo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 import Community.BoardInfo;
 import Community.BoardUtil;
 import Community.ReplyUtil;
+
+import java.util.ArrayList;
 
 public class OpenUI extends AppCompatActivity {
     TextView openBoardName, openEdit, openDelete, openTitle, openBody, openWriter;
@@ -41,8 +45,6 @@ public class OpenUI extends AppCompatActivity {
                 BoardUtil boardUtil = new BoardUtil(getBaseContext());
                 boardUtil.deletePost(Integer.parseInt(pid));
                 finish();
-
-
 
 
             }
@@ -96,8 +98,15 @@ public class OpenUI extends AppCompatActivity {
         //댓글 생성기
         RecyclerViewCommentAdapter adapter = new RecyclerViewCommentAdapter();
 
+        ArrayList<ReplyInfo> replyInfoArrayList = new ArrayList<>();
+        ReplyUtil replyUtil = new ReplyUtil(getBaseContext());
+        replyInfoArrayList = replyUtil.openReplyList(Integer.parseInt(pid));
+        for (ReplyInfo item : replyInfoArrayList) {
+            CommentList(adapter, commentList, item.getMID(), item.getBODY());
+        }
+
         //댓글 불러올때 DB에서 정보를 불러와서 for문으로 다돌린다
-        CommentList(adapter, commentList, "김상원", "그는신인가?", "2022-11-23");
+        //CommentList(adapter, commentList, "김상원", "그는신인가?");
 
         //수정하기 눌렀을시 글과 함께 화면전환
         openEdit.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +114,7 @@ public class OpenUI extends AppCompatActivity {
             public void onClick(View view) {
                 openTitleStr = openTitle.getText().toString();
                 openBodyStr = openBody.getText().toString();
-                Intent switchIntent= new Intent(getApplicationContext(), BoardEditUI.class);
+                Intent switchIntent = new Intent(getApplicationContext(), BoardEditUI.class);
                 switchIntent.putExtra("Title", openTitleStr);
                 switchIntent.putExtra("Body", openBodyStr);
                 switchIntent.putExtra("type", 1);
@@ -144,17 +153,21 @@ public class OpenUI extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 commentEditStr = commentEdit.getText().toString();
-                //db로 작성된댓글 보낼수 있으면됨 여기서 세션에 있는 작성자 정보를 함께보낸다.
+                ReplyUtil uploadReplyUtil = new ReplyUtil(getBaseContext());
+                SessionManager sessionManager = new SessionManager(getBaseContext());
+                sessionManager.getUserInfo();
+                String MID = sessionManager.getMID();
+                uploadReplyUtil.uploadReply(Integer.parseInt(pid), MID, commentEditStr);
             }
         });
 
     }
 
     //댓글 보여주고 작성하는아이인데 각각 작성자 본문 작성일시 순으로 넣어주면된다
-    public void CommentList(RecyclerViewCommentAdapter adapter, RecyclerView commentList, String writer, String body, String regdate) { //리스트 보여주고 추가한다
+    public void CommentList(RecyclerViewCommentAdapter adapter, RecyclerView commentList, String writer, String body) { //리스트 보여주고 추가한다
 
         adapter.clearItem();
-        adapter.addItem(new RecyclerViewCommentDataModel(writer, body, regdate));
+        adapter.addItem(new RecyclerViewCommentDataModel(writer, body));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         commentList.setLayoutManager(layoutManager);
         commentList.setAdapter(adapter);

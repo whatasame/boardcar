@@ -1,8 +1,17 @@
 package LoginPackage;
 
+import Back.HttpClient;
+import Back.HttpRequest;
+import Back.HttpResponse;
+import android.content.Context;
 import android.content.DialogInterface;
 
 import androidx.appcompat.app.AlertDialog;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /*
 * Author : 이윤상
@@ -15,7 +24,14 @@ import androidx.appcompat.app.AlertDialog;
 * */
 public class Register {
 
-    public Register(){
+    private final String version = "HTTP/1.1";
+    private static Map<String, String> headers = new HashMap<String, String>() {{
+        put("Content-Type", "text/html;charset=utf-8");
+    }};
+
+    private Context context;
+    public Register(Context context){
+        this.context = context;
 
     }
 
@@ -77,8 +93,32 @@ public class Register {
         return false;
     }
 
-    public void runRegister(String enterId, String enterPw, String enterName, String enterEmail){
+    public boolean runRegister(String enterId, String enterPw, String enterName, String enterEmail, String carName){
         //MemberVO memberVO = new MemberVO(enterId, enterPw, enterName, enterEmail);
         //cid 랑 isAdmin 은 어떻게 확인하는지 성현형님께 여쭤보기
+        JSONObject jsonObject = new JSONObject();
+        try{
+            jsonObject.put("MID", enterId);
+            jsonObject.put("PASSWORD", enterPw);
+            jsonObject.put("EMAIL", enterEmail);
+            jsonObject.put("NAME", enterName);
+            jsonObject.put("CNAME", carName);
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        HttpRequest httpRequest = new HttpRequest("PUT", "/register", version, headers, jsonObject.toString());
+        HttpClient httpClient = new HttpClient(httpRequest, context);
+        httpClient.start();
+        try{
+            httpClient.join();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        HttpResponse httpResponse = httpClient.getHttpResponse();
+        String result = httpResponse.getStatusCode();
+
+        //회원가입 성공
+        return result.equals("200");
     }
 }

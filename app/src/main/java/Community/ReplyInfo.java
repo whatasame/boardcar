@@ -8,17 +8,13 @@ public class ReplyInfo {
     private String MID;
     private int PID;
     private String BODY;
-    private int UPVOTE;
-    private int DOWNVOTE;
 
     public ReplyInfo(JSONObject jsonObject) {
         try {
+            this.RID = jsonObject.getInt("RID");
             this.MID = jsonObject.getString("MID");
-            this.DOWNVOTE = jsonObject.getInt("DOWNVOTE");
             this.PID = jsonObject.getInt("PID");
             this.BODY = jsonObject.getString("BODY");
-            this.UPVOTE = jsonObject.getInt("UPVOTE");
-            this.DOWNVOTE = jsonObject.getInt("DOWNVOTE");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -54,21 +50,5 @@ public class ReplyInfo {
 
     public void setBODY(String BODY) {
         this.BODY = BODY;
-    }
-
-    public int getUPVOTE() {
-        return UPVOTE;
-    }
-
-    public void setUPVOTE(int UPVOTE) {
-        this.UPVOTE = UPVOTE;
-    }
-
-    public int getDOWNVOTE() {
-        return DOWNVOTE;
-    }
-
-    public void setDOWNVOTE(int DOWNVOTE) {
-        this.DOWNVOTE = DOWNVOTE;
     }
 }
