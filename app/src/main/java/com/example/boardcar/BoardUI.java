@@ -32,7 +32,7 @@ public class BoardUI extends Fragment implements View.OnClickListener {
     View v;
     RecyclerView boardList;
     Intent intent;
-
+    boolean isFreeList = true, isHoneyTipList = false, isCarList = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,19 +76,45 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.Refresh:
-                // 새로고침 기능 구현
-
-
-
+                int index = getListSelected();
+                BoardUtil boardUtil = new BoardUtil(getContext());
+                ArrayList<BoardInfo> boardInfoArrayList;
+                switch(index){
+                    case 1: // FreeBoard Refresh
+                        freeBoard.setTypeface(null, Typeface.BOLD);
+                        honeyTipBoard.setTypeface(null, Typeface.NORMAL);
+                        carBoard.setTypeface(null, Typeface.NORMAL);
+                        boardInfoArrayList = boardUtil.openPostList("자유");
+                        break;
+                    case 2: // HoneyBoard Refresh
+                        freeBoard.setTypeface(null, Typeface.NORMAL);
+                        honeyTipBoard.setTypeface(null, Typeface.BOLD);
+                        carBoard.setTypeface(null, Typeface.NORMAL);
+                        boardInfoArrayList = boardUtil.openPostList("꿀팁");
+                        break;
+                    case 3: // CarBoard Refresh
+                        freeBoard.setTypeface(null, Typeface.NORMAL);
+                        honeyTipBoard.setTypeface(null, Typeface.NORMAL);
+                        carBoard.setTypeface(null, Typeface.BOLD);
+                        boardInfoArrayList = boardUtil.openPostList("차량");
+                        break;
+                    default: // 초기화. 해당 실행은 없도록 구현
+                        boardInfoArrayList = new ArrayList<>();
+                }
+                for(BoardInfo item : boardInfoArrayList){
+                    BoardList(adapter, boardList, item.getTITLE(), item.getMID(), item.getUPVOTE(), item.getPID());
+                }
                 break;
             case R.id.FreeBoard:
                 BoardUtil freeBoardUtil = new BoardUtil(getContext());
                 freeBoard.setTypeface(null, Typeface.BOLD);
                 honeyTipBoard.setTypeface(null, Typeface.NORMAL);
                 carBoard.setTypeface(null, Typeface.NORMAL);
-                freeBoardUtil.openPostList("자유");
-                //자유게시판에 있는 글 불러오는데 각각 제목,작성자,추천수 DB에 해당하는애 for문으로 돌리기
-                // BoardList(adapter,boardList,"제목","작성자",1);
+                ArrayList<BoardInfo> freeArrayList = freeBoardUtil.openPostList("자유");
+                for (BoardInfo item : freeArrayList){
+                    BoardList(adapter, boardList, item.getTITLE(), item.getMID(), item.getUPVOTE(), item.getPID());
+                }
+                setListSelected(true,false, false);
                 break;
             case R.id.HoneyTipBoard:
                 BoardUtil honeyTipBoardUtil = new BoardUtil(getContext());
@@ -99,21 +125,44 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                 for (BoardInfo item : honeyTipArrayList) {
                     BoardList(adapter, boardList, item.getTITLE(), item.getMID(), item.getUPVOTE(), item.getPID());
                 }
-
+                setListSelected(false,true, false);
                 break;
             case R.id.CarBoard:
+                BoardUtil carBoardUtil = new BoardUtil(getContext());
                 freeBoard.setTypeface(null, Typeface.NORMAL);
                 honeyTipBoard.setTypeface(null, Typeface.NORMAL);
                 carBoard.setTypeface(null, Typeface.BOLD);
-                //여기는 차정보도 함께 뭐어찌저찌 잘묶어서 for문돌려서 나타내야함
-                BoardList(adapter, boardList, "제목", "작성자", 1, 1);
+                ArrayList<BoardInfo> carArrayList = carBoardUtil.openPostList("차량");
+                for (BoardInfo item : carArrayList)
+                    BoardList(adapter, boardList, item.getTITLE(), item.getMID(), item.getUPVOTE(), item.getPID());
+                setListSelected(false,false, true);
                 break;
-
         }
 
 
     }
 
+    /**
+     * 게시판 새로고침을 위해 어디 탭인지 표시하는 메소드
+     * @param isFreeList {boolean}
+     * @param isHoneyTipList {boolean}
+     * @param isCarList {boolean}
+     */
+    private void setListSelected(boolean isFreeList, boolean isHoneyTipList, boolean isCarList){
+        this.isFreeList = isFreeList;
+        this.isHoneyTipList = isHoneyTipList;
+        this.isCarList = isCarList;
+    }
+
+    /**
+     * 선택한 리스트가 뭔지 알려준다.
+     * @return index{int} 1:자유 2:꿀팁 3:차량
+     */
+    private int getListSelected(){
+        if(isFreeList) return 1;
+        else if(isHoneyTipList) return 2;
+        else return 3;
+    }
     //리스트에 내용 보여주는애 제목, 작성자, 추천수 받아오는게
     public void BoardList(RecyclerViewBoardAdapter adapter, RecyclerView BoardList, String title, String writer, int recommend, int pid) {
         BoardList.setVisibility(View.VISIBLE);

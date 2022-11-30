@@ -77,8 +77,8 @@ public class BoardUtil {
 
     /**
      * 타입에 맞는 글들의 정보의 arraylist 반환
-     *
-     * @param postType{String} 글 타입 : "자유", "소나타"... 모델명으로 입력
+     * 전부 Session을 사용해서 목록 불러옴.
+     * @param postType{String} 글 타입 : "자유", "차량", "꿀팁"
      * @return {ArrayList<BoardInfo>} 글 정보의 ArrayList 리턴
      */
     public ArrayList<BoardInfo> openPostList(String postType) {
@@ -90,32 +90,19 @@ public class BoardUtil {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (postType.equals("자유")) { /// 임시 세션 안되는 듯 합니다...
-            headers.put("Session-Key", "unregistered-member"); //비회원에게 임시 session 부여(안됨)
-            HttpRequest httpRequest = new HttpRequest("GET", "/openPostList",
-                    version, headers, jsonObject.toString());
-            HttpClient httpClient = new HttpClient(httpRequest, context);
-            httpClient.start();
-            try {
-                httpClient.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            HttpResponse httpResponse = httpClient.getHttpResponse();
-            if (!httpResponse.getStatusCode().equals("200")) {
-                System.out.println("openPostList error" + httpResponse.getStatusText());
-            }
-            System.out.println(httpResponse.getBody());
-            //자유게시판인 경우 비회원도 열람은 가능함. 이를 해결할 방법을 찾을 것.
-        } else { //자유게시판을 제외한 꿀팁게시판 및 차량게시판은 Session 이 있는 경우에만 열람이 가능함.
             SessionManager sessionManager = new SessionManager(context);
+            sessionManager.getUserInfo();
             headers.put("Session-Key", sessionManager.session);
             //차량인 경우 회원의 차량이 어떤 이름인지 가져온다.
-            if(postType.equals("차량")){
-                headers.put("TYPE",sessionManager.getCarName());//차량
-            }
-            else{ // 꿀팁 게시판
-                headers.put("TYPE","꿀팁");
+            try {
+                if (postType.equals("차량")) {
+                    jsonObject.put("TYPE", sessionManager.getCarName());
+                }
+                else{ // 꿀팁 게시판 and 자유게시판
+                    jsonObject.put("TYPE", postType);
+                }
+            }catch(JSONException e){
+                e.printStackTrace();
             }
             HttpRequest httpRequest = new HttpRequest("PUT", "/openPostList", version,
                     headers, jsonObject.toString());
@@ -145,7 +132,7 @@ public class BoardUtil {
                 e.printStackTrace();
             }
 
-        }
+//        }
 
         return null;
 
