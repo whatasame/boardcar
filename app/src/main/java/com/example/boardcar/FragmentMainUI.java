@@ -143,11 +143,15 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         CustomDialog log = new CustomDialog(getActivity());
+
         switch (view.getId()) {
-            //if(여기서 로그인 세션=0일경우 실행할수있도록) 괄호처리하고 로그인 안되있을시 버튼 누르면 로그인 페이지 이동 세션 =1 일경우 무반응
+            //if(여기서 로그인 세션=0일경우 실행할수있도록) 괄호처리하고 로그인 안되있을시 버튼 누르면 로그인 페이지 이동 세션 =1 일경우 무반
+
             case R.id.NotLoginInfo:
-                Intent intent = new Intent(getActivity(), LoginUI.class);
-                startActivity(intent);
+                if(!((LoginInfo) getActivity().getApplication()).isLogin()){
+                    Intent intent = new Intent(getActivity(), LoginUI.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.GasStation:
                 Intent GasStaion = new Intent(getActivity(), NearSiteUI.class);

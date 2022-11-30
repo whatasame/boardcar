@@ -19,8 +19,8 @@ public class Register {
 
     }
 
-    private void printAlertMessage(String message, AlertDialog.Builder Alert){
-        Alert.setTitle("회원가입 실패");
+    private void printAlertMessage(String title, String message, AlertDialog.Builder Alert){
+        Alert.setTitle(title);
         Alert.setMessage(message);
         Alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
@@ -31,7 +31,7 @@ public class Register {
 
     public boolean isIdEmpty(String enterId, AlertDialog.Builder Alert){
         if(enterId.equals("")){//ID가 비었을 때
-            printAlertMessage("아이디를 입력해 주세요.", Alert);
+            printAlertMessage("로그인 실패", "아이디를 입력해 주세요.", Alert);
             return true;
         }
         return false;
@@ -39,7 +39,7 @@ public class Register {
 
     public boolean isPwEmpty(String enterPw, AlertDialog.Builder Alert){
         if(enterPw.equals("")){//ID가 비었을 때
-            printAlertMessage("비밀번호를 입력해 주세요.", Alert);
+            printAlertMessage("로그인 실패", "비밀번호를 입력해 주세요.", Alert);
             return true;
         }
         return false;
@@ -47,7 +47,7 @@ public class Register {
 
     public boolean isPwSameEmpty(String enterSamePw, AlertDialog.Builder Alert){
         if(enterSamePw.equals("")){
-            printAlertMessage("비밀번호 확인란을 입력해 주세요.", Alert);
+            printAlertMessage("로그인 실패", "비밀번호 확인란을 입력해 주세요.", Alert);
             return true;
         }
         return false;
@@ -55,7 +55,7 @@ public class Register {
 
     public boolean isNameEmpty(String enterName, AlertDialog.Builder Alert){
         if(enterName.equals("")){
-            printAlertMessage("성함을 입력해 주세요.", Alert);
+            printAlertMessage("로그인 실패", "성함을 입력해 주세요.", Alert);
             return true;
         }
         return false;
@@ -63,7 +63,7 @@ public class Register {
 
     public boolean isEmailEmpty(String enterEmail, AlertDialog.Builder Alert){
         if(enterEmail.equals("")){
-            printAlertMessage("이메일을 입력해 주세요.", Alert);
+            printAlertMessage("로그인 실패", "이메일을 입력해 주세요.", Alert);
             return true;
         }
         return false;
@@ -71,7 +71,7 @@ public class Register {
 
     public boolean isEmailVerificationCodeEmpty(String enterVerificationCode, AlertDialog.Builder Alert){
         if(enterVerificationCode.equals("")){
-            printAlertMessage("이메일 인증번호를 입력해주세요.", Alert);
+            printAlertMessage("로그인 실패", "이메일 인증번호를 입력해주세요.", Alert);
             return true;
         }
         return false;
