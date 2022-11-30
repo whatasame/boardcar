@@ -57,13 +57,13 @@
                 android:text="차량" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/BoardSort"
+                android:id="@+id/Refresh"
                 android:layout_width="88dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/shape_btn"
                 android:drawableTint="#c8c8c8"
-                android:text="정렬 ▽"
+                android:text="새로고침"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 tools:ignore="TouchTargetSizeCheck" />

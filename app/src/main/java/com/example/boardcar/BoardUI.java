@@ -41,7 +41,7 @@ public class BoardUI extends Fragment implements View.OnClickListener {
         freeBoard = v.findViewById(R.id.FreeBoard);
         honeyTipBoard = v.findViewById(R.id.HoneyTipBoard);
         carBoard = v.findViewById(R.id.CarBoard);
-        boardSort = v.findViewById(R.id.BoardSort);
+        boardSort = v.findViewById(R.id.Refresh);
         boardWrite = v.findViewById(R.id.BoardWrite);
         boardList = v.findViewById(R.id.BoardList);
 
@@ -75,8 +75,11 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(getActivity(), BoardEditUI.class);
                 startActivity(intent);
                 break;
-            case R.id.BoardSort:
-                //정렬은 빡세니... 맨마지막?
+            case R.id.Refresh:
+                // 새로고침 기능 구현
+
+
+
                 break;
             case R.id.FreeBoard:
                 BoardUtil freeBoardUtil = new BoardUtil(getContext());
