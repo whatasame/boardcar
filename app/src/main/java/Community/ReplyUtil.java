@@ -27,15 +27,6 @@ public class ReplyUtil {
         this.context = context;
     }
 
-    /*
-    * 1. pid를 통해 해당 게시글의 댓글을 List형태로 모두 불러온다
-    * 2. pid를 통해 해당 게시글에 댓글을 추가한다.
-    * 3. pid를 통해 해당 댓글을 수정한다.
-    * 4. pid를 통해 해당 댓글을 삭제한다.
-    *
-    *
-    *
-    * */
 
     public boolean uploadReply(int pid, String mid, String body){
         JSONObject jsonObject = new JSONObject();
@@ -58,8 +49,8 @@ public class ReplyUtil {
         }
         HttpResponse httpResponse = httpClient.getHttpResponse();
         String result = httpResponse.getStatusCode();
-        //댓글 등록 성공
-        return result.equals("200");
+
+        return result.equals("200"); //댓글 등록 성공 / 실패 여부 출력
     }
 
     public ArrayList<ReplyInfo> openReplyList(int pid){
