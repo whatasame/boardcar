@@ -100,6 +100,7 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                         break;
                     default: // 초기화. 해당 실행은 없도록 구현
                         boardInfoArrayList = new ArrayList<>();
+                        break;
                 }
                 for(BoardInfo item : boardInfoArrayList){
                     BoardList(adapter, boardList, item.getTITLE(), item.getMID(), item.getUPVOTE(), item.getPID());

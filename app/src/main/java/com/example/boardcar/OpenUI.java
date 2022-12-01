@@ -89,7 +89,7 @@ public class OpenUI extends AppCompatActivity {
         openTitle.setText(boardInfo.getTITLE());
         openBoardName.setText(boardInfo.getTYPE());
         openBody.setText(boardInfo.getBODY());
-        openWriter.setText(boardInfo.getMID());
+        openWriter.setText("작성자 : "+boardInfo.getMID()+" / 작성일 : "+boardInfo.getPDATE()); // 작성자 + 작성일지
         openReCommendBtn.setText("추천 : " + boardInfo.getUPVOTE());
         openDeprecatedBtn.setText("비추 : " + boardInfo.getDOWNVOTE());
 
