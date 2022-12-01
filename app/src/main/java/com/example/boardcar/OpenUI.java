@@ -116,7 +116,8 @@ public class OpenUI extends AppCompatActivity {
         editClickListener = new RecyclerViewCommentAdapter.OnEditClickListener() {
             @Override
             public void onEditClicked(int position) {
-                Toast.makeText(OpenUI.this, position+"의 수정버튼 클릭", Toast.LENGTH_SHORT).show();
+                CommentDialog log = new CommentDialog(OpenUI.this);
+                log.callFunction();
             }
         };
 
@@ -125,6 +126,7 @@ public class OpenUI extends AppCompatActivity {
             public void onDelClicked(int position) {
                 AlertCommentDeleteMsg("댓글 삭제","댓글을 삭제하시겠습니까?");
             }
+
         };
         //제목과 작성자를 서버로 보내서 애랑 일치하는 글을 불러와서 각각 setText로 삽입시켜서 보여주는 시스템;
 
