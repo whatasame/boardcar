@@ -10,6 +10,7 @@ package com.example.boardcar;
 *
 *
 * */
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +26,7 @@ import LoginPackage.CheckMemberData;
 import LoginPackage.Register;
 
 public class RegisterUI extends AppCompatActivity {
-
+    private static final int REQUEST_CODE = 1000;
     EditText regInputId,regInputPw,regCheckPw,regInputName,regSelectCar,regInputEmail,regEmailCheck;
     Button regFindCarBtn,regEmailBtn ,regEmailCheckBtn,registerBtn;
     TextView regHideSuccess,regHideCheckNumber;
@@ -171,17 +172,17 @@ public class RegisterUI extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),SelectCarUI.class);
                 intent.putExtra("SelectCar",0);
-                startActivity(intent);
+                startActivityForResult(intent,REQUEST_CODE);
 
             }
         });
-
     }
-
     @Override
-    protected void onResume() {
-        super.onResume();
-        Intent intent = getIntent();
-        regSelectCar.setText( intent.getStringExtra("CarName"));
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            String result = data.getStringExtra("CarName");
+            regSelectCar.setText(result);
+        }
     }
 }

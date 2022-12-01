@@ -66,9 +66,9 @@ Intent intent;
                 int type=intent.getIntExtra("SelectCar",0);
                 if (selectCarNameStr.length() != 0) {
                     if(type==0){
-                        intent = new Intent(getApplicationContext(),RegisterUI.class);
+                        intent = new Intent();
                         intent.putExtra("CarName",selectCarName.getText().toString());
-                        startActivity(intent);
+                        setResult(RESULT_OK,intent);
                         finish();
                     }else if(type==1){
                         //DB에서 바로 selectCarName.getText().toString() 이거 넣어주면됨
