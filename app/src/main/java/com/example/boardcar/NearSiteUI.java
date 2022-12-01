@@ -1,4 +1,5 @@
 package com.example.boardcar;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,18 +38,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
+
 import noman.googleplaces.NRPlaces;
 import noman.googleplaces.Place;
 import noman.googleplaces.PlaceType;
 import noman.googleplaces.PlacesException;
 import noman.googleplaces.PlacesListener;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-
-
 
 
 public class NearSiteUI extends AppCompatActivity
@@ -120,7 +121,7 @@ public class NearSiteUI extends AppCompatActivity
 
 
     // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
-    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
+    String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
 
 
     Location mCurrentLocatiion;
@@ -134,7 +135,6 @@ public class NearSiteUI extends AppCompatActivity
     List<Marker> previous_marker = null;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,17 +146,21 @@ public class NearSiteUI extends AppCompatActivity
 
         previous_marker = new ArrayList<Marker>();
 
-        Button button = (Button)findViewById(R.id.SearchGasButton);
+        Button button = (Button) findViewById(R.id.SearchGasButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "위치를 검색중입니다.", Toast.LENGTH_SHORT).show();
                 showPlaceInformation(currentPosition);
             }
         });
-        Button button2 = (Button)findViewById(R.id.SearchRepairButton);
+        Button button2 = (Button) findViewById(R.id.SearchRepairButton);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
+
+                Toast.makeText(getApplicationContext(), "위치를 검색중입니다.", Toast.LENGTH_SHORT).show();
                 showPlaceInformation2(currentPosition);
             }
         });
@@ -167,7 +171,6 @@ public class NearSiteUI extends AppCompatActivity
         locationRequest = new LocationRequest()
                 .setInterval(UPDATE_INTERVAL_MS)
                 .setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);
-
 
 
         LocationSettingsRequest.Builder builder =
@@ -195,7 +198,6 @@ public class NearSiteUI extends AppCompatActivity
         setDefaultLocation();
 
 
-
         //런타임 퍼미션 처리
         // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(this,
@@ -204,9 +206,8 @@ public class NearSiteUI extends AppCompatActivity
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
 
-
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
-                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED   ) {
+                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
 
             // 2. 이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
@@ -215,7 +216,7 @@ public class NearSiteUI extends AppCompatActivity
             startLocationUpdates(); // 3. 위치 업데이트 시작
 
 
-        }else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
+        } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
 
             // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])) {
@@ -228,7 +229,7 @@ public class NearSiteUI extends AppCompatActivity
                     public void onClick(View view) {
 
                         // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-                        ActivityCompat.requestPermissions( NearSiteUI.this, REQUIRED_PERMISSIONS,
+                        ActivityCompat.requestPermissions(NearSiteUI.this, REQUIRED_PERMISSIONS,
                                 PERMISSIONS_REQUEST_CODE);
                     }
                 }).show();
@@ -237,12 +238,11 @@ public class NearSiteUI extends AppCompatActivity
             } else {
                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-                ActivityCompat.requestPermissions( this, REQUIRED_PERMISSIONS,
+                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
             }
 
         }
-
 
 
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -252,7 +252,7 @@ public class NearSiteUI extends AppCompatActivity
             @Override
             public void onMapClick(LatLng latLng) {
 
-                Log.d( TAG, "onMapClick :");
+                Log.d(TAG, "onMapClick :");
             }
         });
     }
@@ -291,14 +291,13 @@ public class NearSiteUI extends AppCompatActivity
     };
 
 
-
     private void startLocationUpdates() {
 
         if (!checkLocationServicesStatus()) {
 
             Log.d(TAG, "startLocationUpdates : call showDialogForLocationServiceSetting");
             showDialogForLocationServiceSetting();
-        }else {
+        } else {
 
             int hasFineLocationPermission = ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION);
@@ -306,9 +305,8 @@ public class NearSiteUI extends AppCompatActivity
                     Manifest.permission.ACCESS_COARSE_LOCATION);
 
 
-
             if (hasFineLocationPermission != PackageManager.PERMISSION_GRANTED ||
-                    hasCoarseLocationPermission != PackageManager.PERMISSION_GRANTED   ) {
+                    hasCoarseLocationPermission != PackageManager.PERMISSION_GRANTED) {
 
                 Log.d(TAG, "startLocationUpdates : 퍼미션 안가지고 있음");
                 return;
@@ -338,7 +336,7 @@ public class NearSiteUI extends AppCompatActivity
             Log.d(TAG, "onStart : call mFusedLocationClient.requestLocationUpdates");
             mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
 
-            if (mMap!=null)
+            if (mMap != null)
                 mMap.setMyLocationEnabled(true);
 
         }
@@ -358,8 +356,6 @@ public class NearSiteUI extends AppCompatActivity
             mFusedLocationClient.removeLocationUpdates(locationCallback);
         }
     }
-
-
 
 
     public String getCurrentAddress(LatLng latlng) {
@@ -387,8 +383,7 @@ public class NearSiteUI extends AppCompatActivity
 
 
         if (addresses == null || addresses.size() == 0) {
-            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
-            return "주소 미발견";
+            return "검색 완료";
 
         } else {
             Address address = addresses.get(0);
@@ -463,16 +458,14 @@ public class NearSiteUI extends AppCompatActivity
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
 
-
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
-                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED   ) {
+                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
 
         return false;
 
     }
-
 
 
     /*
@@ -600,8 +593,8 @@ public class NearSiteUI extends AppCompatActivity
                 break;
         }
     }
-    public void showPlaceInformation(LatLng location)
-    {
+
+    public void showPlaceInformation(LatLng location) {
         mMap.clear();//지도 클리어
 
         if (previous_marker != null)
@@ -618,8 +611,7 @@ public class NearSiteUI extends AppCompatActivity
                 .execute();
     }
 
-    public void showPlaceInformation2(LatLng location)
-    {
+    public void showPlaceInformation2(LatLng location) {
         mMap.clear();//지도 클리어
 
         if (previous_marker != null)
@@ -635,7 +627,6 @@ public class NearSiteUI extends AppCompatActivity
                 .build()
                 .execute();
     }
-
 
 
 }
