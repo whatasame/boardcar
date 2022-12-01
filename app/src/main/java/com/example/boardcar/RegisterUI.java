@@ -30,7 +30,7 @@ public class RegisterUI extends AppCompatActivity {
     EditText regInputId,regInputPw,regCheckPw,regInputName,regSelectCar,regInputEmail,regEmailCheck;
     Button regFindCarBtn,regEmailBtn ,regEmailCheckBtn,registerBtn;
     TextView regHideSuccess,regHideCheckNumber;
-    String regInputIdStr, regInputPwStr, regCheckPwStr, regInputNameStr, regFindCarStr, regInputEmailStr,regEmailCheckStr;
+    String regInputIdStr, regInputPwStr, regCheckPwStr, regInputNameStr, regSelectCarStr, regInputEmailStr,regEmailCheckStr;
 
     AlertDialog.Builder Alert;
 
