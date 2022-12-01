@@ -22,6 +22,10 @@ import java.util.Map;
 *       1. Register 관련 class Diagram 내용 전체 수정 필요함
 *
 * */
+
+/**
+ * @todo Register 검사 확인
+ */
 public class Register {
 
     private final String version = "HTTP/1.1";
@@ -95,14 +99,15 @@ public class Register {
 
     public boolean runRegister(String enterId, String enterPw, String enterName, String enterEmail, String carName){
         //MemberVO memberVO = new MemberVO(enterId, enterPw, enterName, enterEmail);
-        //cid 랑 isAdmin 은 어떻게 확인하는지 성현형님께 여쭤보기
+        //cid 랑 isAdmin 은 어떻게 확인하는지 성현형님께 여쭤보기 => cid는 넣었고, isAdmin은 필요없어요(isAdmin default값 = false)
         JSONObject jsonObject = new JSONObject();
+        CarMap carMap = new CarMap(context);
         try{
             jsonObject.put("MID", enterId);
             jsonObject.put("PASSWORD", enterPw);
             jsonObject.put("EMAIL", enterEmail);
             jsonObject.put("NAME", enterName);
-            jsonObject.put("CNAME", carName);
+            jsonObject.put("CNAME", carMap.getCidByName(carName));
         }catch (JSONException e){
             e.printStackTrace();
         }

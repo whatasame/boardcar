@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import Community.EmailUtil;
 import LoginPackage.CheckMemberData;
 import LoginPackage.Register;
 
@@ -72,7 +73,7 @@ public class RegisterUI extends AppCompatActivity {
 
         Alert = new AlertDialog.Builder(RegisterUI.this);
         Alert.setTitle("회원가입 Error");
-
+        EmailUtil emailUtil = new EmailUtil(getBaseContext()); // Email에 사용하는 emailUtil
         registerBtn.setOnClickListener(new View.OnClickListener() { //회원가입 버튼클릭시 실행되는 모든것 다적어야함
             @Override
             public void onClick(View view) {
@@ -114,42 +115,24 @@ public class RegisterUI extends AppCompatActivity {
         regEmailBtn.setOnClickListener(new View.OnClickListener() { //인증번호 발생 버튼 눌럿을시 실행되는것
             @Override
             public void onClick(View view) {
-
                 regInputEmailStr = (regInputEmail.getText().toString());
                 if (!register.isEmailEmpty(regInputEmailStr, Alert)) { //이메일을 입력했다면
-
-
-/*
-                    String host = "smtp.naver.com";
-                    final String username = "project_boardcar";
-                    final String password = "yuse2022";
-                    int port = 465;
-                    String testVerificationCode = "stderr1234";
-                    String receiver = "ys010610@naver.com";
-                    String title = "Boardcar 인증번호 메일입니다.";
-                    String body = "인증번호는 다음과 같습니다.\n  " + testVerificationCode + "\n이 인증번호를 입력해주세요";
-                    MailSend ms = new MailSend();
-                    new Thread(() -> {
-                        ms.send(host, port, username, password, receiver, title, body);
-                    }).start();*/
-
-                    /*if(checkMemberData.isEmailRegexMatched(regInputEmailStr, Alert)){ //이메일 정규식을 만족했다면
-
-                        //이메일 전송 코드 작성해서 넣기
-
-                    }*/
-
-
-                 /*if(DB에서 이메일 체크하고 있는지 없는지 확인){
-                    //인증번호 날라오는거 함수? 암튼 그거 쓰기
-                   regHideSuccess.setVisibility(View.VISIBLE);
-                    regEmailCheckBtn.setEnabled(true);
-                 }else{
-                    AlertNoEditMsg("회원가입 실패","회원님의 정보를 찾을수 없어요");
-                 }*/
-
-                    regHideSuccess.setVisibility(View.VISIBLE); // 실제론 지워줘야함!
-                    regEmailCheckBtn.setEnabled(true);
+                    if(checkMemberData.isEmailRegexMatched(regInputEmailStr, Alert)){ //이메일 정규식을 만족했다면 @todo 정규식 안되는거 같은데..?
+                        if(emailUtil.sendAuthenticationCode(regInputEmailStr)){
+                            regHideSuccess.setVisibility(View.VISIBLE);
+                            regEmailCheckBtn.setEnabled(true);
+                        }
+                        else{
+                            AlertNoEditMsg("이메일", "양식에 맞지 않는 이메일입니다.");
+                        }
+                    }
+//                 if(true){ //DB에서 이메일 체크하고 있는지 없는지 확인 @todo 이거 이메일 체크 API 힘들거 같습니다...
+//                    //인증번호 날라오는거 함수? 암튼 그거 쓰기
+//                   regHideSuccess.setVisibility(View.VISIBLE);
+//                    regEmailCheckBtn.setEnabled(true);
+//                 }else{
+//                    AlertNoEditMsg("회원가입 실패","회원님의 정보를 찾을수 없어요");
+//                 }
                 } else {
                     AlertNoEditMsg("회원가입 실패", "이메일을 입력해주세요");
                 }
@@ -160,16 +143,13 @@ public class RegisterUI extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 regEmailCheckStr = (regEmailCheck.getText().toString());
-                int test = 123;
                 if (!register.isEmailVerificationCodeEmpty(regEmailCheckStr, Alert)) { //인증번호란에 입력되어 있다면
-
-                    if (regEmailCheckStr.equals("1234")) {
+                    if (emailUtil.authentication(regEmailCheckStr)) {
                         AlertNoEditMsg("인증번호 일치 ", "인증번호가 일치했습니다.");
-
                     }
-
-                } else {
-                    regHideCheckNumber.setVisibility(View.VISIBLE); //인증번호가 일치하지않아요 나타나는애
+                    else {
+                        regHideCheckNumber.setVisibility(View.VISIBLE); //인증번호가 일치하지않아요 나타나는애
+                    }
                 }
             }
         });
