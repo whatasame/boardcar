@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import Back.SessionManager;
+import LoginPackage.CarUtil;
+
 public class SelectCarUI extends AppCompatActivity {
 
 String selectCarNameStr;
@@ -72,6 +75,12 @@ Intent intent;
                         finish();
                     }else if(type==1){
                         //DB에서 바로 selectCarName.getText().toString() 이거 넣어주면됨
+                        CarUtil carUtil = new CarUtil(getBaseContext());
+                        SessionManager sessionManager = new SessionManager(getBaseContext());
+                        sessionManager.getUserInfo();
+                        carUtil.updateMemberCar(sessionManager.getMID(),
+                                carUtil.getCidByName(selectCarName.getText().toString()),
+                                sessionManager.session);
                         finish();
 
                     }
