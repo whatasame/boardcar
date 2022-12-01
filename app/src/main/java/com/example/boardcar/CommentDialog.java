@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import Community.ReplyUtil;
+
 public class CommentDialog {
 
     private Context context;
@@ -22,7 +24,7 @@ public class CommentDialog {
     }
 
 
-    public void callFunction() {
+    public void callFunction(int position) {
 
 
         final Dialog dlg = new Dialog(context);
@@ -40,10 +42,13 @@ public class CommentDialog {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ReplyUtil replyUtil = new ReplyUtil(context);
                 String str = message.getText().toString();
+
                 //str 을 이제 DB에 업데이트시키면됨 // 댓글수정
-                Toast.makeText(context,str,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context,str,Toast.LENGTH_SHORT).show();
+                // position 0~ size-1
+                Toast.makeText(context, position+"번째", Toast.LENGTH_SHORT).show();
                 dlg.dismiss();
             }
         });

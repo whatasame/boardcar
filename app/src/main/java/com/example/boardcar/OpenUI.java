@@ -117,17 +117,11 @@ public class OpenUI extends AppCompatActivity {
             @Override
             public void onEditClicked(int position) {
                 CommentDialog log = new CommentDialog(OpenUI.this);
-                log.callFunction();
+                log.callFunction(position);
             }
         };
 
-        delClickListener = new RecyclerViewCommentAdapter.OnDelClickListener() {
-            @Override
-            public void onDelClicked(int position) {
-                AlertCommentDeleteMsg("댓글 삭제","댓글을 삭제하시겠습니까?");
-            }
 
-        };
         //제목과 작성자를 서버로 보내서 애랑 일치하는 글을 불러와서 각각 setText로 삽입시켜서 보여주는 시스템;
 
         intent = getIntent();
@@ -163,6 +157,12 @@ public class OpenUI extends AppCompatActivity {
             CommentList(adapter, commentList, item.getMID(), item.getBODY());
         }
 
+        delClickListener = new RecyclerViewCommentAdapter.OnDelClickListener() {
+            @Override
+            public void onDelClicked(int position) {
+                AlertCommentDeleteMsg("댓글 삭제","댓글을 삭제하시겠습니까?");
+            }
+        };
         //댓글 불러올때 DB에서 정보를 불러와서 for문으로 다돌린다
         //CommentList(adapter, commentList, "김상원", "그는신인가?");
 

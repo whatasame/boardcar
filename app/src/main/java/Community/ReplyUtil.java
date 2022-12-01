@@ -89,5 +89,65 @@ public class ReplyUtil {
         }
         return null;
     }
+    public boolean updateReply(int RID, String updateBody){
+        SessionManager sessionManager = new SessionManager(context);
+        headers.put("Session-Key", sessionManager.session);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("RID", RID);
+            jsonObject.put("BODY", updateBody);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        HttpRequest updateReplyRequest = new HttpRequest("POST", "/updateReply",
+                version, headers, jsonObject.toString());
+        HttpClient httpClient = new HttpClient(updateReplyRequest, context);
+        httpClient.start();
+        try {
+            httpClient.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        HttpResponse httpResponse = httpClient.getHttpResponse();
+        if(httpResponse.getStatusCode().equals("200")){
+            //수정 성공
+            return true;
+        }
+        else
+            //수정 실패
+            return false;
+    }
+    public boolean deleteReply(int rid){
+        SessionManager sessionManager = new SessionManager(context);
+        headers.put("Session-Key", sessionManager.session);
+        JSONObject jsonObject = new JSONObject();
 
+        try {
+            jsonObject.put("RID", rid);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        HttpRequest deletePostRequest = new HttpRequest("POST", "/deletePost", version,
+                headers,  jsonObject.toString());
+
+        HttpClient httpClient = new HttpClient(deletePostRequest, context);
+        httpClient.start();
+        try {
+            httpClient.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        HttpResponse httpResponse = httpClient.getHttpResponse();
+        String res = httpResponse.getStatusCode();
+        if(res.equals("200")){
+            //삭제 성공
+            return true;
+        }
+        else
+            return false;
+    }
 }
+
+
+
