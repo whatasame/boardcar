@@ -41,11 +41,11 @@ public class SessionManager {
     }
 
     /**
-     * local에 있는 SharedPreferences에 세션Key를 이용하여 body를 리턴 및 myinfo설정
+     * local에 있는 SharedPreferences에 세션Key를 이용하여 body를 리턴 및 member설정
      * @return body {String}
      */
     public String getUserInfo() {
-        HttpRequest infoRequest = new HttpRequest("GET", "/myInfo", version, headers, "");
+        HttpRequest infoRequest = new HttpRequest("GET", "/member", version, headers, "");
         infoRequest.putHeader("Session-Key", session);
         HttpClient httpClient = new HttpClient(infoRequest, context);
         httpClient.start();
