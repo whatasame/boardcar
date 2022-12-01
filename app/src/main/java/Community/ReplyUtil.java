@@ -113,9 +113,13 @@ public class ReplyUtil {
             //수정 성공
             return true;
         }
-        else
+        else {
             //수정 실패
+            System.out.println("*** editReply ERROR ***");
+            System.out.println(httpResponse.getStatusCode() + " " + httpResponse.getStatusCode());
+            System.out.println(httpResponse.getBody());
             return false;
+        }
     }
     public boolean deleteReply(int rid){
         SessionManager sessionManager = new SessionManager(context);
@@ -128,7 +132,7 @@ public class ReplyUtil {
             e.printStackTrace();
         }
 
-        HttpRequest deletePostRequest = new HttpRequest("POST", "/deletePost", version,
+        HttpRequest deletePostRequest = new HttpRequest("POST", "/deleteReply", version,
                 headers,  jsonObject.toString());
 
         HttpClient httpClient = new HttpClient(deletePostRequest, context);
@@ -144,8 +148,12 @@ public class ReplyUtil {
             //삭제 성공
             return true;
         }
-        else
+        else {
+            System.out.println("***deleteReply ERROR ***");
+            System.out.println(httpResponse.getStatusCode()+" "+httpResponse.getStatusCode());
+            System.out.println(httpResponse.getBody());
             return false;
+        }
     }
 }
 

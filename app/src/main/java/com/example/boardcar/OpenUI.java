@@ -113,13 +113,7 @@ public class OpenUI extends AppCompatActivity {
         commentEditBtn = findViewById(R.id.CommentEditBtn);
         commentEdit = findViewById(R.id.CommentEdit);
         commentList = findViewById(R.id.CommentList);
-        editClickListener = new RecyclerViewCommentAdapter.OnEditClickListener() {
-            @Override
-            public void onEditClicked(int position) {
-                CommentDialog log = new CommentDialog(OpenUI.this);
-                log.callFunction(position);
-            }
-        };
+
 
 
         //제목과 작성자를 서버로 보내서 애랑 일치하는 글을 불러와서 각각 setText로 삽입시켜서 보여주는 시스템;
@@ -137,7 +131,7 @@ public class OpenUI extends AppCompatActivity {
         openReCommendBtn.setText("추천 : " + boardInfo.getUPVOTE());
         openDeprecatedBtn.setText("비추 : " + boardInfo.getDOWNVOTE());
 
-        // 세션의 멤버정보를 가져오기 위한 sessionManager
+        // UUID의 멤버정보를 가져오기 위한 sessionManager
         SessionManager sessionManager = new SessionManager(getBaseContext());
         sessionManager.getUserInfo();
         if(!sessionManager.IS_ADMIN()) {
@@ -149,22 +143,43 @@ public class OpenUI extends AppCompatActivity {
 
         //댓글 생성기
         RecyclerViewCommentAdapter adapter = new RecyclerViewCommentAdapter(OpenUI.this,editClickListener,delClickListener);
-
-        ArrayList<ReplyInfo> replyInfoArrayList = new ArrayList<>();
         ReplyUtil replyUtil = new ReplyUtil(getBaseContext());
-        replyInfoArrayList = replyUtil.openReplyList(Integer.parseInt(pid));
-        for (ReplyInfo item : replyInfoArrayList) {
+        ArrayList<ReplyInfo> replyInfoArrayList = replyUtil.openReplyList(Integer.parseInt(pid));
+        for (ReplyInfo item : replyInfoArrayList) { //댓글 불러올때 DB에서 정보를 불러와서 for문으로 다돌린다
             CommentList(adapter, commentList, item.getMID(), item.getBODY());
         }
-
+        editClickListener = new RecyclerViewCommentAdapter.OnEditClickListener() {
+            @Override
+            public void onEditClicked(int position) {
+                if(!sessionManager.IS_ADMIN()) { // admin or 작성자가 아닌 경우
+                    if (replyInfoArrayList.get(position).getMID() != sessionManager.getMID())
+                        Toast.makeText(OpenUI.this, "작성자만 수정이 가능합니다.",
+                                Toast.LENGTH_SHORT).show();
+                }
+                else { // admin or 작성자
+                    /**
+                     * @// TODO: 2022-12-02 이거 rid를 commentdialog를 인자 변경해서 넣었는데 되는지 확인하기
+                     */
+                    CommentDialog log = new CommentDialog(OpenUI.this);
+                    log.callFunction(position, replyInfoArrayList.get(position).getRID());
+                }
+            }
+        };
         delClickListener = new RecyclerViewCommentAdapter.OnDelClickListener() {
             @Override
             public void onDelClicked(int position) {
-                AlertCommentDeleteMsg("댓글 삭제","댓글을 삭제하시겠습니까?");
+                if(!sessionManager.IS_ADMIN()) { // admin or 작성자가 아닌 경우
+                    if (replyInfoArrayList.get(position).getMID() != sessionManager.getMID())
+                        Toast.makeText(OpenUI.this, "작성자만 삭제가 가능합니다.",
+                                Toast.LENGTH_SHORT).show();
+                }
+                else { // admin or 작성자
+                    AlertCommentDeleteMsg("댓글 삭제", "댓글을 삭제하시겠습니까?");
+                    replyUtil.deleteReply(replyInfoArrayList.get(position).getRID());
+                }
             }
         };
-        //댓글 불러올때 DB에서 정보를 불러와서 for문으로 다돌린다
-        //CommentList(adapter, commentList, "김상원", "그는신인가?");
+
 
         //수정하기 눌렀을시 글과 함께 화면전환
         openEdit.setOnClickListener(new View.OnClickListener() {
@@ -178,8 +193,6 @@ public class OpenUI extends AppCompatActivity {
                 switchIntent.putExtra("type", 1);
                 switchIntent.putExtra("pid", pid);
 
-                // 본인이 쓴 글인지 MID? 로 확인을 해야 수정 및 삭제가 가능해진다. 그 기능 필요함
-
                 startActivity(switchIntent);
                 finish();
             }
@@ -188,7 +201,7 @@ public class OpenUI extends AppCompatActivity {
         openDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //위에보면 이친구있는데 거기에 db 삭제하는 기능 넣어야함
+                //밑에보면 이친구있는데 거기에 db 삭제하는 기능 넣어야함
                 AlertIDMsg("정말 삭제하시겠습니까?", "해당글을 삭제하고 싶으시면 확인 버튼을 눌러주세요 ");
             }
         });

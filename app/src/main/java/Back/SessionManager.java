@@ -11,10 +11,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-
-/**
- * @// TODO: 2022-11-30 API 추가 내용 최정규 선배님께 전송해서 API 받기 차이름
- */
 public class SessionManager {
 
     private final String version = "HTTP/1.1";
