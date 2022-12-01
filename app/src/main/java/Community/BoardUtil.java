@@ -52,7 +52,10 @@ public class BoardUtil {
             jsonObject.put("PDATE", postDate);
             jsonObject.put("TITLE", postTitle);
             jsonObject.put("BODY", postBody);
-            jsonObject.put("TYPE", sessionManager.getCarName());
+            if(postType.equals("차량"))
+                jsonObject.put("TYPE", sessionManager.getCarName());
+            else
+                jsonObject.put("TYPE",postType);
 
         } catch (JSONException e) {
             e.printStackTrace();
