@@ -70,8 +70,8 @@ public class Login {
     public String runLogin(String enterId, String enterPw, AlertDialog.Builder Alert) throws JSONException, InterruptedException {
 
         JSONObject loginJson = new JSONObject();
-        loginJson.put("id", enterId);
-        loginJson.put("password", enterPw);
+        loginJson.put("MID", enterId);
+        loginJson.put("PASSWORD", enterPw);
         String loginInfo = loginJson.toString();
         HttpRequest loginRequest = new HttpRequest("POST", "/login", version, headers, loginInfo);
 
