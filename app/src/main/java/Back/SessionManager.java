@@ -45,7 +45,7 @@ public class SessionManager {
      * @return body {String}
      */
     public String getUserInfo() {
-        HttpRequest infoRequest = new HttpRequest("GET", "/member", version, headers, "");
+        HttpRequest infoRequest = new HttpRequest("POST", "/member", version, headers, "");
         infoRequest.putHeader("Session-Key", session);
         HttpClient httpClient = new HttpClient(infoRequest, context);
         httpClient.start();
