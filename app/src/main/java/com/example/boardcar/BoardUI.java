@@ -116,12 +116,14 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                     BoardList(adapter, boardList, item.getTITLE(), item.getMID(), item.getUPVOTE(), item.getPID());
                 }
                 setListSelected(true,false, false);
+                boardWrite.setVisibility(View.VISIBLE);
                 break;
             case R.id.HoneyTipBoard:
                 BoardUtil honeyTipBoardUtil = new BoardUtil(getContext());
                 freeBoard.setTypeface(null, Typeface.NORMAL);
                 honeyTipBoard.setTypeface(null, Typeface.BOLD);
                 carBoard.setTypeface(null, Typeface.NORMAL);
+                boardWrite.setVisibility(View.INVISIBLE);
                 ArrayList<BoardInfo> honeyTipArrayList = honeyTipBoardUtil.openPostList("꿀팁");
                 for (BoardInfo item : honeyTipArrayList) {
                     BoardList(adapter, boardList, item.getTITLE(), item.getMID(), item.getUPVOTE(), item.getPID());
@@ -137,6 +139,7 @@ public class BoardUI extends Fragment implements View.OnClickListener {
                 for (BoardInfo item : carArrayList)
                     BoardList(adapter, boardList, item.getTITLE(), item.getMID(), item.getUPVOTE(), item.getPID());
                 setListSelected(false,false, true);
+                boardWrite.setVisibility(View.VISIBLE);
                 break;
         }
 
