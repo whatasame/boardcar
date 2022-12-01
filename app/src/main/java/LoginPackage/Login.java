@@ -91,6 +91,9 @@ public class Login {
             //printAlertMessage("로그인에 성공하였습니다.", Alert);
         }
         else{
+            System.out.println("runLogin Error!");
+            System.out.println("Status " + httpResponse.getStatusCode()+httpResponse.getStatusText());
+            System.out.println("Body : "+httpResponse.getBody());
             printAlertMessage("ID 혹은 PW가 틀렸습니다.", Alert);
         }
 

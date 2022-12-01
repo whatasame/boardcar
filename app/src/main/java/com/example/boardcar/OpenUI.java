@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import Back.SessionManager;
 import Community.BoardInfo;
 import Community.BoardUtil;
 import Community.ReplyUtil;
@@ -89,9 +90,19 @@ public class OpenUI extends AppCompatActivity {
         openTitle.setText(boardInfo.getTITLE());
         openBoardName.setText(boardInfo.getTYPE());
         openBody.setText(boardInfo.getBODY());
-        openWriter.setText("작성자 : "+boardInfo.getMID()+" / 작성일 : "+boardInfo.getPDATE()); // 작성자 + 작성일지
+        openWriter.setText("작성자 : "+ boardInfo.getMID()+" / 작성일 : "+boardInfo.getPDATE()); // 작성자 + 작성일지
         openReCommendBtn.setText("추천 : " + boardInfo.getUPVOTE());
         openDeprecatedBtn.setText("비추 : " + boardInfo.getDOWNVOTE());
+
+        // 세션의 멤버정보를 가져오기 위한 sessionManager
+        SessionManager sessionManager = new SessionManager(getBaseContext());
+        sessionManager.getUserInfo();
+        if(!sessionManager.IS_ADMIN()) {
+            if (!sessionManager.getMID().equals(boardInfo.getMID())) { // 작성자와 세션에 있는 멤버의 mid가 틀림
+                openEdit.setVisibility(View.INVISIBLE);
+                openDelete.setVisibility(View.INVISIBLE);
+            }
+        }
 
         //댓글 생성기
         RecyclerViewCommentAdapter adapter = new RecyclerViewCommentAdapter();

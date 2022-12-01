@@ -10,6 +10,7 @@ import android.content.res.AssetManager;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -58,7 +59,11 @@ public class HttpClient extends Thread{
             socket.close();
             return httpResponse;
 
-        } catch (IOException e) {
+        }catch (ConnectException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }

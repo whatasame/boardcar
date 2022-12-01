@@ -57,9 +57,12 @@ public class SessionManager {
         }
 
         HttpResponse infoResponse = httpClient.getHttpResponse();
-        System.out.println("status code : " + infoResponse.getStatusCode());
+
 
         if (!infoResponse.getStatusCode().equals("200")) {
+            System.out.println("SessionManager Error");
+            System.out.println("status code : " + infoResponse.getStatusCode());
+            System.out.println("Response Body : " + infoResponse.getBody());
             //실패한 경우
             return null;
         } else {
@@ -85,6 +88,10 @@ public class SessionManager {
 
     public String getNAME() {
         return NAME;
+    }
+
+    public boolean IS_ADMIN() {
+        return IS_ADMIN;
     }
 
     private void setEMAIL(String input) {
