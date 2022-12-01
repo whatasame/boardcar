@@ -14,8 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import Back.HttpClient;
 import Back.SessionManager;
 
 
@@ -89,6 +91,12 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
                   //mainUserName.setText("User");
                   //nearSiteLinear.setVisibility(View.VISIBLE);
         * */
+        // DB network test
+        HttpClient httpClient = new HttpClient(null, getContext());
+        if(!httpClient.httpTest()){
+            Utill utill = new Utill();
+            utill.AlertNoEditMsg(new AppCompatActivity(),"DB 네트워크 오류", "DB네트워크가 원할하지 않습니다.");
+        }
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
         // 내장에 UUID가 존재 및 AUTO_LOGIN이 true일때 (getBoolean false는 default value)
@@ -100,7 +108,7 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
                 ((LoginInfo) getActivity().getApplication()).setLogin(true);
                 if (result != null) {
                     mainUserName.setText(sessionManager.getNAME());
-                    mainUserCar.setText("소나타"); //sessionManager.getCarName()
+                    mainUserCar.setText(sessionManager.getCarName()); //sessionManager.getCarName()
                     nearSiteLinear.setVisibility(View.VISIBLE);
                     nearSiteText.setVisibility(View.VISIBLE);
                     consumableText.setVisibility(View.VISIBLE);
@@ -115,7 +123,7 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
                 String result = sessionManager.getUserInfo();
                 if (result != null) {
                     mainUserName.setText(sessionManager.getNAME());
-                    mainUserCar.setText("소나타"); //sessionManager.getCarName()
+                    mainUserCar.setText(sessionManager.getCarName());
                     nearSiteLinear.setVisibility(View.VISIBLE);
                     nearSiteText.setVisibility(View.VISIBLE);
                     consumableText.setVisibility(View.VISIBLE);

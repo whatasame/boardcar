@@ -1,12 +1,8 @@
 package Back;
 
-import Back.HttpRequest;
-import Back.HttpResponse;
-import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +26,37 @@ public class HttpClient extends Thread{
     }
 
     public String sessionKey = null;
+
+    /**
+     * HttpClient에 생성자 실행 후 실행
+     * @return {boolean} true : 연결 원할 / false : 연결 불안정
+     */
+    public boolean httpTest() {
+        /* GET TEST */
+        String version = "HTTP/1.1";
+        Map<String, String> headers = new HashMap<String, String>() {{
+            put("Content-Type", "text/html;charset=utf-8");
+        }};
+        httpRequest = new HttpRequest("GET", "/httpTest", version, headers, "");
+
+
+        try {
+            start();
+            join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
+        System.out.println("*********************************");
+        System.out.println("httpTesting Result");
+        System.out.println("Response Status : " + httpResponse.getStatusCode() + httpResponse.getStatusText());
+        System.out.println(httpResponse.getBody());
+        System.out.println("*********************************");
+        if(httpResponse.getStatusCode().equals("200"))
+            return true;
+        else
+            return false;
+    }
 
     public HttpResponse sendHttpRequest(HttpRequest httpRequest, Context context) throws IOException {
 

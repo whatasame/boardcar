@@ -27,6 +27,7 @@ public class MainUI extends AppCompatActivity {
         @SuppressLint("NonConstantResourceId")
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             switch (item.getItemId()) {
                 case R.id.BottomHome:
                     getSupportFragmentManager().beginTransaction().replace(R.id.MainFrame,new FragmentMainUI()).commit();
