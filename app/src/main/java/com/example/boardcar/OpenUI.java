@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import Back.SessionManager;
 import Community.BoardInfo;
@@ -24,6 +25,8 @@ import Community.ReplyUtil;
 import java.util.ArrayList;
 
 public class OpenUI extends AppCompatActivity {
+    RecyclerViewCommentAdapter.OnDelClickListener delClickListener;
+    RecyclerViewCommentAdapter.OnEditClickListener editClickListener;
     TextView openBoardName, openEdit, openDelete, openTitle, openBody, openWriter;
     Button openReCommendBtn, openDeprecatedBtn, commentEditBtn;
     String openTitleStr, openBodyStr, commentEditStr;
@@ -62,7 +65,37 @@ public class OpenUI extends AppCompatActivity {
 
     }
 
+    /**
+     * 지울 때 나오는 확인문.
+     * 확인 선택시 댓글 삭제
+     * @param title
+     * @param msg
+     */
+    public void AlertCommentDeleteMsg(String title, String msg) { //팝업창인데 확인 누르면 전화면으로 넘어감
+        AlertDialog.Builder Alert = new AlertDialog.Builder(OpenUI.this);
+        Alert.setTitle(title);
+        Alert.setMessage(msg);
 
+
+        //확인버튼
+        Alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //DB에서 해당 댓글 삭제
+                finish();
+            }
+        });
+        //취소버튼
+        Alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        Alert.show();
+
+    }
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +113,19 @@ public class OpenUI extends AppCompatActivity {
         commentEditBtn = findViewById(R.id.CommentEditBtn);
         commentEdit = findViewById(R.id.CommentEdit);
         commentList = findViewById(R.id.CommentList);
+        editClickListener = new RecyclerViewCommentAdapter.OnEditClickListener() {
+            @Override
+            public void onEditClicked(int position) {
+                Toast.makeText(OpenUI.this, position+"의 수정버튼 클릭", Toast.LENGTH_SHORT).show();
+            }
+        };
 
+        delClickListener = new RecyclerViewCommentAdapter.OnDelClickListener() {
+            @Override
+            public void onDelClicked(int position) {
+                AlertCommentDeleteMsg("댓글 삭제","댓글을 삭제하시겠습니까?");
+            }
+        };
         //제목과 작성자를 서버로 보내서 애랑 일치하는 글을 불러와서 각각 setText로 삽입시켜서 보여주는 시스템;
 
         intent = getIntent();
@@ -107,7 +152,7 @@ public class OpenUI extends AppCompatActivity {
         }
 
         //댓글 생성기
-        RecyclerViewCommentAdapter adapter = new RecyclerViewCommentAdapter();
+        RecyclerViewCommentAdapter adapter = new RecyclerViewCommentAdapter(OpenUI.this,editClickListener,delClickListener);
 
         ArrayList<ReplyInfo> replyInfoArrayList = new ArrayList<>();
         ReplyUtil replyUtil = new ReplyUtil(getBaseContext());
@@ -169,6 +214,7 @@ public class OpenUI extends AppCompatActivity {
                 sessionManager.getUserInfo();
                 String MID = sessionManager.getMID();
                 uploadReplyUtil.uploadReply(Integer.parseInt(pid), MID, commentEditStr);
+                Toast.makeText(OpenUI.this, "댓글 입력 완료(댓글 새로고침 필요)", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -177,7 +223,6 @@ public class OpenUI extends AppCompatActivity {
     //댓글 보여주고 작성하는아이인데 각각 작성자 본문 작성일시 순으로 넣어주면된다
     public void CommentList(RecyclerViewCommentAdapter adapter, RecyclerView commentList, String writer, String body) { //리스트 보여주고 추가한다
 
-        adapter.clearItem();
         adapter.addItem(new RecyclerViewCommentDataModel(writer, body));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         commentList.setLayoutManager(layoutManager);
