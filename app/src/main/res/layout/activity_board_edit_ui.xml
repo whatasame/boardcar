@@ -43,8 +43,9 @@
         android:ems="10"
         android:gravity="top"
         android:hint="글내용"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         android:textSize="20sp"
+        android:scrollHorizontally="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BoardEditTitle" />
