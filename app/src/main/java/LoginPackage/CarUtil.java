@@ -22,10 +22,10 @@ public class CarUtil {
         put("Content-Type", "text/html;charset=utf-8");
     }};
     private Context context;
-    HashMap<String, Integer> CarUtil;
+    HashMap<String, Integer> carMap;
     public CarUtil(Context context) {
         this.context = context;
-        CarUtil = new HashMap<>();
+        carMap = new HashMap<>();
         HttpRequest httpRequest = new HttpRequest("GET","/getCarList",version,headers,"");
         HttpClient httpClient = new HttpClient(httpRequest, context);
         httpClient.start();
@@ -42,7 +42,7 @@ public class CarUtil {
             for (int i = 0; i < jsonArray.length(); i++) {
                 // JSONArray -> JSONObject
                 JSONObject json = new JSONObject(jsonArray.getString(i));
-                CarUtil.put(json.getString("NAME"),json.getInt("CID"));
+                carMap.put(json.getString("NAME"),json.getInt("CID"));
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -88,6 +88,6 @@ public class CarUtil {
      * @return {int} 차량모델의 CID
      */
     public int getCidByName(String name){
-        return CarUtil.get(name);
+        return carMap.get(name);
     }
 }

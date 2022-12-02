@@ -32,10 +32,9 @@ public class RegisterUI extends AppCompatActivity {
     Button regFindCarBtn,regEmailBtn ,regEmailCheckBtn,registerBtn;
     TextView regHideSuccess,regHideCheckNumber;
     String regInputIdStr, regInputPwStr, regCheckPwStr, regInputNameStr, regSelectCarStr, regInputEmailStr,regEmailCheckStr;
-
+    boolean isEmailChecked = false; // 이메일 인증여부
     AlertDialog.Builder Alert;
 
-    Register register = new Register(getBaseContext());
     CheckMemberData checkMemberData = new CheckMemberData();
 
     public void AlertNoEditMsg(String title, String msg) { //에러문구 나타내는 함수
@@ -54,6 +53,7 @@ public class RegisterUI extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Register register = new Register(getBaseContext());
         setContentView(R.layout.activity_register_ui);
         regInputId = findViewById(R.id.RegInputId); //아이디 입력 받는칸
         regInputPw = findViewById(R.id.RegInputPw); //비밀번호 입력 받는칸
@@ -97,9 +97,12 @@ public class RegisterUI extends AppCompatActivity {
                     return;
                 else if (register.isNameEmpty(regInputNameStr, Alert)) // 이름란 공백 여부 확인
                     return;
-
+                else if (!isEmailChecked){ // 이메일 인증 여부
+                    return;
+                }
                 if(register.runRegister(regInputIdStr, regInputPwStr, regInputNameStr, regInputEmailStr, regSelectCarStr)){
                     AlertNoEditMsg("회원가입 성공", "성공하였습니다!");
+                    finish();
                 }else{
                     AlertNoEditMsg("회원가입 실패", "실패하였습니다.");
                 }
@@ -117,7 +120,7 @@ public class RegisterUI extends AppCompatActivity {
             public void onClick(View view) {
                 regInputEmailStr = (regInputEmail.getText().toString());
                 if (!register.isEmailEmpty(regInputEmailStr, Alert)) { //이메일을 입력했다면
-                    if(checkMemberData.isEmailRegexMatched(regInputEmailStr, Alert)){ //이메일 정규식을 만족했다면 @todo 정규식 안되는거 같은데..?
+                    if(checkMemberData.isEmailRegexMatched(regInputEmailStr, Alert)){ //이메일 정규식을 만족했다면
                         if(emailUtil.sendAuthenticationCode(regInputEmailStr)){
                             regHideSuccess.setVisibility(View.VISIBLE);
                             regEmailCheckBtn.setEnabled(true);
@@ -126,13 +129,6 @@ public class RegisterUI extends AppCompatActivity {
                             AlertNoEditMsg("이메일", "양식에 맞지 않는 이메일입니다.");
                         }
                     }
-//                 if(true){ //DB에서 이메일 체크하고 있는지 없는지 확인 @todo 이거 이메일 체크 API 힘들거 같습니다...
-//                    //인증번호 날라오는거 함수? 암튼 그거 쓰기
-//                   regHideSuccess.setVisibility(View.VISIBLE);
-//                    regEmailCheckBtn.setEnabled(true);
-//                 }else{
-//                    AlertNoEditMsg("회원가입 실패","회원님의 정보를 찾을수 없어요");
-//                 }
                 } else {
                     AlertNoEditMsg("회원가입 실패", "이메일을 입력해주세요");
                 }
@@ -146,6 +142,7 @@ public class RegisterUI extends AppCompatActivity {
                 if (!register.isEmailVerificationCodeEmpty(regEmailCheckStr, Alert)) { //인증번호란에 입력되어 있다면
                     if (emailUtil.authentication(regEmailCheckStr)) {
                         AlertNoEditMsg("인증번호 일치 ", "인증번호가 일치했습니다.");
+                        isEmailChecked = true;
                     }
                     else {
                         regHideCheckNumber.setVisibility(View.VISIBLE); //인증번호가 일치하지않아요 나타나는애

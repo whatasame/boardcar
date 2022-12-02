@@ -101,13 +101,12 @@ public class Register {
         //MemberVO memberVO = new MemberVO(enterId, enterPw, enterName, enterEmail);
         //cid 랑 isAdmin 은 어떻게 확인하는지 성현형님께 여쭤보기 => cid는 넣었고, isAdmin은 필요없어요(isAdmin default값 = false)
         JSONObject jsonObject = new JSONObject();
-        CarUtil CarUtil = new CarUtil(context);
         try{
             jsonObject.put("MID", enterId);
             jsonObject.put("PASSWORD", enterPw);
             jsonObject.put("EMAIL", enterEmail);
             jsonObject.put("NAME", enterName);
-            jsonObject.put("CNAME", CarUtil.getCidByName(carName));
+            jsonObject.put("CNAME", carName);
         }catch (JSONException e){
             e.printStackTrace();
         }
