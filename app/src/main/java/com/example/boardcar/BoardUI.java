@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.renderscript.Type;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
-import Community.BoardInfo;
-import Community.BoardUtil;
+import LoginPackage.Community.BoardInfo;
+import LoginPackage.Community.BoardUtil;
 
 
 public class BoardUI extends Fragment implements View.OnClickListener {

@@ -1,4 +1,4 @@
-package Community;
+package LoginPackage.Community;
 /*
  * update date : 11-29
  * 글의 정보 하나를 담고 있는 BoardInfo

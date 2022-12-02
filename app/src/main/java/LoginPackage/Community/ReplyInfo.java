@@ -1,4 +1,4 @@
-package Community;
+package LoginPackage.Community;
 
 import org.json.JSONException;
 import org.json.JSONObject;
