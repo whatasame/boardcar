@@ -29,9 +29,9 @@ public class CommentDialog {
      * @todo rid이동 되는지 확인할것
      * 댓글 수정 클릭시 사용되는 메소드
      * @param position {int} 몇번째 댓글에서 선택되었는지의 값
-     * @param rid {int} 수정하려는 rid
+     *
      */
-    public void callFunction(int position, int rid) {
+    public void callFunction(int position) {
 
 
         final Dialog dlg = new Dialog(context);
@@ -50,12 +50,12 @@ public class CommentDialog {
             @Override
             public void onClick(View view) {
 
-                ReplyUtil replyUtil = new ReplyUtil(context);
+//                ReplyUtil replyUtil = new ReplyUtil(context);
 
                 String str = message.getText().toString();
-                replyUtil.updateReply(rid,str);
+//                replyUtil.updateReply(rid,str);
                 //str 을 이제 DB에 업데이트시키면됨 // 댓글수정
-//                Toast.makeText(context,str,Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,str,Toast.LENGTH_SHORT).show();
                 // position 0~ size-1
 
                 Toast.makeText(context, position+"번째", Toast.LENGTH_SHORT).show();

@@ -75,6 +75,7 @@ public class RecyclerViewCommentAdapter extends RecyclerView.Adapter {
         ViewHolder.delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //댓글 삭제 클릭
                 delClickListener.onDelClicked(position);
             }
         });

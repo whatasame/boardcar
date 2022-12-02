@@ -151,34 +151,48 @@ public class OpenUI extends AppCompatActivity {
         editClickListener = new RecyclerViewCommentAdapter.OnEditClickListener() {
             @Override
             public void onEditClicked(int position) {
-                if(!sessionManager.IS_ADMIN()) { // admin or 작성자가 아닌 경우
-                    if (replyInfoArrayList.get(position).getMID() != sessionManager.getMID())
-                        Toast.makeText(OpenUI.this, "작성자만 수정이 가능합니다.",
-                                Toast.LENGTH_SHORT).show();
-                }
-                else { // admin or 작성자
-                    /**
-                     * @// TODO: 2022-12-02 이거 rid를 commentdialog를 인자 변경해서 넣었는데 되는지 확인하기
-                     */
-                    CommentDialog log = new CommentDialog(OpenUI.this);
-                    log.callFunction(position, replyInfoArrayList.get(position).getRID());
-                }
+                CommentDialog log = new CommentDialog(OpenUI.this);
+                log.callFunction(position);
             }
         };
+
         delClickListener = new RecyclerViewCommentAdapter.OnDelClickListener() {
             @Override
             public void onDelClicked(int position) {
-                if(!sessionManager.IS_ADMIN()) { // admin or 작성자가 아닌 경우
-                    if (replyInfoArrayList.get(position).getMID() != sessionManager.getMID())
-                        Toast.makeText(OpenUI.this, "작성자만 삭제가 가능합니다.",
-                                Toast.LENGTH_SHORT).show();
-                }
-                else { // admin or 작성자
-                    AlertCommentDeleteMsg("댓글 삭제", "댓글을 삭제하시겠습니까?");
-                    replyUtil.deleteReply(replyInfoArrayList.get(position).getRID());
-                }
+                AlertCommentDeleteMsg("댓글 삭제","댓글을 삭제하시겠습니까?");
             }
         };
+//        editClickListener = new RecyclerViewCommentAdapter.OnEditClickListener() {
+//            @Override
+//            public void onEditClicked(int position) {
+//                if(!sessionManager.IS_ADMIN()) { // admin or 작성자가 아닌 경우
+//                    if (replyInfoArrayList.get(position).getMID() != sessionManager.getMID())
+//                        Toast.makeText(OpenUI.this, "작성자만 수정이 가능합니다.",
+//                                Toast.LENGTH_SHORT).show();
+//                }
+//                else { // admin or 작성자
+//                    /**
+//                     * @// TODO: 2022-12-02 이거 rid를 commentdialog를 인자 변경해서 넣었는데 되는지 확인하기
+//                     */
+//                    CommentDialog log = new CommentDialog(OpenUI.this);
+//                    log.callFunction(position);
+//                }
+//            }
+//        };
+//        delClickListener = new RecyclerViewCommentAdapter.OnDelClickListener() {
+//            @Override
+//            public void onDelClicked(int position) {
+//                if(!sessionManager.IS_ADMIN()) { // admin or 작성자가 아닌 경우
+//                    if (replyInfoArrayList.get(position).getMID() != sessionManager.getMID())
+//                        Toast.makeText(OpenUI.this, "작성자만 삭제가 가능합니다.",
+//                                Toast.LENGTH_SHORT).show();
+//                }
+//                else { // admin or 작성자
+//                    AlertCommentDeleteMsg("댓글 삭제", "댓글을 삭제하시겠습니까?");
+//                    replyUtil.deleteReply(replyInfoArrayList.get(position).getRID());
+//                }
+//            }
+//        };
 
 
         //수정하기 눌렀을시 글과 함께 화면전환
