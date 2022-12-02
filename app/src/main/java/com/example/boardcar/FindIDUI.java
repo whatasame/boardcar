@@ -115,9 +115,3 @@ public class FindIDUI extends AppCompatActivity {
         });
     }
 }
-/*
-if (emailCheckIDStr.equals(인증번호))
-    AlertIDMsg("아이디 찾기성공 ",변수이름+ <----DB에서 아이디 불러온거"회원님의 아이디를 찾았어요"); 93번 if문안에들어가야함
-
-}
-                 */

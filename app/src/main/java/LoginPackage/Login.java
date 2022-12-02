@@ -30,11 +30,6 @@ import java.util.Map;
 
 import Back.*;
 
-
-//import Back.HttpClient;
-//import Back.HttpRequest;
-//import Back.HttpResponse;
-
 public class Login {
 
     private final String version = "HTTP/1.1";

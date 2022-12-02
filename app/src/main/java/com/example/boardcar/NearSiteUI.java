@@ -560,13 +560,6 @@ public class NearSiteUI extends AppCompatActivity
         });
         builder.create().show();
     }
-//    Handler handler = new Handler();
-//    handler.postDelayed(new Runnable() {
-//        public void run() {
-//            my_button.setBackgroundResource(R.drawable.defaultcard);
-//        }
-//    }, 2000);  // 2000은 2초를 의미합니다.
-//}
 
 
     @Override

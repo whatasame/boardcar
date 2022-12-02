@@ -126,9 +126,3 @@ public class FindPWUI extends AppCompatActivity {
         });
     }
 }
-
- /*if(emailCheckPwStr.equals(인증번호)){ 검사후 93번 대체 해서 들어가야함 테스트로 위에 넣어논거
-                    AlertIDMsg("비밀번호 찾기성공 ",변수이름+ <----DB에서 비밀번호 불러온거"회원님의 비밀번호를 찾았어요");
-
-                }
-                 */

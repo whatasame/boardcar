@@ -85,19 +85,6 @@ public class FragmentMainUI extends Fragment implements View.OnClickListener {
         airFilterProgress.setProgress(ConsumableFile.getInt("airFilterinfo", 0));
         batteryProgress.setProgress(ConsumableFile.getInt("batteryinfo", 0));
 
-        /*
-        * 로그인 성공시
-        *         //mainUserCar.setText("Sonata");
-                  //mainUserName.setText("User");
-                  //nearSiteLinear.setVisibility(View.VISIBLE);
-        * */
-        // DB network test
-//        HttpClient httpClient = new HttpClient(null, getContext());
-//        if(!httpClient.httpTest()){
-//            Utill utill = new Utill();
-//            utill.AlertNoEditMsg(new AppCompatActivity(),"DB 네트워크 오류", "DB네트워크가 원할하지 않습니다.");
-//        }
-
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
         // 내장에 UUID가 존재 및 AUTO_LOGIN이 true일때 (getBoolean false는 default value)
         if (sharedPreferences.contains("UUID") & sharedPreferences.getBoolean("AUTO_LOGIN", false)) {
