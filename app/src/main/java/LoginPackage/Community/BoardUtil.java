@@ -1,19 +1,14 @@
-package Community;
+package LoginPackage.Community;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.health.SystemHealthManager;
-import android.se.omapi.Session;
 
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import Back.HttpClient;

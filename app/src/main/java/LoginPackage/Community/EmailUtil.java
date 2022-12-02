@@ -1,4 +1,4 @@
-package Community;
+package LoginPackage.Community;
 
 import Back.HttpClient;
 import Back.HttpRequest;

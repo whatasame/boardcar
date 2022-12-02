@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import Community.EmailUtil;
+import LoginPackage.Community.EmailUtil;
 import LoginPackage.CheckMemberData;
 import LoginPackage.PwFind;
 //@todo PW찾기 테스트 API 미구현-> password를 얻을 수 있는 방법이 없음

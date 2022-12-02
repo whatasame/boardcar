@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import Community.EmailUtil;
+import LoginPackage.Community.EmailUtil;
 import LoginPackage.CheckMemberData;
 import LoginPackage.IdFind;
 // @todo ID찾기 미구현 -> email로 ID를 찾아올 API가 없음

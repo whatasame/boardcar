@@ -15,6 +15,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
@@ -150,7 +151,7 @@ public class NearSiteUI extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "위치를 검색중입니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "위치를 검색중입니다.", Toast.LENGTH_LONG).show();
                 showPlaceInformation(currentPosition);
             }
         });
@@ -160,7 +161,7 @@ public class NearSiteUI extends AppCompatActivity
 
             public void onClick(View v) {
 
-                Toast.makeText(getApplicationContext(), "위치를 검색중입니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "위치를 검색중입니다.", Toast.LENGTH_LONG).show();
                 showPlaceInformation2(currentPosition);
             }
         });
@@ -417,9 +418,16 @@ public class NearSiteUI extends AppCompatActivity
 
 
         currentMarker = mMap.addMarker(markerOptions);
+//        Handler mHandler = new Handler();
+
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
-        mMap.moveCamera(cameraUpdate);
+//        mHandler.postDelayed(new Runnable()  {
+//            public void run() {
+//                mMap.moveCamera(cameraUpdate);
+//            }
+//        }, 10000); // 10초후
+//
 
     }
 

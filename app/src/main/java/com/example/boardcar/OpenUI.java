@@ -1,7 +1,7 @@
 package com.example.boardcar;
 
 import Back.SessionManager;
-import Community.ReplyInfo;
+import LoginPackage.Community.ReplyInfo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,10 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import Back.SessionManager;
-import Community.BoardInfo;
-import Community.BoardUtil;
-import Community.ReplyUtil;
+import LoginPackage.Community.BoardInfo;
+import LoginPackage.Community.BoardUtil;
+import LoginPackage.Community.ReplyUtil;
 
 import java.util.ArrayList;
 

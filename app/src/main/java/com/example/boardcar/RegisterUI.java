@@ -22,7 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import Community.EmailUtil;
+import LoginPackage.Community.EmailUtil;
 import LoginPackage.CheckMemberData;
 import LoginPackage.Register;
 

@@ -2,19 +2,13 @@ package com.example.boardcar;
 
 
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import Community.ReplyUtil;
 
 public class CommentDialog {
 
