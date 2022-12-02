@@ -68,7 +68,7 @@ public class FindPWUI extends AppCompatActivity {
         findPwHideSuccess = findViewById(R.id.FindPwHideSuccess);// 인증번호 잘보내졋다고 문구
         findPwHideCheckNumber = findViewById(R.id.FindPwHideCheckNumber);//인증번호 틀렸다고 문구
         EmailUtil emailUtil = new EmailUtil(getBaseContext());
-        PwFind pwFind = new PwFind();
+        PwFind pwFind = new PwFind(getBaseContext());
         CheckMemberData checkMemberData = new CheckMemberData();
         Alert = new AlertDialog.Builder(FindPWUI.this);
 
@@ -105,16 +105,15 @@ public class FindPWUI extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 findPwEmailCheckStr=(findPwEmailCheck.getText().toString());
-//                String testPw = "asdf1234@";
 
                 if (!pwFind.isEmailVerificationCodeEmpty(findPwEmailCheckStr)){ //인증번호를 입력했다면
 
                     if(emailUtil.authentication(findPwEmailCheckStr)){
 
                         //DB랑 연결해서 비밀번호 뽑아내기
-//                        String password = pwFind.runPwFind(String mid, String email);
+                        String result = pwFind.runPwFind(findPwEmailStr,findPwIdStr);
 
-                        AlertIDMsg("비밀번호 찾기성공 ","회원님의 비밀번호를 찾았어요.\n비밀번호는 " + "testpw" + "입니다.");
+                        AlertIDMsg("비밀번호 찾기성공 ","회원님의 비밀번호를 찾았어요.\n비밀번호는 " + result  + "입니다.");
                     }
                     else
                         findPwHideCheckNumber.setVisibility(View.VISIBLE);
