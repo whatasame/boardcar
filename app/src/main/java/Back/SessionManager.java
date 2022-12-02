@@ -22,6 +22,7 @@ public class SessionManager {
 
     private String MID = null;
     private String NAME = null;
+    private String PASSWORD = null;
     private String EMAIL = null;
     private int CID = 0;  // 초기화값
     private boolean IS_ADMIN = false;
@@ -70,6 +71,7 @@ public class SessionManager {
                 this.EMAIL = jsonObject.getString("EMAIL");
                 this.IS_ADMIN = jsonObject.getBoolean("IS_ADMIN");
                 this.CID = jsonObject.getInt("CID");
+                this.PASSWORD = jsonObject.getString("PASSWORD");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -98,7 +100,7 @@ public class SessionManager {
     public String getEMAIL(){
         return EMAIL;
     }
-
+    public String getPASSWORD(){ return PASSWORD; }
 
     public int getCID() {
         return CID;

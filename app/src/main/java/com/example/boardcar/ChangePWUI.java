@@ -72,8 +72,7 @@ public class ChangePWUI extends AppCompatActivity {
                 oldPwStr = oldPw.getText().toString(); //String 타입 현재 입력받는칸
                 newPwStr = newPw.getText().toString(); //String 타입 새로운 입력받는칸
                 checkPwStr= checkPw.getText().toString();
-                if(true){// oldPwStr.equals("1234") //(1234) db에 있는 현재 비밀번호값 가져오기
-
+                if(oldPwStr.equals(sessionManager.getPASSWORD())){//  db에 있는 현재 비밀번호값 가져오기
                     if(newPwStr.equals(checkPwStr)){
                        // 여기서 입력한 비밀번호  DB에 업데이트하기 SQL
                         JSONObject jsonObject = new JSONObject();
@@ -83,8 +82,6 @@ public class ChangePWUI extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                         try {
                             // 요청
                             String version = "HTTP/1.1";
