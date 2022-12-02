@@ -56,10 +56,10 @@ public class CheckMemberData {
     public boolean isEmailRegexMatched(String enterEmail, AlertDialog.Builder Alert){
         String regex = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$"; //이메일 정규식
         boolean result = Pattern.matches(regex, enterEmail);
-        if(!result){
-            printAlertMessage("이메일 양식에 맞춰서 작성해주십시오.", Alert);
+        if(result){
             return true;
         }
+        printAlertMessage("이메일 양식에 맞춰서 작성해주십시오.", Alert);
         return false;
    }
 
