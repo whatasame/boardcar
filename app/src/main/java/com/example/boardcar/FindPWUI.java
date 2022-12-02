@@ -82,7 +82,7 @@ public class FindPWUI extends AppCompatActivity {
 
                     if(!pwFind.isEmailEmpty(findPwEmailStr)){ //Email 입력란에 입력했다면
 
-                        if(!checkMemberData.isEmailRegexMatched(findPwEmailStr, Alert)) { //Email 정규식을 만족했다면
+                        if(checkMemberData.isEmailRegexMatched(findPwEmailStr, Alert)) { //Email 정규식을 만족했다면
                             if (!emailUtil.sendAuthenticationCode(findPwEmailStr))
                                 AlertNoEditMsg("네트워크 에러", "잠시 후 다시 시도해주세요");
                                 //Email 전송 코드 작성하기
