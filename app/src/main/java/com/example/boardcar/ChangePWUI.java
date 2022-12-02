@@ -10,6 +10,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import Back.HttpClient;
+import Back.HttpRequest;
+import Back.HttpResponse;
+import Back.SessionManager;
+
 public class ChangePWUI extends AppCompatActivity {
     EditText oldPw, newPw, checkPw;
     Button pwChangeBtn;
@@ -48,6 +59,8 @@ public class ChangePWUI extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pwui);
 
+        SessionManager sessionManager = new SessionManager(getBaseContext());
+        sessionManager.getUserInfo();
         oldPw =findViewById(R.id.OldPw); //현재 비밀번호 입력받는칸
         newPw =findViewById(R.id.NewPw); //새로운 비밀번호 입력받는칸
         checkPw=findViewById(R.id.CheckPw); // 새로운 비밀번호 같은지 입력받는칸
@@ -59,11 +72,46 @@ public class ChangePWUI extends AppCompatActivity {
                 oldPwStr = oldPw.getText().toString(); //String 타입 현재 입력받는칸
                 newPwStr = newPw.getText().toString(); //String 타입 새로운 입력받는칸
                 checkPwStr= checkPw.getText().toString();
-                if(oldPwStr.equals("1234")){ //(1234) db에 있는 현재 비밀번호값 가져오기
+                if(true){// oldPwStr.equals("1234") //(1234) db에 있는 현재 비밀번호값 가져오기
 
                     if(newPwStr.equals(checkPwStr)){
                        // 여기서 입력한 비밀번호  DB에 업데이트하기 SQL
-                        AlertPwMsg("비밀번호 변경 성공","비밀번호를 변경하셨습니다");
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("MID",sessionManager.getMID());
+                            jsonObject.put("password", newPwStr);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        try {
+                            // 요청
+                            String version = "HTTP/1.1";
+                            Map<String, String> headers = new HashMap<String, String>() {{
+                                put("Content-Type", "text/html;charset=utf-8");
+                            }};
+                            HttpRequest changePasswordRequest = new HttpRequest("PATCH", "/changePassword", version, headers, jsonObject.toString());
+                            HttpClient changePasswordClient = new HttpClient(changePasswordRequest,
+                                    getBaseContext());
+                            changePasswordClient.start();
+                            changePasswordClient.join();
+                            // 응답
+                            HttpResponse changePasswordResponse = changePasswordClient.getHttpResponse();
+                            if(changePasswordResponse.getStatusCode().equals("200"))
+                                AlertPwMsg("비밀번호 변경 성공","비밀번호를 변경하셨습니다");
+                            else{
+                                System.out.println("*** Change Password Error ***");
+                                System.out.println(changePasswordResponse.getStatusCode()+ " "+
+                                        changePasswordResponse.getStatusText());
+                                AlertPwMsg("Network Error","네트워크가 원활하지 않습니다.");
+
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            AlertPwMsg("Network Error","네트워크가 원활하지 않습니다.");
+                        }
+
 
                     }
                     else{
