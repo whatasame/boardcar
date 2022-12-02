@@ -152,7 +152,7 @@ public class NearSiteUI extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "위치를 검색중입니다.", Toast.LENGTH_LONG).show();
-                showPlaceInformation(currentPosition);
+                showGasInformation(currentPosition);
             }
         });
         Button button2 = (Button) findViewById(R.id.SearchRepairButton);
@@ -162,7 +162,7 @@ public class NearSiteUI extends AppCompatActivity
             public void onClick(View v) {
 
                 Toast.makeText(getApplicationContext(), "위치를 검색중입니다.", Toast.LENGTH_LONG).show();
-                showPlaceInformation2(currentPosition);
+                showRepairInformation(currentPosition);
             }
         });
 
@@ -602,7 +602,7 @@ public class NearSiteUI extends AppCompatActivity
         }
     }
 
-    public void showPlaceInformation(LatLng location) {
+    public void showGasInformation(LatLng location) {
         mMap.clear();//지도 클리어
 
         if (previous_marker != null)
@@ -614,12 +614,11 @@ public class NearSiteUI extends AppCompatActivity
                 .latlng(location.latitude, location.longitude)//현재 위치
                 .radius(3000) //3000 미터 내에서 검색
                 .type(PlaceType.GAS_STATION) //주유소
-                //.type(PlaceType.CAR_REPAIR)//정비소
                 .build()
                 .execute();
     }
 
-    public void showPlaceInformation2(LatLng location) {
+    public void showRepairInformation(LatLng location) {
         mMap.clear();//지도 클리어
 
         if (previous_marker != null)
@@ -630,7 +629,6 @@ public class NearSiteUI extends AppCompatActivity
                 .key("AIzaSyBwfwfnpJKv3UgYEmBo9bN27L1DyC3AWFI")
                 .latlng(location.latitude, location.longitude)//현재 위치
                 .radius(3000) //3000 미터 내에서 검색
-                //.type(PlaceType.GAS_STATION) //주유소
                 .type(PlaceType.CAR_REPAIR)//정비소
                 .build()
                 .execute();
