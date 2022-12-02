@@ -241,22 +241,23 @@ public class BoardUtil {
         else
             return false;
     }
-}
 
-
-/*
-SessionManager sessionManager = new SessionManager(context);
+    /**
+     * 해당 pid의 추천수 +1한다
+     * @return 성공/실패 여부{boolean}
+     */
+    public boolean upvotePost(int pid){
+        SessionManager sessionManager = new SessionManager(context);
         headers.put("Session-Key", sessionManager.session);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("PID", pid);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
         String answer = jsonObject.toString();
-        HttpRequest openPostByPidRequest = new HttpRequest("GET", "/openPost", version, headers, answer);
-        HttpClient httpClient = new HttpClient(openPostByPidRequest, context);
+        HttpRequest deletePostRequest = new HttpRequest("POST", "/upvotePost", version, headers, answer);
+        HttpClient httpClient = new HttpClient(deletePostRequest, context);
         httpClient.start();
         try {
             httpClient.join();
@@ -265,19 +266,42 @@ SessionManager sessionManager = new SessionManager(context);
         }
         HttpResponse httpResponse = httpClient.getHttpResponse();
         String res = httpResponse.getStatusCode();
+        if(res.equals("200")){
+            //upvote 성공
+            return true;
+        }
+        else // upvote 실패
+            return false;
 
-        JSONObject jsonBody;
+    }
+
+
+    public boolean downvotePost(int pid) {
+        SessionManager sessionManager = new SessionManager(context);
+        headers.put("Session-Key", sessionManager.session);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("PID", pid);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        HttpRequest deletePostRequest = new HttpRequest("POST", "/downvotePost", version,
+                headers, jsonObject.toString());
+        HttpClient httpClient = new HttpClient(deletePostRequest, context);
+        httpClient.start();
+        try {
+            httpClient.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        HttpResponse httpResponse = httpClient.getHttpResponse();
+        String res = httpResponse.getStatusCode();
         if (res.equals("200")) {
-            //Body에 데이터가 담겨있다.
-            try {
-                jsonBody = new JSONObject(httpResponse.getBody());
-                return new BoardInfo(jsonBody);
-            } catch (JSONException e) {
-                e.printStackTrace();
-                return null;
-            }
-        } else
-            return null;
+            //downvote 성공
+            return true;
+        } else // downvote 실패
+            return false;
 
+    }
+}
 
-* */

@@ -193,14 +193,20 @@ public class OpenUI extends AppCompatActivity {
         openReCommendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // openReCommendBtn.setText(); setText안에 jdbc에서 추천수 넣어주면됨
+                boardUtil.upvotePost(Integer.parseInt(pid));
+                String str = Integer.toString(boardInfo.getUPVOTE() + 1);
+                openReCommendBtn.setText("추천 :" + str);
             }
         });
         //비추천 버튼 눌렀을시
         openDeprecatedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //openDeprecatedBtn.setText(); 위와동일 근대 중복체크 어찌함?
+
+                boardUtil.downvotePost(Integer.parseInt(pid));
+                String str = Integer.toString(boardInfo.getDOWNVOTE() +1);
+                openDeprecatedBtn.setText("비추 : " + str);
+
             }
         });
         //댓글버튼 눌럿을시  댓글저장하는애
