@@ -54,7 +54,7 @@ public class EmailUtil {
     public boolean authentication(String number){
         JSONObject jsonObject = new JSONObject();
         try{
-            jsonObject.put("NUMBER", number);
+            jsonObject.put("NUMBER", Integer.parseInt(number));
         }catch (JSONException e){
             e.printStackTrace();
         }
