@@ -18,7 +18,7 @@ public class SessionManager {
         put("Content-Type", "text/html;charset=utf-8");
     }};
 
-    public Context context;
+    private Context context;
 
     private String MID = null;
     private String NAME = null;

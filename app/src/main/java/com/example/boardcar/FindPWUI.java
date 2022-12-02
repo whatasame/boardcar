@@ -18,9 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import Community.EmailUtil;
 import LoginPackage.CheckMemberData;
 import LoginPackage.PwFind;
-
+//@todo PW찾기 테스트 API 미구현-> password를 얻을 수 있는 방법이 없음
 public class FindPWUI extends AppCompatActivity {
     EditText findPwId , findPwEmail,findPwEmailCheck;
     Button findPwBtn , findPwEmailCheckBtn;
@@ -66,7 +67,7 @@ public class FindPWUI extends AppCompatActivity {
         findPwEmailCheckBtn = findViewById(R.id.FindPwEmailCheckBtn);//인증번호 맞는지 확인 버튼
         findPwHideSuccess = findViewById(R.id.FindPwHideSuccess);// 인증번호 잘보내졋다고 문구
         findPwHideCheckNumber = findViewById(R.id.FindPwHideCheckNumber);//인증번호 틀렸다고 문구
-
+        EmailUtil emailUtil = new EmailUtil(getBaseContext());
         PwFind pwFind = new PwFind();
         CheckMemberData checkMemberData = new CheckMemberData();
         Alert = new AlertDialog.Builder(FindPWUI.this);
@@ -81,12 +82,14 @@ public class FindPWUI extends AppCompatActivity {
 
                     if(!pwFind.isEmailEmpty(findPwEmailStr)){ //Email 입력란에 입력했다면
 
-                        if(!checkMemberData.isEmailRegexMatched(findPwEmailStr, Alert)){ //Email 정규식을 만족했다면
-
-                            //Email 전송 코드 작성하기
-
-                            findPwHideSuccess.setVisibility(View.VISIBLE);
-                            findPwEmailCheckBtn.setEnabled(true);
+                        if(!checkMemberData.isEmailRegexMatched(findPwEmailStr, Alert)) { //Email 정규식을 만족했다면
+                            if (!emailUtil.sendAuthenticationCode(findPwEmailStr))
+                                AlertNoEditMsg("네트워크 에러", "잠시 후 다시 시도해주세요");
+                                //Email 전송 코드 작성하기
+                            else {
+                                findPwHideSuccess.setVisibility(View.VISIBLE);
+                                findPwEmailCheckBtn.setEnabled(true);
+                            }
                         }
                     }
                     else
@@ -102,18 +105,16 @@ public class FindPWUI extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 findPwEmailCheckStr=(findPwEmailCheck.getText().toString());
-                String testPw = "asdf1234@";
+//                String testPw = "asdf1234@";
 
                 if (!pwFind.isEmailVerificationCodeEmpty(findPwEmailCheckStr)){ //인증번호를 입력했다면
 
-                    if(findPwEmailCheckStr.equals("1234")){
-
-                        //ID랑 Email이랑 둘다 DB에 있는 데이터랑 일치하는지 확인해야 비밀번호 뽑을 수 있음
+                    if(emailUtil.authentication(findPwEmailCheckStr)){
 
                         //DB랑 연결해서 비밀번호 뽑아내기
-                        pwFind.runPwFind();
+//                        String password = pwFind.runPwFind(String mid, String email);
 
-                        AlertIDMsg("비밀번호 찾기성공 ","회원님의 비밀번호를 찾았어요.\n비밀번호는 " + testPw + "입니다.");
+                        AlertIDMsg("비밀번호 찾기성공 ","회원님의 비밀번호를 찾았어요.\n비밀번호는 " + "testpw" + "입니다.");
                     }
                     else
                         findPwHideCheckNumber.setVisibility(View.VISIBLE);

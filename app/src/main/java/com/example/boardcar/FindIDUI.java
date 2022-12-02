@@ -19,9 +19,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import Community.EmailUtil;
 import LoginPackage.CheckMemberData;
 import LoginPackage.IdFind;
-
+// @todo ID찾기 미구현 -> email로 ID를 찾아올 API가 없음
 public class FindIDUI extends AppCompatActivity {
     EditText findIdEmail, findIdEmailCheck;
     Button findIdEmailCheckBtn, findIdBtn;
@@ -72,7 +73,7 @@ public class FindIDUI extends AppCompatActivity {
         Alert = new AlertDialog.Builder(FindIDUI.this);
 
         IdFind idFind = new IdFind();
-
+        EmailUtil emailUtil = new EmailUtil(getBaseContext());
         findIdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,11 +83,12 @@ public class FindIDUI extends AppCompatActivity {
                 if(!idFind.isEmailEmpty(findIdEmailStr)){ //이메일 입력란에 뭔갈 입력했다면
 
                     if(!checkMemberData.isEmailRegexMatched(findIdEmailStr, Alert)){//정규식을 만족했다면
-
-                        //이메일 전송 코드 작성
-
-                        findIdHideSuccess.setVisibility(View.VISIBLE);
-                        findIdEmailCheckBtn.setEnabled(true);
+                        if(!emailUtil.sendAuthenticationCode(findIdEmailStr)) // 이메일 전송
+                            AlertNoEditMsg("이메일 전송 에러","잠시 후 다시 시도해주세요.");
+                        else { // 전송 성공
+                            findIdHideSuccess.setVisibility(View.VISIBLE);
+                            findIdEmailCheckBtn.setEnabled(true);
+                        }
                     }
                 }
                 else
@@ -97,15 +99,12 @@ public class FindIDUI extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 emailCheckIDStr = (findIdEmailCheck.getText().toString());
-                //int test = 1234;
-                String testID = "asdf1234";
-
                 if(!idFind.isEmailVerificationCodeEmpty(emailCheckIDStr)){
 
-                    if(emailCheckIDStr.equals("1234")){
-                        // DB 연결 관련 내용 첨부바람.
-                        idFind.runIdFind();
-                        AlertIDMsg("아이디 찾기성공 ","회원님의 아이디를 찾았어요\n아이디는 " + testID + "입니다.");
+                    if(emailUtil.authentication(emailCheckIDStr)){
+                        
+                        idFind.runIdFind(); // 여기서 id찾는 API가 있다면 찾아와야함
+                        AlertIDMsg("아이디 찾기성공 ","회원님의 아이디를 찾았어요\n아이디는 " + "testid" + "입니다.");
                     }
                     else{
                         findIdHideCheckNumber.setVisibility(View.VISIBLE); //인증번호가 일치하지않아요 나타나는애
