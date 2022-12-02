@@ -20,8 +20,8 @@ public class CommentDialog {
     }
 
     /**
-     * @todo rid이동 되는지 확인할것
-     * 댓글 수정 클릭시 사용되는 메소드
+     *
+     * 댓글 수정 클릭시 사용되는 메소드 (구현실패)
      * @param position {int} 몇번째 댓글에서 선택되었는지의 값
      *
      */
