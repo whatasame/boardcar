@@ -25,7 +25,6 @@ public class SessionManager {
     private String PASSWORD = null;
     private String EMAIL = null;
     private int CID = 0;  // 초기화값
-    private boolean IS_ADMIN = false;
     private String CarName = null;
     public String session;
 
@@ -69,7 +68,6 @@ public class SessionManager {
                 this.MID = jsonObject.getString("MID");
                 this.NAME = jsonObject.getString("NAME");
                 this.EMAIL = jsonObject.getString("EMAIL");
-                this.IS_ADMIN = jsonObject.getBoolean("IS_ADMIN");
                 this.CID = jsonObject.getInt("CID");
                 this.PASSWORD = jsonObject.getString("PASSWORD");
             } catch (JSONException e) {
@@ -88,9 +86,6 @@ public class SessionManager {
         return NAME;
     }
 
-    public boolean IS_ADMIN() {
-        return IS_ADMIN;
-    }
 
     private void setEMAIL(String input) {
         String[] firstSplit = input.split(",");

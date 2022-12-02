@@ -22,7 +22,6 @@ import android.widget.TextView;
 import LoginPackage.Community.EmailUtil;
 import LoginPackage.CheckMemberData;
 import LoginPackage.IdFind;
-// @todo ID찾기 미구현 -> email로 ID를 찾아올 API가 없음
 public class FindIDUI extends AppCompatActivity {
     EditText findIdEmail, findIdEmailCheck;
     Button findIdEmailCheckBtn, findIdBtn;
@@ -72,7 +71,7 @@ public class FindIDUI extends AppCompatActivity {
         CheckMemberData checkMemberData = new CheckMemberData();
         Alert = new AlertDialog.Builder(FindIDUI.this);
 
-        IdFind idFind = new IdFind();
+        IdFind idFind = new IdFind(getBaseContext());
         EmailUtil emailUtil = new EmailUtil(getBaseContext());
         findIdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,8 +81,8 @@ public class FindIDUI extends AppCompatActivity {
 
                 if(!idFind.isEmailEmpty(findIdEmailStr)){ //이메일 입력란에 뭔갈 입력했다면
 
-                    if(!checkMemberData.isEmailRegexMatched(findIdEmailStr, Alert)){//정규식을 만족했다면
-                        if(!emailUtil.sendAuthenticationCode(findIdEmailStr)) // 이메일 전송
+                    if(checkMemberData.isEmailRegexMatched(findIdEmailStr, Alert)){//정규식을 만족했다면
+                        if(!emailUtil.sendAuthenticationCode(findIdEmailStr)) // 이메일 전송 실패
                             AlertNoEditMsg("이메일 전송 에러","잠시 후 다시 시도해주세요.");
                         else { // 전송 성공
                             findIdHideSuccess.setVisibility(View.VISIBLE);
@@ -103,8 +102,8 @@ public class FindIDUI extends AppCompatActivity {
 
                     if(emailUtil.authentication(emailCheckIDStr)){
                         
-                        idFind.runIdFind(); // 여기서 id찾는 API가 있다면 찾아와야함
-                        AlertIDMsg("아이디 찾기성공 ","회원님의 아이디를 찾았어요\n아이디는 " + "testid" + "입니다.");
+                        String result = idFind.runIdFind(findIdEmailStr); // 여기서 id찾는 API가 있다면 찾아와야함
+                        AlertIDMsg("아이디 찾기성공 ","회원님의 아이디를 찾았어요\n아이디는 " + result + "입니다.");
                     }
                     else{
                         findIdHideCheckNumber.setVisibility(View.VISIBLE); //인증번호가 일치하지않아요 나타나는애

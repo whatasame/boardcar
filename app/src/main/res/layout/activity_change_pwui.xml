@@ -70,7 +70,7 @@
         android:layout_marginStart="39dp"
         android:layout_marginTop="21dp"
         android:layout_marginEnd="52dp"
-        android:background="@color/gray"
+        android:backgroundTint="#03A9F4"
         android:text="변경하기"
         android:textColor="@color/black"
         android:textSize="20sp"
