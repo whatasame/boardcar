@@ -79,7 +79,7 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical">
 
                             <ImageView
@@ -104,13 +104,19 @@
                             android:gravity="right"
                             android:orientation="vertical">
 
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="0~40000km" />
+
                             <ProgressBar
                                 android:id="@+id/TireProgress"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:max="100000"
+                                android:max="40000"
                                 android:progressBackgroundTint="@color/white"
                                 android:progressTint="#ff9494"
                                 android:scaleY="5" />
@@ -133,7 +139,7 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical">
 
                             <ImageView
@@ -158,13 +164,20 @@
                             android:gravity="right"
                             android:orientation="vertical">
 
+                            <TextView
+                                android:id="@+id/textView6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="0~60000km" />
+
                             <ProgressBar
                                 android:id="@+id/BrakeProgress"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:max="100000"
+                                android:max="60000"
                                 android:progressBackgroundTint="@color/white"
                                 android:progressTint="#80edce"
                                 android:scaleY="5" />
@@ -187,7 +200,7 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical">
 
                             <ImageView
@@ -212,13 +225,20 @@
                             android:gravity="right"
                             android:orientation="vertical">
 
+                            <TextView
+                                android:id="@+id/textView11"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="0~12개월" />
+
                             <ProgressBar
                                 android:id="@+id/WiperProgress"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:max="100000"
+                                android:max="12"
                                 android:progressBackgroundTint="@color/white"
                                 android:progressTint="#ffc900"
                                 android:scaleY="5" />
@@ -241,7 +261,7 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical">
 
                             <ImageView
@@ -266,13 +286,20 @@
                             android:gravity="right"
                             android:orientation="vertical">
 
+                            <TextView
+                                android:id="@+id/textView12"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="0~10000km" />
+
                             <ProgressBar
                                 android:id="@+id/EngineProgress"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:max="100000"
+                                android:max="10000"
                                 android:progressBackgroundTint="@color/white"
                                 android:progressTint="#ff9494"
                                 android:scaleY="5" />
@@ -295,7 +322,7 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical">
 
                             <ImageView
@@ -320,13 +347,20 @@
                             android:gravity="right"
                             android:orientation="vertical">
 
+                            <TextView
+                                android:id="@+id/textView13"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="0~10000km" />
+
                             <ProgressBar
                                 android:id="@+id/AirFilterProgres"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:max="100000"
+                                android:max="10000"
                                 android:progressBackgroundTint="@color/white"
                                 android:progressTint="#80edce"
                                 android:scaleY="5" />
@@ -349,7 +383,7 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical">
 
                             <ImageView
@@ -374,13 +408,20 @@
                             android:gravity="right"
                             android:orientation="vertical">
 
+                            <TextView
+                                android:id="@+id/textView16"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="0~48개월" />
+
                             <ProgressBar
                                 android:id="@+id/BatteryProgress"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:max="100000"
+                                android:max="48"
                                 android:progressBackgroundTint="@color/white"
                                 android:progressTint="#ff9494"
                                 android:scaleY="5" />
@@ -405,8 +446,8 @@
             android:id="@+id/NearSiteText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             android:layout_gravity="left"
+            android:visibility="invisible"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:text="근처 장소" />
@@ -415,8 +456,8 @@
             android:id="@+id/NearSiteLinear"
             android:layout_width="350dp"
             android:layout_height="100dp"
-            android:visibility="invisible"
             android:background="#ccc"
+            android:visibility="invisible"
             android:orientation="horizontal"
             android:gravity="center"
             >
@@ -466,10 +507,10 @@
 
             </LinearLayout>
 
-            </LinearLayout>
-
-
         </LinearLayout>
+
+
+    </LinearLayout>
 
 
 
